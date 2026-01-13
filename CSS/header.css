@@ -24,7 +24,9 @@
     max-width: 50vw;
     flex: 1;
     min-width: 0;
-    position: relative;
+    position: relative;   
+    display: flex;
+    align-items: center;
 }
 
 #task-search-input{
@@ -51,20 +53,49 @@
     flex-shrink: 0;
 }
 
+
+/* dropdown floating box */
 .todo-dropdown{
-    background-color: yellow;
-    position: absolute;
-    bottom: -35px;
-    width: 50vw;
-    padding-left: 22px;
+  position: absolute;   
+  top: 110%;            
+  left: 0;
+  width: 100%;
+
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+
+  display: none;       
+  flex-direction: column;
+  z-index: 10;
 }
 
-.todo-dropdown div{
- background-color: green;
- 
+/* open state */
+
+/* .todo-dropdown.show{
+  display: block;
+} */
+
+.search-output{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
 }
+
+.search-output:hover{
+  background-color: #f2f2f2;
+}
+
 
 .calender{
-    background-color: blue;
     margin-right: 30px;
+}
+
+
+.sidebar{
+    background-color:rgb(255, 122, 122); 
+    position: absolute;
+    display: flex;
+    flex-direction: column;
 }
