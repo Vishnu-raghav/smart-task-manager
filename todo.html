@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>smart-todo-app</title>
+    <link rel="stylesheet" href="CSS/general.css">
+    <link rel="stylesheet" href="CSS/header.css">
 </head>
 <body>
-    
+    <header class="Todo-header">
+      <div class="todo-logo"><span style="color: rgb(255, 136, 93);">Smart</span>-todo-app</div>
+
+      <div class="todo-search-container">
+         <input type="text" id="task-search-input" placeholder="search your task here">
+         <button id="todo-search-button">
+            <img id="search-img" src="assets/search-icon-img.png" alt="srch">
+         </button>
+         <div class="todo-dropdown">
+            <div class="search-output">
+               <p class="task">buy milk</p>
+               <p class="task-category">Study</p>
+            </div>
+         </div>
+      </div>
+
+      <div class="calender">
+        calender
+      </div>
+    </header>
 </body>
 </html>
