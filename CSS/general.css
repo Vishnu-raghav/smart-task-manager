@@ -2,11 +2,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif
 }
 
 
-html, body{
-    font-family: Arial, Helvetica, sans-serif;
+:root{
+    --sidebar-color : rgb(255, 122, 122);
+
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+
 }
 
 image{

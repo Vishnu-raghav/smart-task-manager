@@ -1,0 +1,35 @@
+
+.sidebar{
+    background-color:rgb(255, 122, 122); 
+    position: fixed;
+    top: 108px;
+    left: 0;
+    height: 100%;
+    width: 245px;
+    /* border-radius: top-left top-right bottom-right bottom-left; */
+    border-radius: 0 10px 10px 0;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header{
+    position: relative;
+    top: 12px;
+}
+
+.sidebar .toggle{
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    height: 25px;
+    background-color: rgb(255, 122, 122); ;
+    width: 25px;
+    transform: translateY(-50%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 18px;
+}

@@ -92,10 +92,3 @@
     margin-right: 30px;
 }
 
-
-.sidebar{
-    background-color:rgb(255, 122, 122); 
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-}
