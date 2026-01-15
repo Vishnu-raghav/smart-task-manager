@@ -11,6 +11,11 @@
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
+    transition: all 0.4s;
+}
+ 
+.sidebar.close{
+    width: 88px;
 }
 
 .sidebar-header{
@@ -34,6 +39,10 @@
     font-size: 18px;
 }
 
+.sidebar.close .text{
+  opacity: 0;
+}
+
 .sidebar li{
     display: flex;
     align-items: center;
@@ -50,6 +59,9 @@
 
 .sidebar li .text{
     font-size: 15px;
+    white-space: nowrap;
+    transition: all 0.4s;
+    opacity: 1;
 }
 
 .sidebar li .icon,
