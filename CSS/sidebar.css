@@ -12,13 +12,17 @@
     display: flex;
     flex-direction: column;
     transition: all 0.4s;
+    z-index: 100;
 }
  
 .sidebar.close{
     width: 88px;
 }
+.sidebar.close .sidebar-header .toggle{
+    transform: translateY(-50%);
+}
 
-.sidebar-header{
+.sidebar-header {
     position: relative;
     margin-bottom: 15px;
 }
@@ -30,13 +34,14 @@
     height: 25px;
     background-color: rgb(255, 122, 122); ;
     width: 25px;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(180deg);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     font-size: 18px;
+    transition: all 0.3s;
 }
 
 .sidebar.close .text{
@@ -92,3 +97,18 @@
 
 
 
+.home{
+    position: relative;
+    left: 250px;
+    height: 100vh;
+    width: calc(100% - 250px);
+    background-color: red;
+    transition: all 0.4s;
+}
+
+
+.sidebar.close ~ .home{
+    left: 88px;
+    width: calc(100% - 88px);
+
+}
