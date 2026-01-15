@@ -1,30 +1,32 @@
-
 .sidebar{
-    background-color:rgb(255, 122, 122); 
+    background-color: rgb(255, 122, 122); 
     position: fixed;
     top: 108px;
     left: 0;
-    height: 100%;
+    height: calc(100% - 108px);
     width: 245px;
-    /* border-radius: top-left top-right bottom-right bottom-left; */
     border-radius: 0 10px 10px 0;
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
-    transition: all 0.4s;
+    transition: width 0.4s ease;
     z-index: 100;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
  
 .sidebar.close{
     width: 88px;
+    padding: 15px 10px;
 }
+
 .sidebar.close .sidebar-header .toggle{
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(0deg); 
 }
 
 .sidebar-header {
     position: relative;
     margin-bottom: 15px;
+    height: 30px;
 }
 
 .sidebar .toggle{
@@ -32,7 +34,7 @@
     top: 50%;
     right: -20px;
     height: 25px;
-    background-color: rgb(255, 122, 122); ;
+    background-color: rgb(255, 122, 122);
     width: 25px;
     transform: translateY(-50%) rotate(180deg);
     color: white;
@@ -41,39 +43,61 @@
     justify-content: center;
     border-radius: 50%;
     font-size: 18px;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid white;
+    box-sizing: border-box;
+}
+
+.sidebar .toggle:hover{
+    background-color: white;
+    color: rgb(255, 122, 122);
 }
 
 .sidebar.close .text{
-  opacity: 0;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0s 0.2s;
 }
 
 .sidebar li{
     display: flex;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 10px;
     height: 50px;
     list-style: none;
     border-radius: 13px;
+    transition: all 0.3s ease;
 }
 
 .sidebar li .icon{
     min-width: 60px;
     font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar.close li .icon{
+    min-width: 100%;
+    text-align: center;
+    margin: 0;
 }
 
 .sidebar li .text{
     font-size: 15px;
     white-space: nowrap;
-    transition: all 0.4s;
     opacity: 1;
+    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+    font-weight: 500;
 }
 
 .sidebar li .icon,
 .sidebar li .text{
     color: white;
-    transition: color 0.3s;
-
+    transition: color 0.3s ease;
 }
 
 .sidebar li a{
@@ -83,7 +107,9 @@
     height: 100%;
     border-radius: 13px;
     width: 100%;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    padding: 0 10px;
 }
 
 .sidebar li a:hover{
@@ -95,20 +121,39 @@
     color: rgb(255, 122, 122);
 }
 
+.sidebar li.active a{
+    background: white;
+}
 
+.sidebar li.active .icon,
+.sidebar li.active .text{
+    color: rgb(255, 122, 122);
+    font-weight: 600;
+}
 
 .home{
     position: relative;
     left: 250px;
-    height: 100vh;
+    height: calc(100vh - 108px);
     width: calc(100% - 250px);
-    background-color: red;
-    transition: all 0.4s;
+    background-color: #f5f5f5; 
+    transition: all 0.4s ease;
+    padding: 20px;
+    overflow-y: auto;
 }
-
 
 .sidebar.close ~ .home{
     left: 88px;
     width: calc(100% - 88px);
+}
 
+.menu-bar{
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.menu-link{
+    padding: 0;
+    margin: 0;
 }
