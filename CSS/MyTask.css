@@ -12,3 +12,26 @@
 .grid-right-area{
     background-color: blue;
 }
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.My-task-todo{
+    background-color: green;
+    display: flex;
+    align-items: center;
+    margin-left: 4px;
+    justify-content: space-between;
+}
+
+.MyTask-Popup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blueviolet;
+}
+
