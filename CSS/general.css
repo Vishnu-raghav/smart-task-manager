@@ -5,7 +5,10 @@
     font-family: Arial, Helvetica, sans-serif
 }
 
-
+body{
+    padding: 120px 20px;
+    background-color:#f5f5f5; 
+}
 :root{
     --sidebar-color : rgb(255, 122, 122);
     --tran-02: all 0.2s ease;
