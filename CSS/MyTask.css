@@ -2,15 +2,21 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
-    background-color: pink;
 }
 
 .grid-left-area{
-    background-color: red;
+   background: white;
+    border-radius: 10px;
+    box-shadow: 
+      0 2px 4px rgba(0,0,0,0.08),
+      0 8px 16px rgba(0,0,0,0.12);
 }
-
 .grid-right-area{
-    background-color: blue;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 
+      0 2px 4px rgba(0,0,0,0.08),
+      0 8px 16px rgba(0,0,0,0.12);
 }
 
 .header{
@@ -21,7 +27,6 @@
 }
 
 .My-task-todo{
-    background-color: green;
     display: flex;
     align-items: center;
     margin-left: 4px;
@@ -32,6 +37,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: blueviolet;
 }
 
+.Add-Task{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.grid-container .text{
+    font-size: 14px;
+    color: gray;
+}
+
+.grid-container .icon{
+     margin-right: 6px;
+}
