@@ -10,6 +10,8 @@
     box-shadow: 
       0 2px 4px rgba(0,0,0,0.08),
       0 8px 16px rgba(0,0,0,0.12);
+    padding: 15px ;
+
 }
 .grid-right-area{
     background: white;
@@ -24,6 +26,7 @@
     align-items: center;
     justify-content: space-between;
     flex: 1;
+    margin-bottom: 20px;
 }
 
 .My-task-todo{
@@ -49,8 +52,47 @@
 .grid-container .text{
     font-size: 14px;
     color: gray;
+    white-space: nowrap;
 }
 
 .grid-container .icon{
      margin-right: 6px;
+}
+
+
+.task-card-section{
+    background-color: rgb(241, 241, 227);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+.task-card{
+    background-color: rgb(191, 191, 235);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.task-checkbox{
+    margin-right: 15px;
+    border-radius: 100%;
+    border-color: red;
+}
+
+.task-details span{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.task-details p{
+    font-size: 17;
+    color: gray;
+    margin-top: 15px;
+
 }
