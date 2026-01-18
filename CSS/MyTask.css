@@ -1,98 +1,136 @@
 .grid-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-.grid-left-area{
-   background: white;
-    border-radius: 10px;
-    box-shadow: 
-      0 2px 4px rgba(0,0,0,0.08),
-      0 8px 16px rgba(0,0,0,0.12);
-    padding: 15px ;
 
-}
+.grid-left-area,
 .grid-right-area{
-    background: white;
-    border-radius: 10px;
-    box-shadow: 
-      0 2px 4px rgba(0,0,0,0.08),
-      0 8px 16px rgba(0,0,0,0.12);
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.08),
+    0 10px 20px rgba(0,0,0,0.10);
 }
 
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex: 1;
-    margin-bottom: 20px;
+
+.task-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.My-task-todo{
-    display: flex;
-    align-items: center;
-    margin-left: 4px;
-    justify-content: space-between;
-}
-
-.MyTask-Popup{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
+.My-task-todo,
 .Add-Task{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-
 
 .grid-container .text{
-    font-size: 14px;
-    color: gray;
-    white-space: nowrap;
-}
-
-.grid-container .icon{
-     margin-right: 6px;
+  font-size: 14px;
+  color: #777;
+  white-space: nowrap;
 }
 
 
 .task-card-section{
-    background-color: rgb(241, 241, 227);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
+
+.todo-card{
+  background: #f6f7fb;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
 
 .task-card{
-    background-color: rgb(191, 191, 235);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-radius: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
 }
 
-.task-checkbox{
-    margin-right: 15px;
-    border-radius: 100%;
-    border-color: red;
+
+.task-checkbox input{
+  width: 22px;
+  height: 22px;
+  accent-color: #ff7a7a;  
+  cursor: pointer;
+}
+
+.task-details{
+  flex: 1;
 }
 
 .task-details span{
-    font-size: 24px;
-    font-weight: 600;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+  display: block;
 }
 
 .task-details p{
-    font-size: 17;
-    color: gray;
-    margin-top: 15px;
+  font-size: 15px;
+  color: #777;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+
+.img-card{
+  width: 180px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.task-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.task-Progress{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-left: 38px;
+}
+
+.progress-key{
+  font-size: 13px;
+  color: #555;
+}
+
+.progress-key span{
+  font-weight: 600;
+  color: #222;
+}
+
+
+@media (max-width: 700px){
+
+  .task-card{
+    flex-direction: column;
+  }
+
+  .img-card{
+    width: 100%;
+  }
+
+  .task-Progress{
+    margin-left: 0;
+  }
 
 }
