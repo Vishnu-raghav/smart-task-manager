@@ -2,6 +2,8 @@ const body = document.body;
 const sidebar = document.querySelector(".sidebar");
 const toggle = document.querySelector(".toggle");
 
+
+
 function handleResize() {
   if (window.innerWidth <= 768) {
     sidebar.classList.add("close");
@@ -12,10 +14,12 @@ function handleResize() {
   }
 }
 
+
 window.addEventListener("resize", handleResize);
 handleResize();
 
 toggle.addEventListener("click", () => {
-  sidebar.classList.toggle("close");
-  body.classList.toggle("sidebar-close"); // ⭐ important
+    sidebar.classList.toggle("close");
+  body.classList.toggle("sidebar-close"); 
 });
+
