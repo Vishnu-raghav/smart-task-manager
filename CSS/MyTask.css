@@ -44,6 +44,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-top: 15px;
 }
 
 .todo-card{
@@ -122,8 +123,22 @@
 
 .grid-right-area .Task-bar-section{
   background-color: rgb(247, 167, 167);
-  height: 120px;
+  height: 180px;
 }
+
+
+.grid-right-area .complete-tasks-section{
+  margin-top: 25px;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 20px 25px;
+}
+
+.icon{
+  font-size: 20px;
+  color: #ff7a7a;
+}
+
 
 
 
