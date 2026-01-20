@@ -120,6 +120,14 @@
 }
 
 
+.grid-right-area .Task-bar-section{
+  background-color: rgb(247, 167, 167);
+  height: 120px;
+}
+
+
+
+
 @media (max-width: 700px){
 
   .task-card{
