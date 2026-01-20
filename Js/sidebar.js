@@ -10,14 +10,17 @@ function isMobile(){
 function handleResize(){
   if(isMobile()){
     sidebar.classList.remove("close");
-    body.classList.remove("sidebar-close");
-  }else{
     sidebar.classList.remove("open");
+    body.classList.remove("sidebar-close");
+  } else {
+    sidebar.classList.remove("open");
+    sidebar.classList.remove("close");      
+    body.classList.remove("sidebar-close"); 
   }
 }
 
-window.addEventListener("resize", handleResize);
 handleResize();
+window.addEventListener("resize", handleResize);
 
 toggle.addEventListener("click", () => {
   if(!isMobile()){
