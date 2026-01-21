@@ -1,27 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>smart-todo-app</title>
-    <script src="https://kit.fontawesome.com/76b4967fa9.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../CSS/general.css">
-    <link rel="stylesheet" href="../CSS/header.css">
-    <link rel="stylesheet" href="../CSS/sidebar.css">
-    <link rel="stylesheet" href="../CSS/MyTask.css">
-    <link rel="stylesheet" href="../CSS/modal.css">
-</head>
-<body>
+    <script
+      src="https://kit.fontawesome.com/76b4967fa9.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="../CSS/general.css" />
+    <link rel="stylesheet" href="../CSS/header.css" />
+    <link rel="stylesheet" href="../CSS/sidebar.css" />
+    <link rel="stylesheet" href="../CSS/MyTask.css" />
+    <link rel="stylesheet" href="../CSS/modal.css" />
+  </head>
+  <body>
     <header class="Todo-header">
-         <i class="fa-solid fa-bars mobile-menu-btn"></i>
+      <i class="fa-solid fa-bars mobile-menu-btn"></i>
 
-      <div class="todo-logo"><span style="color: rgb(255, 136, 93);">Smart</span>-todo-app</div>
+      <div class="todo-logo">
+        <span style="color: rgb(255, 136, 93)">Smart</span>-todo-app
+      </div>
 
       <div class="todo-search-container">
-         <input type="text" id="task-search-input" placeholder="search your task here">
-         <button id="todo-search-button">
-            <img id="search-img" src="..assets/search-icon-img.png" alt="srch">
-         </button>
+        <input
+          type="text"
+          id="task-search-input"
+          placeholder="search your task here"
+        />
+        <button id="todo-search-button">
+          <img id="search-img" src="..assets/search-icon-img.png" alt="srch" />
+        </button>
 
         <!-- Floating dropdown -->
         <div class="todo-dropdown show" id="todoDropdown">
@@ -30,52 +39,51 @@
             <span>Personal</span>
           </div>
           <div class="search-output">
-           <p>Study JS</p>
-           <span>Study</span>
+            <p>Study JS</p>
+            <span>Study</span>
           </div>
         </div>
       </div>
 
-      <div class="calender">
-        calender
-      </div>
+      <div class="calender">calender</div>
     </header>
 
     <aside class="sidebar close">
       <div class="sidebar-header">
-        <i class="fa-solid fa-chevron-right toggle" ></i>
+        <i class="fa-solid fa-chevron-right toggle"></i>
       </div>
 
       <div class="menu-bar">
         <ul class="menu-link">
-           <li class="nav-link">
+          <li class="nav-link">
             <a href="#">
               <i class="fa-regular fa-house icon"></i>
               <span class="text nav-text">My Task</span>
             </a>
-           </li>
-           <li class="nav-link">
+          </li>
+          <li class="nav-link">
             <a href="categories.html">
               <i class="fa-sharp fa-solid fa-bars icon"></i>
               <span class="text nav-text">Task Categories</span>
             </a>
-           </li>
-           <li class="nav-link">
+          </li>
+          <li class="nav-link">
             <a href="vital.html">
               <i class="fa-solid fa-exclamation icon"></i>
               <span class="text nav-text">Vital Task</span>
             </a>
-           </li>
+          </li>
         </ul>
       </div>
     </aside>
 
     <main class="home">
       <div class="grid-container">
-         <div class="grid-left-area">
+        <div class="grid-left-area">
           <div class="task-header">
             <div class="My-task-todo">
-              <i class="fa-solid fa-clipboard-list icon"></i> <span class="text">To-do</span>
+              <i class="fa-solid fa-clipboard-list icon"></i>
+              <span class="text">To-do</span>
             </div>
             <div class="MyTask-Popup">pop-up</div>
             <div class="Add-Task">
@@ -87,88 +95,158 @@
             <div class="todo-card">
               <div class="task-card">
                 <div class="task-checkbox">
-                  <input  type="checkbox">
+                  <input type="checkbox" />
                 </div>
-              <div class="task-details">
-                <span>Attend Vishnu Birthday Party</span>
-                <p>Buy gift on the way and pick up from the backery fresh elements</p>
-              </div>
-              <div class="img-card">
-                <img class="task-img" src="assets/man-holding-birthday-cake-burning-600nw-2310278859.webp" alt="img">
-              </div>
+                <div class="task-details">
+                  <span>Attend Vishnu Birthday Party</span>
+                  <p>
+                    Buy gift on the way and pick up from the backery fresh
+                    elements
+                  </p>
+                </div>
+                <div class="img-card">
+                  <img
+                    class="task-img"
+                    src="assets/man-holding-birthday-cake-burning-600nw-2310278859.webp"
+                    alt="img"
+                  />
+                </div>
               </div>
               <div class="task-Progress">
-                <p class="progress-key">Priority: <span class="progress-value">high</span></p>
-                <p class="progress-key">Status: <span class="progress-value">in progress</span> </p>
-                <p class="progress-key">Created on <span class="progress-value">1 dec 2026</span></p>
+                <p class="progress-key">
+                  Priority: <span class="progress-value">high</span>
+                </p>
+                <p class="progress-key">
+                  Status: <span class="progress-value">in progress</span>
+                </p>
+                <p class="progress-key">
+                  Created on <span class="progress-value">1 dec 2026</span>
+                </p>
               </div>
             </div>
           </div>
-         </div>         
-         <div class="grid-right-area">
-          <div class="Task-bar-section">
-             progress bars
-          </div>
+        </div>
+        <div class="grid-right-area">
+          <div class="Task-bar-section">progress bars</div>
           <div class="complete-tasks-section">
             <div class="complete-tasks-section-header">
               <i class="fa-solid fa-clipboard-check icon"></i>
               <span>Completed Task</span>
             </div>
             <div class="task-card-section">
-            <div class="todo-card">
-              <div class="task-card">
-                <div class="task-checkbox">
-                  <input  type="checkbox">
+              <div class="todo-card">
+                <div class="task-card">
+                  <div class="task-checkbox">
+                    <input type="checkbox" />
+                  </div>
+                  <div class="task-details">
+                    <span>Attend Vishnu Birthday Party</span>
+                    <p>
+                      Buy gift on the way and pick up from the backery fresh
+                      elements
+                    </p>
+                  </div>
+                  <div class="img-card">
+                    <img
+                      class="task-img"
+                      src="assets/man-holding-birthday-cake-burning-600nw-2310278859.webp"
+                      alt="img"
+                    />
+                  </div>
                 </div>
-              <div class="task-details">
-                <span>Attend Vishnu Birthday Party</span>
-                <p>Buy gift on the way and pick up from the backery fresh elements</p>
-              </div>
-              <div class="img-card">
-                <img class="task-img" src="assets/man-holding-birthday-cake-burning-600nw-2310278859.webp" alt="img">
-              </div>
-              </div>
-              <div class="task-Progress">
-                <p class="progress-key">Priority: <span class="progress-value">high</span></p>
-                <p class="progress-key">Status: <span class="progress-value">in progress</span> </p>
-                <p class="progress-key">Created on <span class="progress-value">1 dec 2026</span></p>
+                <div class="task-Progress">
+                  <p class="progress-key">
+                    Priority: <span class="progress-value">high</span>
+                  </p>
+                  <p class="progress-key">
+                    Status: <span class="progress-value">in progress</span>
+                  </p>
+                  <p class="progress-key">
+                    Created on <span class="progress-value">1 dec 2026</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          </div>
-
-         </div>
-      </div>    
+        </div>
+      </div>
     </main>
 
-     <div class="modal-overlay" id="todoModal">
-          <div class="modal">
-            <div class="modal-header">
-             <h2>Add new Task</h2>
-             <button class="close-modal">Go Back</button>
-            </div>
+    <div class="modal-overlay" id="todoModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h4>Add new Task</h4>
+          <button class="close-modal">Go Back</button>
+        </div>
 
-            <div class="modal-form">
-              <div class="todo-title">
-                <span>Title</span>
-                <input type="text" placeholder="enter title">
-              </div>
-            </div>
-
-            <button class="close-modal">Done</button>
+        <div class="modal-form">
+          <div class="modal-input">
+            <label>Title</label>
+            <input type="text" id="task-title" placeholder="Enter title" />
           </div>
-         </div>
 
-   <footer style=" margin-top: 60px;
-  padding: 25px 10px;
-  text-align: center;
-  color: #777;
-  font-size: 14px;
-  border-top: 1px solid #e5e5e5;" class="app-footer">
-  <p>© 2026 Smart Todo App • Built by Vishnu</p>
-   </footer>
+          <div class="modal-input">
+            <label>Priority</label>
+            <input
+              type="text"
+              id="task-priority"
+              placeholder="High / Medium / Low"
+            />
+          </div>
 
-</body>
-<script src="../Js/sidebar.js"></script>
-<script src="../Js/modal.js"></script>
+          <div class="modal-input">
+            <label>Due Date</label>
+            <input type="date" id="task-date" />
+          </div>
+
+          <div class="task-description">
+            <div class="modal-input">
+              <label>Description</label>
+              <input
+                type="text"
+                id="task-desc"
+                placeholder="Enter description"
+              />
+            </div>
+
+            <div class="upload-box" id="uploadBox">
+              <input
+                type="file"
+                id="modal-file-input"
+                accept="image/*"
+                hidden
+              />
+
+              <div class="upload-content">
+                <i class="fa-regular fa-image upload-icon"></i>
+                <p><b>Drag & Drop</b> image here</p>
+                <span>or</span>
+                <button type="button" class="browse-btn">Browse</button>
+              </div>
+
+              <img id="previewImg" class="preview-img" />
+            </div>
+          </div>
+        </div>
+
+        <button class="close-modal">Done</button>
+      </div>
+    </div>
+
+    <footer
+      style="
+        margin-top: 60px;
+        padding: 25px 10px;
+        text-align: center;
+        color: #777;
+        font-size: 14px;
+        border-top: 1px solid #e5e5e5;
+      "
+      class="app-footer"
+    >
+      <p>© 2026 Smart Todo App • Built by Vishnu</p>
+    </footer>
+  </body>
+  <script src="../Js/sidebar.js"></script>
+  <script src="../Js/modal.js"></script>
 </html>
