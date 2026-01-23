@@ -8,8 +8,8 @@
 //   completed: false
 // }
 
-function saveTodos(todos) {
-  localStorage.setItem("todos", JSON.stringify(todos));
+function saveTodos(...todos) {
+  localStorage.setItem("todos", JSON.stringify(...todos));
 }
 
 function getTodos() {
@@ -24,7 +24,17 @@ form.addEventListener("submit", (e) => {
     const formData = new FormData(form)
     const data = Object.fromEntries(formData.entries())
     console.log(data)
-    console.log(data.desc)
+
+    const Task = {
+        id : Date.now(),
+        title : data.title,
+        description : data.desc,
+        image : data.image,
+        priority : data.priority,
+        dueDate : data.dueDate,
+    }
+    saveTodos(Task)
+
 })
 
 
