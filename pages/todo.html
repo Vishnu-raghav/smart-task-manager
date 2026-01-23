@@ -172,66 +172,75 @@
       </div>
     </main>
 
-    <div class="modal-overlay" id="todoModal">
-      <div class="modal">
-        <div class="modal-header">
-          <h4>Add new Task</h4>
-          <button class="close-modal">Go Back</button>
-        </div>
+   <div class="modal-overlay" id="todoModal">
+  <div class="modal">
 
-        <div class="modal-form">
-          <div class="modal-input">
-            <label>Title</label>
-            <input type="text" id="task-title" placeholder="Enter title" />
-          </div>
-
-          <div class="modal-input">
-            <label>Priority</label>
-            <input
-              type="text"
-              id="task-priority"
-              placeholder="High / Medium / Low"
-            />
-          </div>
-
-          <div class="modal-input">
-            <label>Due Date</label>
-            <input type="date" id="task-date" />
-          </div>
-
-          <div class="task-description">
-            <div class="modal-input">
-              <label>Description</label>
-              <input
-                type="text"
-                id="task-desc"
-                placeholder="Enter description"
-              />
-            </div>
-
-            <div class="upload-box" id="uploadBox">
-              <input
-                type="file"
-                id="modal-file-input"
-                accept="image/*"
-                hidden
-              />
-
-              <div class="upload-content">
-                <i class="fa-regular fa-image upload-icon"></i>
-                <p><b>Drag & Drop</b> image here</p>
-                <span>or</span>
-                <button type="button" class="browse-btn">Browse</button>
-              </div>
-
-              <img id="previewImg" class="preview-img" />
-            </div>
-          </div>
-        </div>
-
-        <button class="close-modal">Done</button>
-      </div>
+    <div class="modal-header">
+      <h4>Add new Task</h4>
+      <button class="close-modal" type="button">Go Back</button>
     </div>
+
+    <!-- FORM -->
+    <form class="modal-form" id="todoForm">
+
+      <div class="modal-input">
+        <label>Title</label>
+        <input type="text" id="task-title" name="title" placeholder="Enter title" required />
+      </div>
+
+      <div class="modal-input">
+        <label>Priority</label>
+        <input
+          type="text"
+          id="task-priority"
+          name="priority"
+          placeholder="High / Medium / Low"
+        />
+      </div>
+
+      <div class="modal-input">
+        <label>Due Date</label>
+        <input type="date" id="task-date" name="dueDate" />
+      </div>
+
+      <div class="task-description">
+        <div class="modal-input">
+          <label>Description</label>
+          <input
+            type="text"
+            id="task-desc"
+            name="desc"
+            placeholder="Enter description"
+          />
+        </div>
+
+        <div class="upload-box" id="uploadBox">
+          <input
+            type="file"
+            id="modal-file-input"
+            name="image"
+            accept="image/*"
+            hidden
+          />
+
+          <div class="upload-content">
+            <i class="fa-regular fa-image upload-icon"></i>
+            <p><b>Drag & Drop</b> image here</p>
+            <span>or</span>
+            <button type="button" class="browse-btn">Browse</button>
+          </div>
+
+          <img id="previewImg" class="preview-img" />
+        </div>
+      </div>
+    </form>
+
+    <!-- 👇 FORM KE BAHAR HAI, BUT SUBMIT FORM HI KAREGA -->
+    <button class="close-modal" type="submit" form="todoForm">Done</button>
+
+  </div>
+</div>
+
 
     <footer
       style="
