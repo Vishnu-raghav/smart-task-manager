@@ -1,25 +1,3 @@
-
-// function showImage(file){
-//   if(!file || !file.type.startsWith("image/")) {
-//     alert("Please upload an image file");
-//     return;
-//   }
-
-//   if(file.size > 2 * 1024 * 1024){
-//     alert("Image must be less than 2MB");
-//     return;
-//   }
-
-//   const reader = new FileReader();
-//   reader.onload = () => {
-//     previewImg.src = reader.result;
-//     previewImg.style.display = "block";
-//     document.querySelector(".upload-content").style.display = "none";
-//   };
-//   reader.readAsDataURL(file);
-// }
-
-
 // const todo = {
 //   id: Date.now(),
 //   title: taskTitle.value,
@@ -29,4 +7,26 @@
 //   image: previewImg.src || null,
 //   completed: false
 // }
+
+function saveTodos(todos) {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodos() {
+  return JSON.parse(localStorage.getItem("todos")) || [];
+}
+
+const addTaskButton = document.querySelector(".Add-Task")
+const form = document.getElementById("todoForm")
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    const formData = new FormData(form)
+    const data = Object.fromEntries(formData.entries())
+    console.log(data)
+    console.log(data.desc)
+})
+
+
+
 
