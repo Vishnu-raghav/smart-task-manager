@@ -1,53 +1,59 @@
-// const todo = {
-//   id: Date.now(),
-//   title: taskTitle.value,
-//   priority: taskPriority.value,
-//   date: taskDate.value,
-//   desc: taskDesc.value,
-//   image: previewImg.src || null,
-//   completed: false
-// }
+console.log("loaded")
+const form = document.getElementById("todoForm");
 
 function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function getTodos() {
-  return JSON.parse(localStorage.getItem("todos")) || [];
+  const data = JSON.parse(localStorage.getItem("todos"));
+  console.log(data)
+  return Array.isArray(data) ? data : [];
+}
+
+function createTodo(){
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  const newTodo = {
+    id: Date.now(),
+    title: data.title,
+    description: data.desc,
+    image: previewImg.src || null,
+    priority: data.priority,
+    dueDate: data.dueDate,
+    completed: false,
+  };
+
+  let oldTodo = getTodos();
+  oldTodo.push(newTodo);
+  saveTodos(oldTodo);
+
+  form.reset();
+
+  previewImg.src = "";
+  previewImg.style.display = "none";
+  document.querySelector(".upload-content").style.display = "flex";
+
+  renderTodos();  
 }
 
 
-const addTaskButton = document.querySelector(".Add-Task")
-const form = document.getElementById("todoForm")
+function renderTodos() {
+  try {
+    let todos = getTodos();
+    todos.forEach(task => {
+      console.log(task);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 form.addEventListener("submit", (e) => {
-    e.preventDefault()
-    const formData = new FormData(form)
-    const data = Object.fromEntries(formData.entries())
-    console.log(data)
+  e.preventDefault();
+  createTodo();
+});
 
-    const NewTodo = {
-        id : Date.now(),
-        title : data.title,
-        description : data.desc,
-        image : previewImg.src || null,
-        priority : data.priority,
-        dueDate : data.dueDate,
-    }
-
-    let oldTodo = getTodos()
-    oldTodo.push(NewTodo)
-
-    saveTodos(oldTodo)
-
-      console.log("Saved Todos:", oldTodo);
-
-      form.reset()
-
-
-
-})
-
-
-
-
+renderTodos()
