@@ -1,5 +1,6 @@
 console.log("loaded")
 const form = document.getElementById("todoForm");
+const todoCardSection = document.querySelector(".task-card-section")
 
 function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -38,12 +39,43 @@ function createTodo(){
   renderTodos();  
 }
 
-
 function renderTodos() {
+  todoCardSection.innerHTML = ``
   try {
     let todos = getTodos();
     todos.forEach(task => {
-      console.log(task);
+      const repoCard = document.createElement("div")
+      repoCard.setAttribute("class","todo-card")
+      console.log(task)
+
+      repoCard.innerHTML = `
+              <div class="task-card">
+                <div class="task-checkbox">
+                  <input type="checkbox" />
+                </div>
+                <div class="task-details">
+                  <span>${task.title || "no title"}</span>
+                  <p>${task.description || "No desription"}</p>
+                </div>
+               ${task.image && `
+                <div class="img-card">
+                  <img class="task-img" src="${task.image}" alt="img">
+                </div>
+               `}
+              </div>
+              <div class="task-Progress">
+                <p class="progress-key">
+                  Priority: <span class="progress-value">${task.priority}</span>
+                </p>
+                <p class="progress-key">
+                  Status: <span class="progress-value">${task.completed ? "Completed" : "in progress"}</span>
+                </p>
+                <p class="progress-key">
+                  Created on <span class="progress-value"> ${task.dueDate || "1 dec 2026"}</span>
+                </p>
+              </div>
+      `
+       todoCardSection.appendChild(repoCard)
     });
   } catch (error) {
     console.log(error);
