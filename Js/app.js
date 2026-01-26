@@ -1,6 +1,8 @@
-console.log("loaded")
+
 const form = document.getElementById("todoForm");
-const todoCardSection = document.querySelector(".task-card-section")
+const todoCardSection = document.querySelector(".task-card-section");
+const completedTaskSection = document.querySelector(".complete-tasks-section");
+
 
 function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -8,11 +10,11 @@ function saveTodos(todos) {
 
 function getTodos() {
   const data = JSON.parse(localStorage.getItem("todos"));
-  console.log(data)
   return Array.isArray(data) ? data : [];
 }
 
-function createTodo(){
+
+function createTodo() {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
 
@@ -26,66 +28,123 @@ function createTodo(){
     completed: false,
   };
 
-  let oldTodo = getTodos();
-  oldTodo.push(newTodo);
-  saveTodos(oldTodo);
+  const todos = getTodos();
+  todos.push(newTodo);
+  saveTodos(todos);
 
   form.reset();
-
   previewImg.src = "";
   previewImg.style.display = "none";
   document.querySelector(".upload-content").style.display = "flex";
 
-  renderTodos();  
+  renderTodos();
+  renderCompletedTodos();
 }
+
 
 function renderTodos() {
-  todoCardSection.innerHTML = ``
-  try {
-    let todos = getTodos();
-    todos.forEach(task => {
-      const repoCard = document.createElement("div")
-      repoCard.setAttribute("class","todo-card")
-      console.log(task)
+  todoCardSection.innerHTML = "";
 
-      repoCard.innerHTML = `
-              <div class="task-card">
-                <div class="task-checkbox">
-                  <input type="checkbox" />
-                </div>
-                <div class="task-details">
-                  <span>${task.title || "no title"}</span>
-                  <p>${task.description || "No desription"}</p>
-                </div>
-               ${task.image && `
-                <div class="img-card">
-                  <img class="task-img" src="${task.image}" alt="img">
-                </div>
-               `}
-              </div>
-              <div class="task-Progress">
-                <p class="progress-key">
-                  Priority: <span class="progress-value">${task.priority}</span>
-                </p>
-                <p class="progress-key">
-                  Status: <span class="progress-value">${task.completed ? "Completed" : "in progress"}</span>
-                </p>
-                <p class="progress-key">
-                  Created on <span class="progress-value"> ${task.dueDate || "1 dec 2026"}</span>
-                </p>
-              </div>
-      `
-       todoCardSection.appendChild(repoCard)
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  const todos = getTodos();
+
+  todos.forEach(task => {
+    if (task.completed) return; 
+
+    const card = document.createElement("div");
+    card.className = "todo-card";
+
+    card.innerHTML = `
+      <div class="task-card">
+        <div class="task-checkbox">
+          <input type="checkbox" data-id="${task.id}">
+        </div>
+        <div class="task-details">
+          <span>${task.title || "No title"}</span>
+          <p>${task.description || "No description"}</p>
+        </div>
+
+        ${task.image ? `
+          <div class="img-card">
+            <img class="task-img" src="${task.image}" alt="img">
+          </div>` : ""}
+      </div>
+
+      <div class="task-Progress">
+        <p class="progress-key">Priority: <span class="progress-value">${task.priority}</span></p>
+        <p class="progress-key">Status: <span class="progress-value">in progress</span></p>
+        <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>
+      </div>
+    `;
+
+    todoCardSection.appendChild(card);
+  });
 }
 
+
+function renderCompletedTodos() {
+  completedTaskSection.innerHTML = "";
+
+  const todos = getTodos();
+  const completed = todos.filter(t => t.completed);
+
+  if (completed.length === 0) {
+    completedTaskSection.innerHTML = `<p style="padding:10px;color:#777;">No completed tasks</p>`;
+    return;
+  }
+
+  completed.forEach(task => {
+    const card = document.createElement("div");
+    card.className = "todo-card";
+
+    card.innerHTML = `
+      <div class="task-card">
+        <div class="task-checkbox">
+          <input type="checkbox" data-id="${task.id}" checked>
+        </div>
+        <div class="task-details">
+          <span>${task.title}</span>
+          <p>${task.description}</p>
+        </div>
+
+        ${task.image ? `
+          <div class="img-card">
+            <img class="task-img" src="${task.image}" alt="img">
+          </div>` : ""}
+      </div>
+
+      <div class="task-Progress">
+        <p class="progress-key">Priority: <span class="progress-value">${task.priority}</span></p>
+        <p class="progress-key">Status: <span class="progress-value">Completed</span></p>
+        <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>
+      </div>
+    `;
+
+    completedTaskSection.appendChild(card);
+  });
+}
+
+document.addEventListener("change", (e) => {
+  if (e.target.type !== "checkbox") return;
+
+  const id = Number(e.target.dataset.id);
+  const todos = getTodos();
+
+  todos.forEach(todo => {
+    if (todo.id === id) {
+      todo.completed = e.target.checked;
+    }
+  });
+
+  saveTodos(todos);
+  renderTodos();
+  renderCompletedTodos();
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   createTodo();
 });
 
-renderTodos()
+
+renderTodos();
+renderCompletedTodos();

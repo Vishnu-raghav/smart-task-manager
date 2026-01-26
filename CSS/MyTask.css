@@ -126,10 +126,11 @@
 
 
 .grid-right-area .complete-tasks-section{
-  margin-top: 25px;
+  margin-top: 30px;
   border: 1px solid black;
   border-radius: 15px;
   padding: 20px 25px;
+
 }
 
 .icon{
@@ -137,6 +138,9 @@
   color: #ff7a7a;
 }
 
+.grid-right-area .complete-tasks-section-header{
+  margin-top: 50px;
+}
 
 
 @media (max-width: 700px){
