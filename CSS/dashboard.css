@@ -39,6 +39,7 @@
 }
 
 .task-card-section{
+  /* background-color: green; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -46,11 +47,26 @@
   margin-top: 15px;
 }
 
+
+
 .todo-card{
   background: #f6f7fb;
   border-radius: 18px;
-  padding: 22px;
+  padding: 1px 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card-header{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.card-popup{
+  position: absolute;
+  background-color: white;
 }
 
 .task-card{
@@ -59,7 +75,6 @@
   gap: 16px;
   margin-bottom: 14px;
 }
-
 
 .task-checkbox input{
   width: 22px;
@@ -136,6 +151,7 @@
 .icon{
   font-size: 20px;
   color: #ff7a7a;
+  cursor: pointer;
 }
 
 .grid-right-area .complete-tasks-section-header{
