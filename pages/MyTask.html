@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../CSS/general.css">
     <link rel="stylesheet" href="../CSS/header.css">
     <link rel="stylesheet" href="../CSS/sidebar.css">
-    <link rel="stylesheet" href="../CSS/MyTask.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
 </head>
 <body>
     <header class="Todo-header">
@@ -41,33 +41,32 @@
 
     <aside class="sidebar close">
       <div class="sidebar-header">
-        <i class="fa-solid fa-chevron-right toggle" ></i>
+        <i class="fa-solid fa-chevron-right toggle"></i>
       </div>
 
       <div class="menu-bar">
         <ul class="menu-link">
-           <li class="nav-link">
-            <a href="todo.html">
+          <li class="nav-link">
+            <a href="dashboard.html">
               <i class="fa-regular fa-house icon"></i>
+              <span class="text nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-link">
+            <a href="MyTask.html">
+              <i class="fa-sharp fa-solid fa-bars icon"></i>
               <span class="text nav-text">My Task</span>
             </a>
-           </li>
-           <li class="nav-link">
+          </li>
+          <li class="nav-link">
             <a href="categories.html">
-              <i class="fa-sharp fa-solid fa-bars icon"></i>
+              <i class="fa-solid fa-exclamation icon"></i>
               <span class="text nav-text">Task Categories</span>
             </a>
-           </li>
-           <li class="nav-link">
-            <a href="vital.html">
-              <i class="fa-solid fa-exclamation icon"></i>
-              <span class="text nav-text">Vital Task</span>
-            </a>
-           </li>
+          </li>
         </ul>
       </div>
     </aside>
-
     <main class="home">
       <div class="grid-container">
          <div class="grid-left-area">left</div>
@@ -85,4 +84,7 @@
    </footer>
 </body>
  <script src="../Js//sidebar.js"></script>
+ <script src="../Js/modal.js"></script>
+  <script src="../Js/app.js"></script>
+  <script src="../Js/sidebar.js"></script>
 </html>
