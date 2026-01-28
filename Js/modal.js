@@ -1,6 +1,8 @@
 const addTaskBtn = document.querySelector(".Add-Task");
 const todoModal = document.getElementById("todoModal");
 const closeBtns = document.querySelectorAll(".close-modal");
+const actions = document.querySelector(".actions")
+const cardPopup = document.querySelector(".card-popup")
 
 addTaskBtn.addEventListener("click", () => {
   todoModal.classList.add("active");
@@ -12,8 +14,11 @@ closeBtns.forEach(btn => {
   });
 });
 
+actions.addEventListener("click", () => {
+  cardPopup.classList.toggle("active")
+})
 
-// IMAGE UPLOAD 
+
 
 const uploadBox = document.getElementById("uploadBox");
 const fileInput = document.getElementById("modal-file-input");

@@ -67,6 +67,34 @@
 .card-popup{
   position: absolute;
   background-color: white;
+  padding: 12px;
+  top: 12px;
+  right: 25px;
+  z-index: 100;
+  display: none;
+}
+
+.card-popup.active{
+  display: block;
+}
+
+.card-popup ul {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-popup li{
+  list-style: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.card-popup li:hover{
+background-color: rgb(234, 228, 228);
 }
 
 .task-card{
