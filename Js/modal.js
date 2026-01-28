@@ -14,12 +14,6 @@ closeBtns.forEach(btn => {
   });
 });
 
-actions.addEventListener("click", () => {
-  cardPopup.classList.toggle("active")
-})
-
-
-
 const uploadBox = document.getElementById("uploadBox");
 const fileInput = document.getElementById("modal-file-input");
 const previewImg = document.getElementById("previewImg");

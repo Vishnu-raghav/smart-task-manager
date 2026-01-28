@@ -52,8 +52,19 @@ function renderTodos() {
 
     const card = document.createElement("div");
     card.className = "todo-card";
-
+    card.dataset.id = task.id
     card.innerHTML = `
+     <div class="card-header">
+             <div class="actions">
+               <i class="fa-solid fa-ellipsis icon"></i>
+              <div class="card-popup">
+                <ul class="card-actions">
+                  <li class="card-action delete">Delete</li>
+                  <li class="card-action edit">Edit</li>
+                </ul>
+              </div>
+             </div>
+      </div>
       <div class="task-card">
         <div class="task-checkbox">
           <input type="checkbox" data-id="${task.id}">
@@ -97,6 +108,17 @@ function renderCompletedTodos() {
     card.className = "todo-card";
 
     card.innerHTML = `
+      <div class="card-header">
+             <div class="actions">
+               <i class="fa-solid fa-ellipsis icon"></i>
+              <div class="card-popup">
+                <ul class="card-actions">
+                  <li class="card-action Delete">Delete</li>
+                  <li class="card-action edit">Edit</li>
+                </ul>
+              </div>
+             </div>
+      </div>
       <div class="task-card">
         <div class="task-checkbox">
           <input type="checkbox" data-id="${task.id}" checked>
@@ -123,6 +145,24 @@ function renderCompletedTodos() {
   });
 }
 
+function deleteTodo(e){
+  const deleteBtn = e.target.closest(".delete")
+  if(!deleteBtn) return
+
+  const card = deleteBtn.closest(".todo-card")
+  const id = Number(card.dataset.id)
+  let todos = getTodos()
+  todos = todos.filter((todo) => todo.id !== id)
+
+  saveTodos(todos)
+  renderTodos()
+  renderCompletedTodos()
+}
+
+todoCardSection.addEventListener("click", (e) => {
+  deleteTodo(e)
+})
+
 document.addEventListener("change", (e) => {
   if (e.target.type !== "checkbox") return;
 
@@ -140,10 +180,19 @@ document.addEventListener("change", (e) => {
   renderCompletedTodos();
 });
 
+document.addEventListener("click", (e) => {
+  const actions = e.target.closest(".actions");
+  if (!actions) return;
+
+  const popup = actions.querySelector(".card-popup");
+  popup.classList.toggle("active");
+});
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   createTodo();
 });
+
 
 
 renderTodos();
