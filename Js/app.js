@@ -178,13 +178,39 @@ function handleEditClick(e){
   document.getElementById("todoModal").classList.add("active");
 }
 
-// function updateTodo(){
-//   const formData = new FormData(form)
+function updateTodo(){
+  const formData = new FormData(form)
+  const data = Object.fromEntries(formData.entries())
 
-// }
+  let todos = getTodos()
+
+  todos = todos.map((todo) => {
+    if(todo.id === editTodoId){
+      return {
+        ...todo,
+        title: data.title,
+        description: data.desc,
+        priority: data.priority,
+        dueDate: data.dueDate
+      }
+    }
+    return todo
+  })
+
+  saveTodos(todos)
+
+  editTodoId = null
+  form.reset()
+
+  document.getElementById("todoModal").classList.remove("active");
+
+  renderTodos();
+  renderCompletedTodos();
+}
 
 todoCardSection.addEventListener("click", (e) => {
   deleteTodo(e)
+  handleEditClick(e);
 })
 
 document.addEventListener("change", (e) => {
@@ -214,10 +240,10 @@ document.addEventListener("click", (e) => {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  if(editTodoId === null){
+    if(editTodoId === null){
     createTodo();
-  }else{
-    updateTodo()
+  } else {
+    updateTodo();
   }
 });
 
