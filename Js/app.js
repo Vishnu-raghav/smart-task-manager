@@ -1,4 +1,3 @@
-
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
 const completedTaskSection = document.querySelector(".complete-tasks-section");
@@ -12,7 +11,6 @@ function getTodos() {
   const data = JSON.parse(localStorage.getItem("todos"));
   return Array.isArray(data) ? data : [];
 }
-
 
 function createTodo() {
   const formData = new FormData(form);
@@ -40,7 +38,6 @@ function createTodo() {
   renderTodos();
   renderCompletedTodos();
 }
-
 
 function renderTodos() {
   todoCardSection.innerHTML = "";
@@ -90,7 +87,6 @@ function renderTodos() {
     todoCardSection.appendChild(card);
   });
 }
-
 
 function renderCompletedTodos() {
   completedTaskSection.innerHTML = "";
@@ -159,6 +155,34 @@ function deleteTodo(e){
   renderCompletedTodos()
 }
 
+
+let editTodoId = null;
+
+function handleEditClick(e){
+  const editBtn = e.target.closest(".edit");
+  if(!editBtn) return;
+
+  const card = editBtn.closest(".todo-card");
+  const id = Number(card.dataset.id);
+
+  const todos = getTodos();
+  const todo = todos.find(t => t.id === id);
+
+  editTodoId = id;
+
+  form.title.value = todo.title;
+  form.desc.value = todo.description;
+  form.priority.value = todo.priority;
+  form.dueDate.value = todo.dueDate;
+
+  document.getElementById("todoModal").classList.add("active");
+}
+
+// function updateTodo(){
+//   const formData = new FormData(form)
+
+// }
+
 todoCardSection.addEventListener("click", (e) => {
   deleteTodo(e)
 })
@@ -190,10 +214,12 @@ document.addEventListener("click", (e) => {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  createTodo();
+  if(editTodoId === null){
+    createTodo();
+  }else{
+    updateTodo()
+  }
 });
-
-
 
 renderTodos();
 renderCompletedTodos();
