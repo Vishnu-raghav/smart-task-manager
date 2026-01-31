@@ -1,7 +1,9 @@
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
 const completedTaskSection = document.querySelector(".complete-tasks-section");
-
+const todoModal = document.getElementById("todoModal");
+const modalHeading = todoModal.querySelector(".modal-header h4");
+const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 
 function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -155,7 +157,6 @@ function deleteTodo(e){
   renderCompletedTodos()
 }
 
-
 let editTodoId = null;
 
 function handleEditClick(e){
@@ -175,7 +176,10 @@ function handleEditClick(e){
   form.priority.value = todo.priority;
   form.dueDate.value = todo.dueDate;
 
-  document.getElementById("todoModal").classList.add("active");
+  modalHeading.innerText = "Edit Task";
+  modalSubmitBtn.innerText = "Update Task";
+
+  todoModal.classList.add("active");
 }
 
 function updateTodo(){
@@ -207,6 +211,20 @@ function updateTodo(){
   renderTodos();
   renderCompletedTodos();
 }
+
+
+addTaskBtn.addEventListener("click", () => {
+  editTodoId = null;
+
+  form.reset();
+
+  modalHeading.innerText = "Add New Task";
+  modalSubmitBtn.innerText = "Done";
+
+  todoModal.classList.add("active");
+  todoModal.classList.add("active");
+});
+
 
 todoCardSection.addEventListener("click", (e) => {
   deleteTodo(e)
