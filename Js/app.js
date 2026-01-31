@@ -5,6 +5,10 @@ const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 
+let editTodoId = null;
+let originalTodoData =null
+
+
 function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
@@ -12,6 +16,25 @@ function saveTodos(todos) {
 function getTodos() {
   const data = JSON.parse(localStorage.getItem("todos"));
   return Array.isArray(data) ? data : [];
+}
+
+function isFormValid(){
+  return (
+    form.title.value.trim() !== "" &&
+    form.priority.value.trim() !== "" 
+  )
+}
+
+function isEditChanged(){
+  if(!originalTodoData) return false
+
+  return(
+    form.title.value !== originalTodoData.title ||
+    form.desc.value !== originalTodoData.desc ||
+    form.priority.value !== originalTodoData.priority ||
+    form.dueDate.value !== originalTodoData.dueDate
+  );
+  
 }
 
 function createTodo() {
@@ -157,8 +180,6 @@ function deleteTodo(e){
   renderCompletedTodos()
 }
 
-let editTodoId = null;
-
 function handleEditClick(e){
   const editBtn = e.target.closest(".edit");
   if(!editBtn) return;
@@ -176,8 +197,17 @@ function handleEditClick(e){
   form.priority.value = todo.priority;
   form.dueDate.value = todo.dueDate;
 
+  originalTodoData = {
+    title: todo.title,
+    desc: todo.description,
+    priority: todo.priority,
+    dueDate: todo.dueDate
+  };
+
   modalHeading.innerText = "Edit Task";
   modalSubmitBtn.innerText = "Update Task";
+
+  modalSubmitBtn.disabled = true;
 
   todoModal.classList.add("active");
 }
@@ -201,30 +231,33 @@ function updateTodo(){
     return todo
   })
 
-  saveTodos(todos)
+  saveTodos(todos);
 
-  editTodoId = null
-  form.reset()
+editTodoId = null;
+originalTodoData = null;
 
-  document.getElementById("todoModal").classList.remove("active");
+form.reset();
+modalSubmitBtn.disabled = true;
 
-  renderTodos();
-  renderCompletedTodos();
+todoModal.classList.remove("active");
+
+renderTodos();
+renderCompletedTodos();
 }
-
 
 addTaskBtn.addEventListener("click", () => {
   editTodoId = null;
+  originalTodoData = null
 
   form.reset();
 
   modalHeading.innerText = "Add New Task";
   modalSubmitBtn.innerText = "Done";
 
-  todoModal.classList.add("active");
+  modalSubmitBtn.disabled = true;
+
   todoModal.classList.add("active");
 });
-
 
 todoCardSection.addEventListener("click", (e) => {
   deleteTodo(e)
@@ -264,6 +297,15 @@ form.addEventListener("submit", (e) => {
     updateTodo();
   }
 });
+
+form.addEventListener("input", () => {
+  if (editTodoId === null) {
+    modalSubmitBtn.disabled = !isFormValid();
+  } else {
+    modalSubmitBtn.disabled = !isEditChanged();
+  }
+});
+
 
 renderTodos();
 renderCompletedTodos();
