@@ -4,10 +4,8 @@ const completedTaskSection = document.querySelector(".complete-tasks-section");
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
-
 let editTodoId = null;
 let originalTodoData =null
-
 
 function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -67,6 +65,8 @@ function createTodo() {
 }
 
 function renderTodos() {
+  if (!todoCardSection) return;
+
   todoCardSection.innerHTML = "";
 
   const todos = getTodos();
@@ -117,6 +117,8 @@ function renderTodos() {
 }
 
 function renderCompletedTodos() {
+    if (!completedTaskSection) return;
+
   completedTaskSection.innerHTML = "";
 
   const todos = getTodos();
@@ -314,5 +316,8 @@ form.addEventListener("input", () => {
 });
 
 
-renderTodos();
-renderCompletedTodos();
+  renderTodos();
+  renderCompletedTodos();
+
+
+
