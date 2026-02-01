@@ -84,14 +84,13 @@
               <i class="fa-solid fa-clipboard-list icon"></i>
               <span class="text">To-do</span>
             </div>
-            <div class="MyTask-Popup">pop-up</div>
             <div class="Add-Task">
               <i class="fa-solid fa-plus icon"></i>
               <span class="text">Add Task</span>
             </div>
           </div>
           <div class="task-card-section">
-            <!-- <div class="todo-card">
+            <div class="todo-card">
              <div class="card-header">
              <div class="actions">
                <i class="fa-solid fa-ellipsis icon"></i>
@@ -133,7 +132,7 @@
                   Created on <span class="progress-value">1 dec 2026</span>
                 </p>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
         <div class="grid-right-area">
@@ -205,6 +204,17 @@
           name="priority"
           placeholder="High / Medium / Low"
         />
+      </div>
+
+      <div class="modal-input">
+        <label>Category</label>
+        <select name="category" id="task-category">
+        <option value="">Select category</option>
+        <option value="Personal">Personal</option>
+        <option value="Study">Study</option>
+        <option value="Work">Work</option>
+        <option value="Urgent">Urgent</option>
+  </select>
       </div>
 
       <div class="modal-input">

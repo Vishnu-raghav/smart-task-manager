@@ -32,7 +32,8 @@ function isEditChanged(){
     form.title.value !== originalTodoData.title ||
     form.desc.value !== originalTodoData.desc ||
     form.priority.value !== originalTodoData.priority ||
-    form.dueDate.value !== originalTodoData.dueDate
+    form.category.value !== originalTodoData.category ||
+    form.dueDate.value !== originalTodoData.dueDate 
   );
   
 }
@@ -47,6 +48,7 @@ function createTodo() {
     description: data.desc,
     image: previewImg.src || null,
     priority: data.priority,
+    category: data.category,
     dueDate: data.dueDate,
     completed: false,
   };
@@ -103,6 +105,7 @@ function renderTodos() {
       </div>
 
       <div class="task-Progress">
+        <p class="progress-key">Category: <span class="progress-value">${task.category || "General"}</span></p>
         <p class="progress-key">Priority: <span class="progress-value">${task.priority}</span></p>
         <p class="progress-key">Status: <span class="progress-value">in progress</span></p>
         <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>
@@ -156,6 +159,7 @@ function renderCompletedTodos() {
       </div>
 
       <div class="task-Progress">
+        <p class="progress-key">Category: <span class="progress-value">${task.category || "General"}</span></p>
         <p class="progress-key">Priority: <span class="progress-value">${task.priority}</span></p>
         <p class="progress-key">Status: <span class="progress-value">Completed</span></p>
         <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>
@@ -195,12 +199,14 @@ function handleEditClick(e){
   form.title.value = todo.title;
   form.desc.value = todo.description;
   form.priority.value = todo.priority;
+  form.category.value = todo.category
   form.dueDate.value = todo.dueDate;
 
   originalTodoData = {
     title: todo.title,
     desc: todo.description,
     priority: todo.priority,
+    category: todo.category,
     dueDate: todo.dueDate
   };
 
@@ -225,6 +231,7 @@ function updateTodo(){
         title: data.title,
         description: data.desc,
         priority: data.priority,
+        category: data.category,
         dueDate: data.dueDate
       }
     }
