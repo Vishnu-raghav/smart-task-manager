@@ -1,4 +1,4 @@
-const addTaskBtn = document.querySelector(".Add-Task");
+// const addTaskBtn = document.querySelector(".Add-Task");
 // const todoModal = document.getElementById("todoModal");
 const closeBtns = document.querySelectorAll(".close-modal");
 const actions = document.querySelector(".actions")
@@ -9,6 +9,7 @@ closeBtns.forEach(btn => {
     todoModal.classList.remove("active");
   });
 });
+console.log("modal.js loaded");
 
 const uploadBox = document.getElementById("uploadBox");
 const fileInput = document.getElementById("modal-file-input");
