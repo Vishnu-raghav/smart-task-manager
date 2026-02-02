@@ -5,14 +5,12 @@ const todoCardSection = document.querySelector(".task-card-section");
 const completedTaskSection = document.querySelector(".complete-tasks-section");
 const addTaskBtn = document.querySelector(".Add-Task");
 
-
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 let editTodoId = null;
 let originalTodoData =null
 
-console.log("dashboard.js loaded");
 
 export function isFormValid(){
   return (
