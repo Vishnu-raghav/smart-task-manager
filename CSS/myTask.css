@@ -65,7 +65,7 @@
 
 .detail-row {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns:120px 1fr;
   gap: 10px;
 }
 
@@ -97,17 +97,15 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  background: rgb(255, 122, 122);
+
 }
 
-.edit-btn {
-  background: #eef2ff;
-  color: #4338ca;
+.task-actions i{
+  color: white;
 }
 
-.delete-btn {
-  background: #fee2e2;
-  color: #b91c1c;
-}
+
 
 @media (max-width: 700px) {
   .todo-detail {
