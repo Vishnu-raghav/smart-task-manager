@@ -112,7 +112,7 @@ function renderTaskList() {
     <b style="color:#222;">${task.dueDate || "N/A"}</b>
   </span>
 </div>
-                 `
+    `
     listSection.appendChild(div);
   });
 }
