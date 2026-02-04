@@ -1,4 +1,4 @@
-import { getTodos } from "./storage.js";
+import { getTodos , saveTodos} from "./storage.js";
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
 
@@ -53,7 +53,6 @@ function renderTaskList() {
     </p>
   </div>
 
-  <!-- IMAGE (OPTIONAL) -->
   ${
     task.image
       ? `
@@ -82,7 +81,6 @@ function renderTaskList() {
 
 </div>
 
-<!-- META INFO -->
 <div 
   style="
     display:flex;
@@ -114,31 +112,112 @@ function renderTaskList() {
     <b style="color:#222;">${task.dueDate || "N/A"}</b>
   </span>
 </div>
-`
-;
+                 `
     listSection.appendChild(div);
   });
 }
+
 listSection.addEventListener("click", (e) => {
   const card = e.target.closest(".todo-card");
   if (!card) return;
 
   const id = Number(card.dataset.id);
+  console.log(id)
   showDetails(id);
 });
 
 function showDetails(id) {
   const todo = getTodos().find(t => t.id === id);
   if (!todo) return;
-
   rightPanel.innerHTML = `
-    <h2>${todo.title}</h2>
-    <p>${todo.description}</p>
+      <div class="todo-detail">
+     ${
+      todo.image ? `
+       <div class="img-card large">
+      <img
+        class="task-img"
+        src="${todo.image}"
+        alt="img"
+      />
+    </div>
+      ` : ""
+     }
 
-    <p><b>Category:</b> ${todo.category}</p>
-    <p><b>Priority:</b> ${todo.priority}</p>
-    <p><b>Due:</b> ${todo.dueDate || "N/A"}</p>
+    <div class="todo-progress-detail">
+      <h2 class="task-title">${todo.title}</h2>
+
+      <div class="meta">
+        <span class="badge priority extreme">${todo.priority}</span>
+        <span class="badge status pending">Not Started</span>
+      </div>
+
+      <p class="date">
+        <i class="fa-regular fa-calendar"></i>
+        Created on <span>${todo.dueDate}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="task-full-detail-section">
+    <div class="detail-row">
+      <p class="label">Title</p>
+      <p class="value">${todo.title}</p>
+    </div>
+
+    <div class="detail-row">
+      <p class="label">Description</p>
+      <p class="value">
+        ${todo.description}
+      </p>
+    </div>
+
+    <div class="detail-row">
+      <p class="label">Category</p>
+      <p class="value">${todo.category}</p>
+    </div>
+
+    <div class="detail-row">
+      <p class="label">Due Date</p>
+      <p class="value">${todo.dueDate}</p>
+    </div>
+  </div>
+
+  <div class="task-actions edit">
+    <button class="edit-btn">
+      <i class="fa-solid fa-pen"></i> 
+    </button>
+    <button class="delete-btn" data-id="${todo.id}">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+  </div>
   `;
 }
+
+function deleteTodoById(id) {
+  let todos = getTodos();
+
+  todos = todos.filter(todo => todo.id !== id);
+
+  saveTodos(todos);
+
+  renderTaskList();
+
+  rightPanel.innerHTML = `
+    <p style="color:#777;text-align:center;margin-top:40px;">
+      Task deleted successfully
+    </p>
+  `;
+}
+
+
+rightPanel.addEventListener("click", (e) => {
+  const deleteBtn = e.target.closest(".delete-btn");
+  if (!deleteBtn) return;
+
+  const id = Number(deleteBtn.dataset.id);
+
+  deleteTodoById(id);
+});
+
 
 renderTaskList()
