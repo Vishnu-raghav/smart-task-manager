@@ -182,13 +182,8 @@ export function deleteTodo(e){
   renderCompletedTodos()
 }
 
-export function handleEditClick(e){
-  const editBtn = e.target.closest(".edit");
-  if(!editBtn) return;
-
-  const card = editBtn.closest(".todo-card");
-  const id = Number(card.dataset.id);
-
+export function handleEditClick(id){
+ 
   const todos = getTodos();
   const todo = todos.find(t => t.id === id);
 
@@ -246,8 +241,11 @@ modalSubmitBtn.disabled = true;
 
 todoModal.classList.remove("active");
 
-renderTodos();
-renderCompletedTodos();
+if(document.body.dataset.page === "dashboard"){
+   renderTodos();
+   renderCompletedTodos();
+}
+
 }
 
 addTaskBtn.addEventListener("click", () => {
@@ -265,9 +263,21 @@ addTaskBtn.addEventListener("click", () => {
 });
 
 todoCardSection.addEventListener("click", (e) => {
-  deleteTodo(e)
-  handleEditClick(e);
-})
+
+  if (e.target.closest(".delete")) {
+    deleteTodo(e);
+    return;
+  }
+
+  const editBtn = e.target.closest(".edit");
+  if (!editBtn) return;
+
+  const card = editBtn.closest(".todo-card");
+  const id = Number(card.dataset.id);
+
+  handleEditClick(id);
+});
+
 
 document.addEventListener("change", (e) => {
   if (e.target.type !== "checkbox") return;

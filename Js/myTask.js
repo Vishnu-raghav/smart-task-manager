@@ -1,9 +1,10 @@
 import { getTodos , saveTodos} from "./storage.js";
+import {handleEditClick} from "./dashboard.js"
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
+const addTaskBtn = document.querySelector(".Add-Task")
 
-
-function renderTaskList() {
+export function renderTaskList() {
   const todos = getTodos();
   listSection.innerHTML = "";
 
@@ -182,8 +183,8 @@ function showDetails(id) {
     </div>
   </div>
 
-  <div class="task-actions edit">
-    <button class="edit-btn">
+  <div class="task-actions">
+    <button class="edit-btn edit"  data-id="${todo.id}">
       <i class="fa-solid fa-pen"></i> 
     </button>
     <button class="delete-btn" data-id="${todo.id}">
@@ -218,6 +219,16 @@ rightPanel.addEventListener("click", (e) => {
 
   deleteTodoById(id);
 });
+
+
+rightPanel.addEventListener("click", (e) => {
+  const editBtn = e.target.closest(".edit-btn")
+  if(!editBtn) return
+
+  const id = Number(editBtn.dataset.id)
+  handleEditClick(id)
+})
+
 
 
 renderTaskList()
