@@ -4,6 +4,8 @@ const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
 const completedTaskSection = document.querySelector(".complete-tasks-section");
 const addTaskBtn = document.querySelector(".Add-Task");
+const isDashboard = document.body.dataset.page === "dashboard";
+
 
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
@@ -86,9 +88,11 @@ export function renderTodos() {
              </div>
       </div>
       <div class="task-card">
-        <div class="task-checkbox">
-          <input type="checkbox" data-id="${task.id}">
-        </div>
+           ${isDashboard ? `
+          <div class="task-checkbox">
+            <input type="checkbox" data-id="${task.id}">
+          </div>
+        ` : ""}
         <div class="task-details">
           <span>${task.title || "No title"}</span>
           <p>${task.description || "No description"}</p>
