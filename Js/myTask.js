@@ -2,7 +2,7 @@ import { getTodos , saveTodos} from "./storage.js";
 import {handleEditClick} from "./dashboard.js"
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
-const addTaskBtn = document.querySelector(".Add-Task")
+
 
 export function renderTaskList() {
   const todos = getTodos();
@@ -210,7 +210,6 @@ function deleteTodoById(id) {
   `;
 }
 
-
 rightPanel.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
   if (!deleteBtn) return;
@@ -231,4 +230,3 @@ rightPanel.addEventListener("click", (e) => {
 
 
 
-renderTaskList()

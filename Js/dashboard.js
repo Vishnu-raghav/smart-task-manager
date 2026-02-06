@@ -1,3 +1,4 @@
+import { rerenderPage } from "./app.js";
 import { getTodos, saveTodos } from "./storage.js";
 
 const form = document.getElementById("todoForm");
@@ -5,6 +6,7 @@ const todoCardSection = document.querySelector(".task-card-section");
 const completedTaskSection = document.querySelector(".complete-tasks-section");
 const addTaskBtn = document.querySelector(".Add-Task");
 const isDashboard = document.body.dataset.page === "dashboard";
+
 
 
 const todoModal = document.getElementById("todoModal");
@@ -57,9 +59,8 @@ function createTodo() {
   previewImg.src = "";
   previewImg.style.display = "none";
   document.querySelector(".upload-content").style.display = "flex";
+  rerenderPage()
 
-  renderTodos();
-  renderCompletedTodos();
 }
 
 export function renderTodos() {
@@ -182,8 +183,7 @@ export function deleteTodo(e){
   todos = todos.filter((todo) => todo.id !== id)
 
   saveTodos(todos)
-  renderTodos()
-  renderCompletedTodos()
+  rerenderPage()
 }
 
 export function handleEditClick(id){
@@ -245,10 +245,7 @@ modalSubmitBtn.disabled = true;
 
 todoModal.classList.remove("active");
 
-if(document.body.dataset.page === "dashboard"){
-   renderTodos();
-   renderCompletedTodos();
-}
+rerenderPage()
 
 }
 
@@ -296,8 +293,7 @@ document.addEventListener("change", (e) => {
   });
 
   saveTodos(todos);
-  renderTodos();
-  renderCompletedTodos();
+  rerenderPage()
 });
 
 document.addEventListener("click", (e) => {
@@ -324,9 +320,6 @@ form.addEventListener("input", () => {
     modalSubmitBtn.disabled = !isEditChanged();
   }
 });
-
-  renderTodos();
-  renderCompletedTodos();
 
 
 
