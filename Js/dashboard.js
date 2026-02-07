@@ -1,5 +1,6 @@
 import { rerenderPage } from "./app.js";
 import { getTodos, saveTodos } from "./storage.js";
+import { openEditTask, getEditState, clearEditState } from "./taskActions.js";
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
@@ -7,13 +8,9 @@ const completedTaskSection = document.querySelector(".complete-tasks-section");
 const addTaskBtn = document.querySelector(".Add-Task");
 const isDashboard = document.body.dataset.page === "dashboard";
 
-
-
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
-let editTodoId = null;
-let originalTodoData =null
 
 
 export function isFormValid(){
@@ -24,6 +21,7 @@ export function isFormValid(){
 }
 
 export function isEditChanged(){
+  const {originalTodoData} = getEditState()
   if(!originalTodoData) return false
 
   return(
@@ -186,38 +184,12 @@ export function deleteTodo(e){
   rerenderPage()
 }
 
-export function handleEditClick(id){
- 
-  const todos = getTodos();
-  const todo = todos.find(t => t.id === id);
-
-  editTodoId = id;
-
-  form.title.value = todo.title;
-  form.desc.value = todo.description;
-  form.priority.value = todo.priority;
-  form.category.value = todo.category
-  form.dueDate.value = todo.dueDate;
-
-  originalTodoData = {
-    title: todo.title,
-    desc: todo.description,
-    priority: todo.priority,
-    category: todo.category,
-    dueDate: todo.dueDate
-  };
-
-  modalHeading.innerText = "Edit Task";
-  modalSubmitBtn.innerText = "Update Task";
-
-  modalSubmitBtn.disabled = true;
-
-  todoModal.classList.add("active");
-}
 
 export function updateTodo(){
   const formData = new FormData(form)
   const data = Object.fromEntries(formData.entries())
+  const {editTodoId} = getEditState()
+
 
   let todos = getTodos()
 
@@ -237,8 +209,7 @@ export function updateTodo(){
 
   saveTodos(todos);
 
-editTodoId = null;
-originalTodoData = null;
+clearEditState()
 
 form.reset();
 modalSubmitBtn.disabled = true;
@@ -250,8 +221,7 @@ rerenderPage()
 }
 
 addTaskBtn.addEventListener("click", () => {
-  editTodoId = null;
-  originalTodoData = null
+   clearEditState()
 
   form.reset();
 
@@ -276,7 +246,13 @@ todoCardSection.addEventListener("click", (e) => {
   const card = editBtn.closest(".todo-card");
   const id = Number(card.dataset.id);
 
-  handleEditClick(id);
+  openEditTask(id, {
+  form,
+  modal: todoModal,
+  modalHeading,
+  submitBtn: modalSubmitBtn
+  });
+
 });
 
 
@@ -306,7 +282,9 @@ document.addEventListener("click", (e) => {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-    if(editTodoId === null){
+  const {editTodoId} = getEditState()
+
+  if(editTodoId === null){
     createTodo();
   } else {
     updateTodo();
@@ -314,6 +292,7 @@ form.addEventListener("submit", (e) => {
 });
 
 form.addEventListener("input", () => {
+    const {editTodoId} = getEditState()
   if (editTodoId === null) {
     modalSubmitBtn.disabled = !isFormValid();
   } else {

@@ -1,5 +1,6 @@
 import { getTodos , saveTodos} from "./storage.js";
-import {handleEditClick} from "./dashboard.js"
+import { openEditTask } from "./taskActions.js";
+
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
 
@@ -225,7 +226,14 @@ rightPanel.addEventListener("click", (e) => {
   if(!editBtn) return
 
   const id = Number(editBtn.dataset.id)
-  handleEditClick(id)
+
+  openEditTask(id, {
+  form: document.getElementById("todoForm"),
+  modal: document.getElementById("todoModal"),
+  modalHeading: document.querySelector(".modal-header h4"),
+  submitBtn: document.querySelector('button[type="submit"]')
+  });
+
 })
 
 

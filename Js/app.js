@@ -1,8 +1,6 @@
 import "./modal.js";
 import "./sidebar.js";
 
-const page = document.body.dataset.page;
-
 rerenderPage();
 
 export function rerenderPage() {
