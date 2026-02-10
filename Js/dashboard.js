@@ -1,6 +1,7 @@
 import { rerenderPage } from "./app.js";
 import { getTodos, saveTodos } from "./storage.js";
 import { openEditTask, getEditState, clearEditState } from "./taskActions.js";
+import {attachFormSubmit} from "./formUtils.js"
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
@@ -13,28 +14,7 @@ const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 
 
-export function isFormValid(){
-  return (
-    form.title.value.trim() !== "" &&
-    form.priority.value.trim() !== "" 
-  )
-}
-
-export function isEditChanged(){
-  const {originalTodoData} = getEditState()
-  if(!originalTodoData) return false
-
-  return(
-    form.title.value !== originalTodoData.title ||
-    form.desc.value !== originalTodoData.desc ||
-    form.priority.value !== originalTodoData.priority ||
-    form.category.value !== originalTodoData.category ||
-    form.dueDate.value !== originalTodoData.dueDate 
-  );
-  
-}
-
-function createTodo() {
+export function createTodo() {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
 
@@ -257,6 +237,8 @@ todoCardSection.addEventListener("click", (e) => {
 
 
 document.addEventListener("change", (e) => {
+  if(!isDashboard) return
+  
   if (e.target.type !== "checkbox") return;
 
   const id = Number(e.target.dataset.id);
@@ -280,25 +262,8 @@ document.addEventListener("click", (e) => {
   popup.classList.toggle("active");
 });
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const {editTodoId} = getEditState()
 
-  if(editTodoId === null){
-    createTodo();
-  } else {
-    updateTodo();
-  }
-});
-
-form.addEventListener("input", () => {
-    const {editTodoId} = getEditState()
-  if (editTodoId === null) {
-    modalSubmitBtn.disabled = !isFormValid();
-  } else {
-    modalSubmitBtn.disabled = !isEditChanged();
-  }
-});
+attachFormSubmit(form)
 
 
 

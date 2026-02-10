@@ -1,15 +1,17 @@
-// const addTaskBtn = document.querySelector(".Add-Task");
-// const todoModal = document.getElementById("todoModal");
+import { isFormValid, isEditChanged } from "./formUtils.js";
+import { getEditState, clearEditState } from "./taskActions.js";
+
+const form = document.getElementById("todoForm");
+const submitBtn = document.querySelector('button[type="submit"]');
+const todoModal = document.getElementById("todoModal");
 const closeBtns = document.querySelectorAll(".close-modal");
-const actions = document.querySelector(".actions")
-const cardPopup = document.querySelector(".card-popup")
 
 closeBtns.forEach(btn => {
   btn.addEventListener("click", () => {
+    clearEditState()
     todoModal.classList.remove("active");
   });
 });
-console.log("modal.js loaded");
 
 const uploadBox = document.getElementById("uploadBox");
 const fileInput = document.getElementById("modal-file-input");
@@ -62,3 +64,13 @@ function showImage(file){
   };
   reader.readAsDataURL(file);
 }
+
+form.addEventListener("input", () => {
+  const { editTodoId } = getEditState();
+
+  if (editTodoId === null) {
+    submitBtn.disabled = !isFormValid(form);
+  } else {
+    submitBtn.disabled = !isEditChanged(form);
+  }
+});

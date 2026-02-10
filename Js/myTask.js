@@ -1,8 +1,11 @@
 import { getTodos , saveTodos} from "./storage.js";
 import { openEditTask } from "./taskActions.js";
+import {attachFormSubmit} from "./formUtils.js"
 
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
+const form = document.getElementById("todoForm");
+
 
 
 export function renderTaskList() {
@@ -235,6 +238,12 @@ rightPanel.addEventListener("click", (e) => {
   });
 
 })
+document.addEventListener("task-updated", () => {
+  renderTaskList();
+});
+
+attachFormSubmit(form)
+
 
 
 
