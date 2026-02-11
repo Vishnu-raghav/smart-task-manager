@@ -2,6 +2,12 @@ import { rerenderPage } from "./app.js";
 import { getTodos, saveTodos } from "./storage.js";
 import { openEditTask, getEditState, clearEditState } from "./taskActions.js";
 import {attachFormSubmit} from "./formUtils.js"
+import {
+  createTodo as createTodoService,
+  updateTodo as updateTodoService,
+  deleteTodo as deleteTodoService
+} from "./taskcrud.js";
+
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
@@ -151,18 +157,18 @@ export function renderCompletedTodos() {
   });
 }
 
-export function deleteTodo(e){
-  const deleteBtn = e.target.closest(".delete")
-  if(!deleteBtn) return
+// export function deleteTodo(e){
+//   const deleteBtn = e.target.closest(".delete")
+//   if(!deleteBtn) return
 
-  const card = deleteBtn.closest(".todo-card")
-  const id = Number(card.dataset.id)
-  let todos = getTodos()
-  todos = todos.filter((todo) => todo.id !== id)
+//   const card = deleteBtn.closest(".todo-card")
+//   const id = Number(card.dataset.id)
+//   let todos = getTodos()
+//   todos = todos.filter((todo) => todo.id !== id)
 
-  saveTodos(todos)
-  rerenderPage()
-}
+//   saveTodos(todos)
+//   rerenderPage()
+// }
 
 
 export function updateTodo(){

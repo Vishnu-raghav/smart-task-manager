@@ -238,6 +238,7 @@ rightPanel.addEventListener("click", (e) => {
   });
 
 })
+
 document.addEventListener("task-updated", () => {
   renderTaskList();
 });

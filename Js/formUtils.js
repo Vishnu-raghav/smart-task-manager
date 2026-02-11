@@ -27,12 +27,14 @@ export function attachFormSubmit(form) {
 
     const { editTodoId } = getEditState();
 
-    if (editTodoId === null) {
-      createTodo();
-    } else {
+    if (editTodoId !== null) {
       updateTodo();
+      return; 
     }
+    createTodo();
   });
 }
+
+
 
 
