@@ -1,5 +1,5 @@
 import { getEditState } from "./taskActions.js";
-import { createTodo, updateTodo } from "./dashboard.js";
+import { createTodoHandle, updateTodoHandle } from "./dashboard.js";
 
 export function isFormValid(form) {
   return (
@@ -28,10 +28,10 @@ export function attachFormSubmit(form) {
     const { editTodoId } = getEditState();
 
     if (editTodoId !== null) {
-      updateTodo();
+      updateTodoHandle();
       return; 
     }
-    createTodo();
+    createTodoHandle();
   });
 }
 

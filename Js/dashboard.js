@@ -20,31 +20,20 @@ const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 
 
-export function createTodo() {
+export function createTodoHandle(){
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
 
-  const newTodo = {
-    id: Date.now(),
-    title: data.title,
-    description: data.desc,
-    image: previewImg.src || null,
-    priority: data.priority,
-    category: data.category,
-    dueDate: data.dueDate,
-    completed: false,
-  };
-
-  const todos = getTodos();
-  todos.push(newTodo);
-  saveTodos(todos);
-
-  form.reset();
-  previewImg.src = "";
-  previewImg.style.display = "none";
-  document.querySelector(".upload-content").style.display = "flex";
+  createTodoService(data)
+  resetAndCloseModal()
   rerenderPage()
+}
 
+ function resetAndCloseModal() {
+  form.reset();
+  clearEditState();
+  modalSubmitBtn.disabled = true;
+  todoModal.classList.remove("active");
 }
 
 export function renderTodos() {
@@ -157,72 +146,45 @@ export function renderCompletedTodos() {
   });
 }
 
-// export function deleteTodo(e){
-//   const deleteBtn = e.target.closest(".delete")
-//   if(!deleteBtn) return
+export function deleteTodoHandle(e){
+ const deleteBtn = e.target.closest(".delete")
+ if(!deleteBtn) return 
 
-//   const card = deleteBtn.closest(".todo-card")
-//   const id = Number(card.dataset.id)
-//   let todos = getTodos()
-//   todos = todos.filter((todo) => todo.id !== id)
+ const card = deleteBtn.closest(".todo-card")
+ const id = Number(card.dataset.id)
 
-//   saveTodos(todos)
-//   rerenderPage()
-// }
+ deleteTodoService(id)
+ rerenderPage()
+}
 
-
-export function updateTodo(){
+export function updateTodoHandle(){
   const formData = new FormData(form)
   const data = Object.fromEntries(formData.entries())
+
   const {editTodoId} = getEditState()
 
+  updateTodoService(editTodoId,data)
 
-  let todos = getTodos()
-
-  todos = todos.map((todo) => {
-    if(todo.id === editTodoId){
-      return {
-        ...todo,
-        title: data.title,
-        description: data.desc,
-        priority: data.priority,
-        category: data.category,
-        dueDate: data.dueDate
-      }
-    }
-    return todo
-  })
-
-  saveTodos(todos);
-
-clearEditState()
-
-form.reset();
-modalSubmitBtn.disabled = true;
-
-todoModal.classList.remove("active");
-
-rerenderPage()
-
+  resetAndCloseModal()
+  rerenderPage()
 }
 
 addTaskBtn.addEventListener("click", () => {
-   clearEditState()
+   form.reset();
+   clearEditState();
+   modalSubmitBtn.disabled = true;
 
-  form.reset();
+   modalHeading.innerText = "Add New Task";
+   modalSubmitBtn.innerText = "Done";
 
-  modalHeading.innerText = "Add New Task";
-  modalSubmitBtn.innerText = "Done";
-
-  modalSubmitBtn.disabled = true;
-
-  todoModal.classList.add("active");
+   todoModal.classList.add("active");
 });
+
 
 todoCardSection.addEventListener("click", (e) => {
 
   if (e.target.closest(".delete")) {
-    deleteTodo(e);
+    deleteTodoHandle(e);
     return;
   }
 
