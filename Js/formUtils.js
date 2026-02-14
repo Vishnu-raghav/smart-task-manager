@@ -31,7 +31,7 @@ export function attachFormSubmit(form) {
       updateTodoHandle();
       return; 
     }
-    createTodoHandle();
+      createTodoHandle();
   });
 }
 

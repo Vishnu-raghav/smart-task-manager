@@ -231,7 +231,7 @@ document.addEventListener("click", (e) => {
 });
 
 
-attachFormSubmit(form)
+// attachFormSubmit(form)
 
 
 
