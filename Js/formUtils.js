@@ -1,5 +1,8 @@
-import { getEditState } from "./taskActions.js";
-import { createTodoHandle, updateTodoHandle } from "./dashboard.js";
+import { clearEditState,getEditState } from "./taskActions.js";
+import {
+  createTodo as createTodoService,
+  updateTodo as updateTodoService,
+} from "./taskcrud.js";
 
 export function isFormValid(form) {
   return (
@@ -21,19 +24,29 @@ export function isEditChanged(form) {
   );
 }
 
-export function attachFormSubmit(form) {
+export function initForm(form, onSuccess) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     const { editTodoId } = getEditState();
 
     if (editTodoId !== null) {
-      updateTodoHandle();
-      return; 
+      updateTodoService(editTodoId, data);
+    } else {
+      createTodoService(data);
     }
-      createTodoHandle();
+
+    form.reset();
+    clearEditState();
+    document.getElementById("todoModal").classList.remove("active");
+
+    onSuccess(); 
   });
 }
+
 
 
 

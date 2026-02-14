@@ -1,15 +1,14 @@
 import { getTodos , saveTodos} from "./storage.js";
 import { openEditTask } from "./taskActions.js";
+import {initForm} from "./formUtils.js"
+
 import {
-  createTodo as createTodoService,
-  updateTodo as updateTodoService,
   deleteTodo as deleteTodoService
 } from "./taskcrud.js";
 
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
 const form = document.getElementById("todoForm");
-
 
 
 export function renderTaskList() {
@@ -238,8 +237,9 @@ rightPanel.addEventListener("click", (e) => {
 
 })
 
-// attachFormSubmit(form)
-
+initForm(form, () => {
+  renderTaskList();
+});
 
 
 

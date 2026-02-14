@@ -1,13 +1,8 @@
 import { rerenderPage } from "./app.js";
 import { getTodos, saveTodos } from "./storage.js";
-import { openEditTask, getEditState, clearEditState } from "./taskActions.js";
-import {attachFormSubmit} from "./formUtils.js"
-import {
-  createTodo as createTodoService,
-  updateTodo as updateTodoService,
-  deleteTodo as deleteTodoService
-} from "./taskcrud.js";
-
+import { openEditTask, clearEditState } from "./taskActions.js";
+import {initForm} from "./formUtils.js"
+import {deleteTodo as deleteTodoService} from "./taskcrud.js";
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
@@ -18,23 +13,6 @@ const isDashboard = document.body.dataset.page === "dashboard";
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
-
-
-export function createTodoHandle(){
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-
-  createTodoService(data)
-  resetAndCloseModal()
-  rerenderPage()
-}
-
- function resetAndCloseModal() {
-  form.reset();
-  clearEditState();
-  modalSubmitBtn.disabled = true;
-  todoModal.classList.remove("active");
-}
 
 export function renderTodos() {
   if (!todoCardSection) return;
@@ -157,43 +135,35 @@ export function deleteTodoHandle(e){
  rerenderPage()
 }
 
-export function updateTodoHandle(){
-  const formData = new FormData(form)
-  const data = Object.fromEntries(formData.entries())
-
-  const {editTodoId} = getEditState()
-
-  updateTodoService(editTodoId,data)
-
-  resetAndCloseModal()
-  rerenderPage()
-}
 
 addTaskBtn.addEventListener("click", () => {
-   form.reset();
-   clearEditState();
-   modalSubmitBtn.disabled = true;
-
-   modalHeading.innerText = "Add New Task";
-   modalSubmitBtn.innerText = "Done";
-
-   todoModal.classList.add("active");
+  form.reset();
+  clearEditState();
+  modalSubmitBtn.disabled = true;
+  
+  modalHeading.innerText = "Add New Task";
+  modalSubmitBtn.innerText = "Done";
+  
+  todoModal.classList.add("active");
 });
 
+initForm(form, () => {
+  rerenderPage();
+});
 
 todoCardSection.addEventListener("click", (e) => {
-
+  
   if (e.target.closest(".delete")) {
     deleteTodoHandle(e);
     return;
   }
-
+  
   const editBtn = e.target.closest(".edit");
   if (!editBtn) return;
-
+  
   const card = editBtn.closest(".todo-card");
   const id = Number(card.dataset.id);
-
+  
   openEditTask(id, {
   form,
   modal: todoModal,
@@ -217,7 +187,7 @@ document.addEventListener("change", (e) => {
       todo.completed = e.target.checked;
     }
   });
-
+  
   saveTodos(todos);
   rerenderPage()
 });
@@ -225,13 +195,12 @@ document.addEventListener("change", (e) => {
 document.addEventListener("click", (e) => {
   const actions = e.target.closest(".actions");
   if (!actions) return;
-
+  
   const popup = actions.querySelector(".card-popup");
   popup.classList.toggle("active");
 });
 
 
-// attachFormSubmit(form)
 
 
 

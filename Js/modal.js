@@ -1,4 +1,4 @@
-import { isFormValid, isEditChanged, attachFormSubmit } from "./formUtils.js";
+import { isFormValid, isEditChanged } from "./formUtils.js";
 import { getEditState, clearEditState } from "./taskActions.js";
 
 const form = document.getElementById("todoForm");
@@ -12,7 +12,7 @@ closeBtns.forEach(btn => {
     todoModal.classList.remove("active");
   });
 });
-attachFormSubmit(form)
+
 const uploadBox = document.getElementById("uploadBox");
 const fileInput = document.getElementById("modal-file-input");
 const previewImg = document.getElementById("previewImg");
