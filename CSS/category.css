@@ -1,32 +1,3 @@
-/* .grid-left-area .task-category-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-#add-category-button{
-    border: none;
-    background-color: rgb(255, 122, 122);;
-    color: white;
-    padding: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.grid-left-area .category-card-section{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 10px;
-}
-
-.category-card{
-    min-height: 100px;
-    background-color: rgb(232, 152, 152);
-    border-radius: 10px;
-    cursor: pointer;
-} */
-
 .grid-left-area .task-category-header{
     display: flex;
     justify-content: space-between;

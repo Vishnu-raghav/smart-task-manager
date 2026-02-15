@@ -7,3 +7,11 @@ export function getTodos() {
   return Array.isArray(data) ? data : [];
 }
 
+export function getCategories(){
+  const data = JSON.parse(localStorage.getItem("category"));
+  return Array.isArray(data) ? data : [];
+}
+
+export function saveCategories(categoryName){
+  localStorage.setItem("category",JSON.stringify(categoryName));
+}

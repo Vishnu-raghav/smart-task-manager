@@ -1,4 +1,6 @@
 import {getTodos,saveTodos} from "./storage.js"
+import { getCategories, saveCategories } from "./storage.js";
+
 
 
 export function createTodo(data) {
@@ -35,4 +37,26 @@ export function updateTodo(editTodoId,data){
 
   saveTodos(todos);
 
+}
+
+
+export function createCategory(data){
+  const category = getCategories()
+
+  const newCategory = {
+    id : Date.now(),
+    ...data
+  }
+
+  category.push(newCategory)
+  saveCategories(category)
+}
+
+
+export function deleteCategory(id){
+  const category = getCategories()
+
+  category = category.filter(cat => cat.id !== id)
+
+  saveCategories(category)
 }

@@ -47,6 +47,10 @@ export function renderCategories() {
   });
 }
 
+function createCategoryAndRender(){}
+
+
+
 function showCategoryTasks(categoryName) {
   const todos = getTodos();
   const filtered = todos.filter(t => t.category === categoryName);
