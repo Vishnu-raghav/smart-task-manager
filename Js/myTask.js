@@ -10,7 +10,6 @@ const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
 const form = document.getElementById("todoForm");
 
-
 export function renderTaskList() {
   const todos = getTodos();
   listSection.innerHTML = "";
@@ -125,21 +124,13 @@ export function renderTaskList() {
   });
 }
 
-listSection.addEventListener("click", (e) => {
-  const card = e.target.closest(".todo-card");
-  if (!card) return;
-
-  const id = Number(card.dataset.id);
-  showDetails(id);
-});
-
 function showDetails(id) {
   const todo = getTodos().find(t => t.id === id);
   if (!todo) return;
   rightPanel.innerHTML = `
-      <div class="todo-detail">
-     ${
-      todo.image ? `
+  <div class="todo-detail">
+  ${
+    todo.image ? `
        <div class="img-card large">
       <img
         class="task-img"
@@ -212,6 +203,14 @@ function deleteTodoHandle(id) {
   `;
 }
 
+listSection.addEventListener("click", (e) => {
+  const card = e.target.closest(".todo-card");
+  if (!card) return;
+
+  const id = Number(card.dataset.id);
+  showDetails(id);
+});
+
 rightPanel.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
   if (!deleteBtn) return;
@@ -220,7 +219,6 @@ rightPanel.addEventListener("click", (e) => {
 
   deleteTodoHandle(id);
 });
-
 
 rightPanel.addEventListener("click", (e) => {
   const editBtn = e.target.closest(".edit-btn")

@@ -135,7 +135,6 @@ export function deleteTodoHandle(e){
  rerenderPage()
 }
 
-
 addTaskBtn.addEventListener("click", () => {
   form.reset();
   clearEditState();
@@ -172,7 +171,6 @@ todoCardSection.addEventListener("click", (e) => {
   });
 
 });
-
 
 document.addEventListener("change", (e) => {
   if(!isDashboard) return

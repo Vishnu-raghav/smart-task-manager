@@ -17,7 +17,6 @@ export function createTodo(data) {
   return newTodo
 }
 
-
 export function deleteTodo(id){
   let todos = getTodos()
   todos = todos.filter((todo) => todo.id !== id)

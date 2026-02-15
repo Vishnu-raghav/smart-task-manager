@@ -1,11 +1,13 @@
-import "./modal.js";
+
 import "./sidebar.js";
 
 rerenderPage();
 
 export function rerenderPage() {
   const page = document.body.dataset.page;
-
+  if (page === "dashboard" || page === "myTask") {
+  import("./modal.js");
+}
   if (page === "dashboard") {
     import("./dashboard.js").then(m => {
       m.renderTodos();
@@ -18,4 +20,11 @@ export function rerenderPage() {
       m.renderTaskList();
     });
   }
+
+  if (page === "category") {
+  import("./category.js").then(m => {
+    m.renderCategories();
+  });
+}
+
 }

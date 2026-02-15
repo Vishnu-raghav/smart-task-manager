@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="../CSS/header.css">
     <link rel="stylesheet" href="../CSS/sidebar.css">
     <link rel="stylesheet" href="../CSS/dashboard.css">
+    <link rel="stylesheet" href="../CSS/category.css">
 </head>
-<body>
+<body data-page="category">
      <header class="Todo-header">
          <i class="fa-solid fa-bars mobile-menu-btn"></i>
 
@@ -40,7 +41,7 @@
       </div>
     </header>
 
-        <aside class="sidebar close">
+      <aside class="sidebar close">
       <div class="sidebar-header">
         <i class="fa-solid fa-chevron-right toggle"></i>
       </div>
@@ -70,10 +71,18 @@
     </aside>
 
     <main class="home">
-       <div class="grid-container">
-        <div class="grid-left-area">left</div>
-        <div class="grid-right-area">right</div>
-       </div>
+    <div class="grid-container">
+
+    <div class="grid-left-area">
+      <div class="task-category-header">
+        <h4>Task Category</h4>
+        <button id="add-category-button">Add Category</button>
+      </div>
+
+      <div class="category-card-section" id="categoryCardSection"></div>
+    </div>
+    <div class="grid-right-area">right</div>
+    </div>
     </main>
 
 
@@ -87,5 +96,5 @@
    </footer>
     
 </body>
-<script src="../Js/sidebar.js"></script>
+  <script type="module" src="../Js/app.js"></script>
 </html>
