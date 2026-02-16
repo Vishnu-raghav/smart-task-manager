@@ -1,4 +1,3 @@
-
 import "./sidebar.js";
 
 rerenderPage();
@@ -22,6 +21,7 @@ export function rerenderPage() {
   }
 
   if (page === "category") {
+    
   import("./category.js").then(m => {
     m.renderCategories();
   });

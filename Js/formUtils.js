@@ -1,5 +1,6 @@
 import { clearEditState,getEditState } from "./taskActions.js";
 import {
+  createCategory,
   createTodo as createTodoService,
   updateTodo as updateTodoService,
 } from "./taskcrud.js";
@@ -7,7 +8,7 @@ import {
 export function isFormValid(form) {
   return (
     form.title.value.trim() !== "" &&
-    form.priority.value.trim() !== ""
+    form.priority.value.trim() !== "" 
   );
 }
 

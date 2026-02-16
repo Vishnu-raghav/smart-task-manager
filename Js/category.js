@@ -1,20 +1,27 @@
-import { getTodos } from "./storage.js";
-console.log("Categroy loaded")
+import { initForm } from "./formUtils.js";
+import { initializeCategories,getCategories, getTodos } from "./storage.js";
+import { createCategory, deleteCategory } from "./taskcrud.js";
+
 const categorySection = document.getElementById("categoryCardSection");
 const rightPanel = document.querySelector(".grid-right-area");
+const createCategoryButton = document.getElementById("add-category-button")
+const form = document.getElementById("todoForm");
 
-const defaultCategories = [
-  { name: "Study"},
-  { name: "Work" },
-  { name: "Personal"},
-  { name: "Urgent"}
-];
+const todoModal = document.getElementById("todoModal");
+const modalHeading = todoModal.querySelector(".modal-header h4");
+const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
+const closeBtn = document.querySelector(".close-modal");
+initializeCategories()
+
 
 export function renderCategories() {
   const todos = getTodos();
+    const category = getCategories()
+
   categorySection.innerHTML = "";
 
-  defaultCategories.forEach(cat => {
+
+  category.forEach(cat => {
 
     const tasks = todos.filter(t => t.category === cat.name);
     const total = tasks.length;
@@ -47,9 +54,18 @@ export function renderCategories() {
   });
 }
 
-function createCategoryAndRender(){}
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+   const formData = new FormData(form);
+   const data = Object.fromEntries(formData.entries());
 
+   createCategory(data)
+   
+   form.reset();
+   todoModal.classList.remove("active")
+   
+  })
 
 function showCategoryTasks(categoryName) {
   const todos = getTodos();
@@ -90,3 +106,29 @@ categorySection.addEventListener("click", (e) => {
   const categoryName = card.dataset.name;
   showCategoryTasks(categoryName);
 });
+
+
+createCategoryButton.addEventListener("click", () => {
+    form.reset();
+    modalSubmitBtn.disabled = true
+    
+    modalHeading.innerText = "Create Category";
+    modalSubmitBtn.innerText = "Create";
+    todoModal.classList.add("active");
+})
+
+
+
+closeBtn.addEventListener("click", () => {
+    todoModal.classList.remove("active");
+})
+
+form.name.addEventListener("input", () => {
+    if(form.name.value.trim() !== ""){
+        modalSubmitBtn.disabled = false;
+    } else {
+        modalSubmitBtn.disabled = true;
+    }
+});
+
+

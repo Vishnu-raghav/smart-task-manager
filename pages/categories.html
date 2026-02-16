@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../CSS/sidebar.css">
     <link rel="stylesheet" href="../CSS/dashboard.css">
     <link rel="stylesheet" href="../CSS/category.css">
+    <link rel="stylesheet" href="../CSS//modal.css">
 </head>
 <body data-page="category">
      <header class="Todo-header">
@@ -84,7 +85,26 @@
     <div class="grid-right-area">right</div>
     </div>
     </main>
+    
+     <div class="modal-overlay" id="todoModal">
+    <div class="modal">
 
+    <div class="modal-header">
+      <h4></h4>
+      <button class="close-modal" type="button">Go Back</button>
+    </div>
+    <form class="modal-form" id="todoForm">
+
+      <div class="modal-input">
+        <label>Name</label>
+        <input type="text" id="task-title" name="name" placeholder="Enter title" required />
+      </div>
+    </form>
+
+    <button type="submit" form="todoForm"></button>
+
+  </div>
+  </div>
 
     <footer style=" margin-top: 60px;
   padding: 25px 10px;
@@ -95,6 +115,6 @@
   <p>© 2026 Smart Todo App • Built by Vishnu</p>
    </footer>
     
+   <script type="module" src="../Js/app.js"></script>
 </body>
-  <script type="module" src="../Js/app.js"></script>
 </html>
