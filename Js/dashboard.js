@@ -13,6 +13,23 @@ const isDashboard = document.body.dataset.page === "dashboard";
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
+import { getCategories } from "./storage.js";
+populateCategoryOptions();
+
+
+function populateCategoryOptions() {
+  const select = document.getElementById("task-category");
+  const categories = getCategories();
+
+  select.innerHTML = ""; 
+
+  categories.forEach(cat => {
+    const option = document.createElement("option");
+    option.value = cat.name;
+    option.textContent = cat.name;
+    select.appendChild(option);
+  });
+}
 
 export function renderTodos() {
   if (!todoCardSection) return;
