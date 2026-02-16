@@ -22,6 +22,12 @@ function populateCategoryOptions() {
   const categories = getCategories();
 
   select.innerHTML = ""; 
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "Select Category";
+  placeholder.hidden = true; 
+  placeholder.selected = true;
+  select.appendChild(placeholder);
 
   categories.forEach(cat => {
     const option = document.createElement("option");
@@ -29,6 +35,8 @@ function populateCategoryOptions() {
     option.textContent = cat.name;
     select.appendChild(option);
   });
+  
+  select.value = ""; 
 }
 
 export function renderTodos() {
