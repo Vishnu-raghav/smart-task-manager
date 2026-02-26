@@ -43,7 +43,6 @@ export function renderCategories() {
           <input type="checkbox">
       </div>
 
-      <h3>${cat.name}</h3>
       <p>${total} Tasks</p>
       <p>${completed} Completed</p>
 
@@ -54,6 +53,16 @@ export function renderCategories() {
       <p style="font-size:11px;margin-top:8px;">
         Last task: ${lastTask}
       </p>
+
+      
+      <div class="categories-actions">
+    <button class="edit-btn edit"  ">
+      <i class="fa-solid fa-pen"></i> 
+    </button>
+    <button class="delete-btn" ">
+      <i class="fa-solid fa-trash "></i>
+    </button>
+      </div>
     `;
     categorySection.appendChild(card);
   });
