@@ -1,4 +1,3 @@
-import { initForm } from "./formUtils.js";
 import { initializeCategories,getCategories, getTodos } from "./storage.js";
 import { createCategory, deleteCategory } from "./taskcrud.js";
 
@@ -38,6 +37,12 @@ export function renderCategories() {
     card.style.background = `linear-gradient(135deg, ${cat.color} #333)`;
 
     card.innerHTML = `
+
+      <div class="category-header">
+          <h3>${cat.name}</h3>
+          <input type="checkbox">
+      </div>
+
       <h3>${cat.name}</h3>
       <p>${total} Tasks</p>
       <p>${completed} Completed</p>
@@ -116,7 +121,6 @@ createCategoryButton.addEventListener("click", () => {
     modalSubmitBtn.innerText = "Create";
     todoModal.classList.add("active");
 })
-
 
 
 closeBtn.addEventListener("click", () => {
