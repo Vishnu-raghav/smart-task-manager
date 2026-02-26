@@ -59,12 +59,24 @@ export function renderCategories() {
     <button class="edit-btn edit"  ">
       <i class="fa-solid fa-pen"></i> 
     </button>
-    <button class="delete-btn" ">
+    <button class="delete-btn">
       <i class="fa-solid fa-trash "></i>
     </button>
       </div>
     `;
+    const checkbox = card.querySelector("input");
+    const actions = card.querySelector(".categories-actions");
+
+    checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+     actions.classList.add("show");
+    } else {
+     actions.classList.remove("show");
+    }
+    })
+ 
     categorySection.appendChild(card);
+
   });
 }
 

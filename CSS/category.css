@@ -70,7 +70,16 @@
   display: flex;
   gap: 12px;
   justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
 }
+
+.categories-actions.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .categories-actions button{
   margin-top: 12px;
   border: none;
@@ -83,7 +92,6 @@
   align-items: center;
   gap: 6px;
   background: rgb(255, 122, 122);
-  display: none;
 
 }
 .categories-actions i{ 
