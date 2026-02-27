@@ -45,9 +45,13 @@ export function renderTodos() {
   todoCardSection.innerHTML = "";
 
   const todos = getTodos();
+  const categories = getCategories()
 
   todos.forEach(task => {
     if (task.completed) return; 
+
+    const categoryObj = categories.find(c => c.id == task.category);
+    const categoryName = categoryObj ? categoryObj.name : "General";
 
     const card = document.createElement("div");
     card.className = "todo-card";
@@ -82,7 +86,7 @@ export function renderTodos() {
       </div>
 
       <div class="task-Progress">
-        <p class="progress-key">Category: <span class="progress-value">${task.category || "General"}</span></p>
+        <p class="progress-key">Category: <span class="progress-value">${categoryName}</span></p>
         <p class="progress-key">Priority: <span class="progress-value">${task.priority}</span></p>
         <p class="progress-key">Status: <span class="progress-value">in progress</span></p>
         <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>

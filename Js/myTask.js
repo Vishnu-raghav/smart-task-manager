@@ -1,4 +1,4 @@
-import { getTodos , saveTodos} from "./storage.js";
+import { getCategories, getTodos , saveTodos} from "./storage.js";
 import { openEditTask } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 
@@ -12,9 +12,12 @@ const form = document.getElementById("todoForm");
 
 export function renderTaskList() {
   const todos = getTodos();
+  const category = getCategories()
   listSection.innerHTML = "";
 
   todos.forEach(task => {
+    const categoryObj = category.find((cat) => cat.id == task.category)
+
     const div = document.createElement("div");
     div.className = "todo-card";
     div.dataset.id = task.id;
@@ -101,7 +104,7 @@ export function renderTaskList() {
 >
   <span>
     Category:
-    <b style="color:#222;">${task.category || "General"}</b>
+    <b style="color:#222;">${categoryObj ? categoryObj.name : "General"}</b>
   </span>
 
   <span>
@@ -126,6 +129,11 @@ export function renderTaskList() {
 
 function showDetails(id) {
   const todo = getTodos().find(t => t.id === id);
+
+  const categories = getCategories()
+  const categoryObj = categories.find((cat) => cat.id == todo.category) 
+
+
   if (!todo) return;
   rightPanel.innerHTML = `
   <div class="todo-detail">
@@ -171,7 +179,7 @@ function showDetails(id) {
 
     <div class="detail-row">
       <p class="label">Category</p>
-      <p class="value">${todo.category}</p>
+      <p class="value">${categoryObj ? categoryObj.name : "General"}</p>
     </div>
 
     <div class="detail-row">
