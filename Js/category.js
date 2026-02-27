@@ -1,6 +1,6 @@
 import { initializeCategories,getCategories, getTodos } from "./storage.js";
 import { createCategory, deleteCategory } from "./taskcrud.js";
-
+import {openConfirmModal} from "./actionsConfirm.js"
 const categorySection = document.getElementById("categoryCardSection");
 const rightPanel = document.querySelector(".grid-right-area");
 const createCategoryButton = document.getElementById("add-category-button")
@@ -56,11 +56,11 @@ export function renderCategories() {
       </p>
 
       
-      <div class="categories-actions">
-    <button class="edit-btn edit"  ">
+    <div class="categories-actions">
+    <button class="edit-btn edit"  data-id="${cat.id}">
       <i class="fa-solid fa-pen"></i> 
     </button>
-    <button class="delete-btn">
+    <button class="delete-btn"  data-id="${cat.id}">
       <i class="fa-solid fa-trash "></i>
     </button>
       </div>
@@ -91,6 +91,7 @@ form.addEventListener("submit", (e) => {
    
    form.reset();
    todoModal.classList.remove("active")
+   renderCategories()
    
   })
 
@@ -129,6 +130,7 @@ function showCategoryTasks(categoryID) {
   });
 }
 
+
 categorySection.addEventListener("click", (e) => {
   const card = e.target.closest(".category-card");
   if (!card) return;
@@ -137,6 +139,34 @@ categorySection.addEventListener("click", (e) => {
   showCategoryTasks(categoryID);
 });
 
+
+
+categorySection.addEventListener("click", (e) => {
+  const deleteBtn = e.target.closest(".delete-btn");
+  if (!deleteBtn) return;
+
+  e.stopPropagation();
+
+  const id = Number(deleteBtn.dataset.id);  
+
+  
+  openConfirmModal("Delete this category?", () => {
+    deleteCategory(id);
+    renderCategories();
+    rightPanel.innerHTML = "";
+  });
+});
+
+categorySection.addEventListener("click", (e) => {
+  const editBtn = e.target.closest(".edit-btn");
+  if (!editBtn) return;
+
+  e.stopPropagation(); 
+
+  const id = Number(editBtn.dataset.id);
+
+  openEditModal(id);
+});
 
 createCategoryButton.addEventListener("click", () => {
     form.reset();

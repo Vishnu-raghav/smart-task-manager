@@ -54,7 +54,7 @@ export function createCategory(data){
 
 
 export function deleteCategory(id){
-  const category = getCategories()
+  let category = getCategories()
 
   category = category.filter(cat => cat.id !== id)
 
