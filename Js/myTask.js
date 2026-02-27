@@ -1,6 +1,7 @@
 import { getCategories, getTodos , saveTodos} from "./storage.js";
 import { openEditTask } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
+import {openConfirmModal} from "./actionsConfirm.js"
 
 import {
   deleteTodo as deleteTodoService
@@ -200,15 +201,19 @@ function showDetails(id) {
 }
 
 function deleteTodoHandle(id) {
-  deleteTodoService(id)
 
-  renderTaskList();
+  openConfirmModal("Are you sure you want to delete this task?", () => {
+    deleteTodoService(id);
 
-  rightPanel.innerHTML = `
-    <p style="color:#777;text-align:center;margin-top:40px;">
-      Task deleted successfully
-    </p>
-  `;
+    renderTaskList();
+
+    rightPanel.innerHTML = `
+      <p style="color:#777;text-align:center;margin-top:40px;">
+        Task deleted successfully
+      </p>
+    `;
+
+  });
 }
 
 listSection.addEventListener("click", (e) => {
@@ -221,6 +226,7 @@ listSection.addEventListener("click", (e) => {
 
 rightPanel.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
+
   if (!deleteBtn) return;
 
   const id = Number(deleteBtn.dataset.id);

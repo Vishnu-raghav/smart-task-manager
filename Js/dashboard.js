@@ -3,6 +3,8 @@ import { getTodos, saveTodos } from "./storage.js";
 import { openEditTask, clearEditState } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 import {deleteTodo as deleteTodoService} from "./taskcrud.js";
+import {openConfirmModal} from "./actionsConfirm.js"
+
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
@@ -160,8 +162,10 @@ export function deleteTodoHandle(e){
  const card = deleteBtn.closest(".todo-card")
  const id = Number(card.dataset.id)
 
+ openConfirmModal("Are you sure you want to delete this task?", () => {
  deleteTodoService(id)
  rerenderPage()
+ })
 }
 
 addTaskBtn.addEventListener("click", () => {
