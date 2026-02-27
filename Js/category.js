@@ -15,14 +15,15 @@ initializeCategories()
 
 export function renderCategories() {
   const todos = getTodos();
-    const category = getCategories()
+  const category = getCategories()
 
+  console.log(todos);
   categorySection.innerHTML = "";
 
 
   category.forEach(cat => {
 
-    const tasks = todos.filter(t => t.category === cat.name);
+    const tasks = todos.filter(t => t.category == cat.id);
     const total = tasks.length;
     const completed = tasks.filter(t => t.completed).length;
     const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
@@ -33,7 +34,7 @@ export function renderCategories() {
 
     const card = document.createElement("div");
     card.className = "category-card";
-    card.dataset.name = cat.name;
+    card.dataset.id = cat.id;
     card.style.background = `linear-gradient(135deg, ${cat.color} #333)`;
 
     card.innerHTML = `
@@ -93,13 +94,16 @@ form.addEventListener("submit", (e) => {
    
   })
 
-function showCategoryTasks(categoryName) {
+function showCategoryTasks(categoryID) {
   const todos = getTodos();
-  const filtered = todos.filter(t => t.category === categoryName);
+  const filtered = todos.filter(t => t.category  == categoryID);
+  const categories = getCategories()
+  const categoryObj = categories.find(c => c.id == categoryID);
+  const categoryName = categoryObj ? categoryObj.name : "Unknown";
 
   if (!filtered.length) {
     rightPanel.innerHTML = `
-      <p style="color:#777;">No tasks in ${categoryName}</p>
+      <p style="color:#777;">No tasks in ${categoryName} </p>
     `;
     return;
   }
@@ -129,8 +133,8 @@ categorySection.addEventListener("click", (e) => {
   const card = e.target.closest(".category-card");
   if (!card) return;
 
-  const categoryName = card.dataset.name;
-  showCategoryTasks(categoryName);
+  const categoryID = card.dataset.id;
+  showCategoryTasks(categoryID);
 });
 
 

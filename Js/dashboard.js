@@ -31,7 +31,7 @@ function populateCategoryOptions() {
 
   categories.forEach(cat => {
     const option = document.createElement("option");
-    option.value = cat.name;
+    option.value = cat.id;
     option.textContent = cat.name;
     select.appendChild(option);
   });

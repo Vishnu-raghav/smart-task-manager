@@ -1,6 +1,5 @@
 import { clearEditState,getEditState } from "./taskActions.js";
 import {
-  createCategory,
   createTodo as createTodoService,
   updateTodo as updateTodoService,
 } from "./taskcrud.js";
@@ -31,6 +30,8 @@ export function initForm(form, onSuccess) {
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+
+    console.log(data)
 
     const { editTodoId } = getEditState();
 
