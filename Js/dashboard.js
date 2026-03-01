@@ -1,9 +1,18 @@
 import { rerenderPage } from "./app.js";
 import { getTodos, saveTodos } from "./storage.js";
-import { openEditTask, clearEditState } from "./taskActions.js";
+import { 
+  openEditTask, 
+  clearEditState, 
+  getEditState 
+} from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 import {deleteTodo as deleteTodoService} from "./taskcrud.js";
 import {openConfirmModal} from "./actionsConfirm.js"
+
+import {
+  createTodo as createTodoService,
+  updateTodo as updateTodoService,
+} from "./taskcrud.js";
 
 
 const form = document.getElementById("todoForm");
@@ -179,8 +188,12 @@ addTaskBtn.addEventListener("click", () => {
   todoModal.classList.add("active");
 });
 
-initForm(form, () => {
-  rerenderPage();
+initForm(form, {
+  createFn: createTodoService,
+  updateFn: updateTodoService,
+  getEditState,
+  clearEditState,
+  onSuccess:  rerenderPage
 });
 
 todoCardSection.addEventListener("click", (e) => {

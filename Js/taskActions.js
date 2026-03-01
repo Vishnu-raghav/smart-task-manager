@@ -1,7 +1,9 @@
-import { getTodos } from "./storage.js";
+import { getTodos, getCategories } from "./storage.js";
 
 let editTodoId = null;
 let originalTodoData = null;
+let editCategoryId = null;
+let originalCatData = null
 
 export function openEditTask(id, {
   form,
@@ -36,11 +38,41 @@ export function openEditTask(id, {
   modal.classList.add("active");
 }
 
+export function openEditCategory(id, {
+  form,
+  modal,
+  modalHeading,
+  submitBtn
+}) {
+  const categories = getCategories();
+  const category = categories.find(c => c.id == id);
+  if (!category) return;
+
+  editCategoryId = id;
+
+  form.name.value = category.name;
+
+  originalCatData = {
+    name : category.name
+  }
+
+  modalHeading.innerText = "Edit Category";
+  submitBtn.innerText = "Update Category";
+  submitBtn.disabled = false;
+
+  modal.classList.add("active");
+}
+
 export function getEditState() {
-  return { editTodoId, originalTodoData };
+  return { editTodoId, originalTodoData, editCategoryId, originalCatData  };
 }
 
 export function clearEditState() {
   editTodoId = null;
   originalTodoData = null;
+  editCategoryId = null
+  originalCatData = null
 }
+
+
+

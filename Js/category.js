@@ -1,6 +1,9 @@
 import { initializeCategories,getCategories, getTodos } from "./storage.js";
-import { createCategory, deleteCategory } from "./taskcrud.js";
+import { createCategory, deleteCategory,updateCategory } from "./taskcrud.js";
 import {openConfirmModal} from "./actionsConfirm.js"
+import { openEditCategory, getEditState, clearEditState } from "./taskActions.js";
+import { initForm } from "./formUtils.js";
+
 const categorySection = document.getElementById("categoryCardSection");
 const rightPanel = document.querySelector(".grid-right-area");
 const createCategoryButton = document.getElementById("add-category-button")
@@ -17,11 +20,11 @@ export function renderCategories() {
   const todos = getTodos();
   const category = getCategories()
 
-  console.log(todos);
   categorySection.innerHTML = "";
 
 
   category.forEach(cat => {
+     if (!cat || cat.id == null) return; 
 
     const tasks = todos.filter(t => t.category == cat.id);
     const total = tasks.length;
@@ -38,11 +41,15 @@ export function renderCategories() {
     card.style.background = `linear-gradient(135deg, ${cat.color} #333)`;
 
     card.innerHTML = `
-
-      <div class="category-header">
-          <h3>${cat.name}</h3>
-          <input type="checkbox">
-      </div>
+   ${!cat.isDefault 
+  ? `<div class="category-header">
+       <h3>${cat.name}</h3>
+       <input type="checkbox">
+     </div>` 
+  : `<div class="category-header">
+       <h3>${cat.name}</h3>
+     </div>`
+}
 
       <p>${total} Tasks</p>
       <p>${completed} Completed</p>
@@ -55,45 +62,35 @@ export function renderCategories() {
         Last task: ${lastTask}
       </p>
 
-      
-    <div class="categories-actions">
-    <button class="edit-btn edit"  data-id="${cat.id}">
-      <i class="fa-solid fa-pen"></i> 
-    </button>
-    <button class="delete-btn"  data-id="${cat.id}">
-      <i class="fa-solid fa-trash "></i>
-    </button>
-      </div>
+    ${!cat.isDefault ? `
+<div class="categories-actions">
+  <button class="edit-btn edit" data-id="${cat.id}">
+    <i class="fa-solid fa-pen"></i> 
+  </button>
+  <button class="delete-btn" data-id="${cat.id}">
+    <i class="fa-solid fa-trash"></i>
+  </button>
+</div>
+` : ""}
     `;
     const checkbox = card.querySelector("input");
     const actions = card.querySelector(".categories-actions");
 
-    checkbox.addEventListener("change", () => {
+   if (checkbox) {   
+  checkbox.addEventListener("change", () => {
     if (checkbox.checked) {
-     actions.classList.add("show");
+      actions.classList.add("show");
     } else {
-     actions.classList.remove("show");
+      actions.classList.remove("show");
     }
-    })
+  });
+}
  
     categorySection.appendChild(card);
 
   });
 }
 
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-   const formData = new FormData(form);
-   const data = Object.fromEntries(formData.entries());
-
-   createCategory(data)
-   
-   form.reset();
-   todoModal.classList.remove("active")
-   renderCategories()
-   
-  })
 
 function showCategoryTasks(categoryID) {
   const todos = getTodos();
@@ -165,7 +162,13 @@ categorySection.addEventListener("click", (e) => {
 
   const id = Number(editBtn.dataset.id);
 
-  openEditModal(id);
+  openEditCategory(id, {
+  form: document.getElementById("todoForm"),
+  modal: document.getElementById("todoModal"),
+  modalHeading: document.querySelector(".modal-header h4"),
+  submitBtn: document.querySelector('button[type="submit"]')
+  });
+  
 });
 
 createCategoryButton.addEventListener("click", () => {
@@ -190,4 +193,11 @@ form.name.addEventListener("input", () => {
     }
 });
 
+initForm(form, {
+  createFn: createCategory,
+  updateFn: updateCategory,
+  getEditState,
+  clearEditState,
+  onSuccess: renderCategories
+});
 

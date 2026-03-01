@@ -22,3 +22,4 @@ confirmNoBtn.addEventListener("click", () => {
   confirmAction = null;
   confirmModal.classList.remove("active");
 });
+

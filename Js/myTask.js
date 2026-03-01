@@ -1,10 +1,12 @@
 import { getCategories, getTodos , saveTodos} from "./storage.js";
-import { openEditTask } from "./taskActions.js";
+import {   clearEditState, getEditState ,openEditTask } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
 
 import {
-  deleteTodo as deleteTodoService
+  deleteTodo as deleteTodoService,
+  createTodo as createTodoService,
+  updateTodo as updateTodoService,
 } from "./taskcrud.js";
 
 const rightPanel = document.querySelector(".grid-right-area")
@@ -198,6 +200,7 @@ function showDetails(id) {
     </button>
   </div>
   `;
+
 }
 
 function deleteTodoHandle(id) {
@@ -249,9 +252,12 @@ rightPanel.addEventListener("click", (e) => {
 
 })
 
-initForm(form, () => {
-  renderTaskList();
+initForm(form, {
+  createFn: createTodoService,
+  updateFn: updateTodoService,
+  getEditState,
+  clearEditState,
+  onSuccess: renderTaskList
 });
-
 
 

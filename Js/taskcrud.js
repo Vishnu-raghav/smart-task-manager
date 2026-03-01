@@ -45,7 +45,8 @@ export function createCategory(data){
 
   const newCategory = {
     id : Date.now(),
-    ...data
+    ...data,
+    isDefault: false 
   }
 
   category.push(newCategory)
@@ -59,4 +60,24 @@ export function deleteCategory(id){
   category = category.filter(cat => cat.id !== id)
 
   saveCategories(category)
+
+
+  let todos = getTodos();
+  todos = todos.filter(todo => todo.category != id);
+  saveTodos(todos);
+
+}
+
+export function updateCategory(editCategoryId,data){
+  let category = getCategories()
+
+   const target = category.find(c => c.id === id)
+   if(target?.isDefault) return 
+  
+  category = category.map((cat) => {
+    return cat.id === editCategoryId ? {...cat, ...data} : cat
+  })
+
+  saveCategories(category)
+  
 }

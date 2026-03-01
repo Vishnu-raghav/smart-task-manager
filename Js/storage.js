@@ -11,8 +11,6 @@ export function getTodos() {
 const defaultCategories = [
   {id: Date.now() + 1 ,name: "Study",isDefault: true },
   {id: Date.now() + 2 ,name: "Work", isDefault: true },
-  {id: Date.now() + 3 ,name: "Personal", isDefault: true },
-  {id: Date.now() + 4 ,name: "Urgent", isDefault: true }
 ];
 
 export function initializeCategories() {
