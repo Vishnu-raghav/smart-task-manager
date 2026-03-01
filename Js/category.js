@@ -3,6 +3,7 @@ import { createCategory, deleteCategory,updateCategory } from "./taskcrud.js";
 import {openConfirmModal} from "./actionsConfirm.js"
 import { openEditCategory, getEditState, clearEditState } from "./taskActions.js";
 import { initForm } from "./formUtils.js";
+import { initDragAndDrop } from "./dragDrop.js";
 
 const categorySection = document.getElementById("categoryCardSection");
 const rightPanel = document.querySelector(".grid-right-area");
@@ -15,6 +16,7 @@ const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const closeBtn = document.querySelector(".close-modal");
 initializeCategories()
 
+let activeCategoryId = null;
 
 export function renderCategories() {
   const todos = getTodos();
@@ -87,8 +89,14 @@ export function renderCategories() {
 }
  
     categorySection.appendChild(card);
-
+    
   });
+  initDragAndDrop();
+
+  if (activeCategoryId !== null) {
+  showCategoryTasks(activeCategoryId); 
+}
+
 }
 
 
@@ -110,6 +118,9 @@ function showCategoryTasks(categoryID) {
 
   filtered.forEach(task => {
     const div = document.createElement("div");
+    div.classList.add("task-item");       
+    div.setAttribute("draggable", "true"); 
+    div.dataset.id = task.id;  
     div.style.marginBottom = "12px";
     div.style.padding = "12px";
     div.style.borderRadius = "10px";
@@ -133,6 +144,7 @@ categorySection.addEventListener("click", (e) => {
   if (!card) return;
 
   const categoryID = card.dataset.id;
+  activeCategoryId = categoryID; 
   showCategoryTasks(categoryID);
 });
 

@@ -97,3 +97,22 @@
 .categories-actions i{ 
   color: white;
 }
+
+.dragging {
+  opacity: 0.5;
+}
+.drag-over {
+  border: 2px dashed #ff7a7a;
+  transform: scale(1.05);
+  background: #fff3f3;
+}
+
+.task-item {
+  cursor: grab;
+  transition: 0.2s;
+}
+
+.task-item:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
