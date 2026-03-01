@@ -58,6 +58,15 @@ export function renderTodos() {
   const todos = getTodos();
   const categories = getCategories()
 
+  if (todos.length === 0) {
+    todoCardSection.innerHTML = `
+      <div class="empty-state">
+        <p>No tasks Click "Add Task" to get started</p>
+      </div>
+    `;
+    return;
+  }
+
   todos.forEach(task => {
     if (task.completed) return; 
 

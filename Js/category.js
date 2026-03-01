@@ -95,7 +95,14 @@ export function renderCategories() {
 
   if (activeCategoryId !== null) {
   showCategoryTasks(activeCategoryId); 
-}
+  }else{
+   rightPanel.innerHTML = `
+    <div class="empty-state">
+      <i class="fa-regular fa-folder-open"></i>
+      <p>Select a category to view tasks</p>
+    </div>
+  `;
+  }
 
 }
 
@@ -108,11 +115,14 @@ function showCategoryTasks(categoryID) {
   const categoryName = categoryObj ? categoryObj.name : "Unknown";
 
   if (!filtered.length) {
-    rightPanel.innerHTML = `
-      <p style="color:#777;">No tasks in ${categoryName} </p>
-    `;
-    return;
-  }
+  rightPanel.innerHTML = `
+    <div class="empty-state">
+      <i class="fa-regular fa-clipboard"></i>
+      <p>No tasks in ${categoryName}</p>
+    </div>
+  `;
+  return;
+}
 
   rightPanel.innerHTML = `<h3>${categoryName} Tasks</h3>`;
 
@@ -162,7 +172,13 @@ categorySection.addEventListener("click", (e) => {
   openConfirmModal("Delete this category?", () => {
     deleteCategory(id);
     renderCategories();
-    rightPanel.innerHTML = "";
+    rightPanel.innerHTML = `
+    <div class="empty-state">
+      <i class="fa-regular fa-folder-open"></i>
+      <p>Select a category to view tasks</p>
+    </div>
+  `;
+  activeCategoryId = null;
   });
 });
 

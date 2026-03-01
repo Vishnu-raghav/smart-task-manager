@@ -18,6 +18,15 @@ export function renderTaskList() {
   const category = getCategories()
   listSection.innerHTML = "";
 
+  if (todos.length === 0) {
+    listSection.innerHTML = `
+      <div class="empty-state">
+        <p>No tasks Click "Add Task" to get started</p>
+      </div>
+    `;
+    return;
+  }
+
   todos.forEach(task => {
     const categoryObj = category.find((cat) => cat.id == task.category)
 
@@ -128,9 +137,19 @@ export function renderTaskList() {
     `
     listSection.appendChild(div);
   });
+    showDetails(); 
 }
 
 function showDetails(id) {
+    if (!id) {
+    rightPanel.innerHTML = `
+      <div class="empty-state">
+        <i class="fa-regular fa-folder-open"></i>
+        <p>Select a task to view details</p>
+      </div>
+    `;
+    return;
+  }
   const todo = getTodos().find(t => t.id === id);
 
   const categories = getCategories()
@@ -138,6 +157,10 @@ function showDetails(id) {
 
 
   if (!todo) return;
+
+  
+
+
   rightPanel.innerHTML = `
   <div class="todo-detail">
   ${
@@ -209,12 +232,7 @@ function deleteTodoHandle(id) {
     deleteTodoService(id);
 
     renderTaskList();
-
-    rightPanel.innerHTML = `
-      <p style="color:#777;text-align:center;margin-top:40px;">
-        Task deleted successfully
-      </p>
-    `;
+    showDetails(); 
 
   });
 }

@@ -112,7 +112,7 @@
         </div> -->
       </div>
     </div>
-    <div class="grid-right-area">right</div>
+    <div class="grid-right-area"></div>
     </div>
     </main>
     
@@ -137,15 +137,25 @@
     </div>
 
   <div id="confirmModal" class="modal-overlay">
-  <div class="modal">
-    <h4 id="confirmText"></h4>
-
-    <div style="display:flex; gap:10px;">
-      <button id="confirmYes">Confirm</button>
-      <button id="confirmNo">Cancel</button>
+  <div class="confirm-modal">
+    
+    <div class="confirm-icon">
+      <i class="fa-solid fa-triangle-exclamation"></i>
     </div>
+
+    <h4 id="confirmText">Are you sure?</h4>
+
+    <p class="confirm-subtext">
+      This action cannot be undone.
+    </p>
+
+    <div class="confirm-actions">
+      <button id="confirmNo" class="cancel-btn">Cancel</button>
+      <button id="confirmYes" class="confirm-btn">Delete</button>
+    </div>
+
   </div>
-  </div>
+</div>
 
     <footer style=" margin-top: 60px;
   padding: 25px 10px;
