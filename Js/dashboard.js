@@ -87,7 +87,7 @@ export function renderTodos() {
         ` : ""}
         <div class="task-details">
           <span>${task.title || "No title"}</span>
-          <p>${task.description || "No description"}</p>
+          <p>${task.desc || "No description"}</p>
         </div>
 
         ${task.image ? `

@@ -72,9 +72,9 @@ function showImage(file){
 
 
 form.addEventListener("input", () => {
-  const { editTodoId } = getEditState();
+  const { editTodoId, editCategoryId } = getEditState();
 
-  if (editTodoId === null) {
+  if (editTodoId === null && editCategoryId === null) {
     submitBtn.disabled = !isFormValid(form);
   } else {
     submitBtn.disabled = !isEditChanged(form);

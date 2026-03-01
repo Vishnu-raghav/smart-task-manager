@@ -17,16 +17,16 @@ export function isEditChanged(form) {
 
   if (originalTodoData) {
     return (
-      form.title.value !== originalTodoData.title ||
-      form.desc.value !== originalTodoData.desc ||
-      form.priority.value !== originalTodoData.priority ||
-      form.category.value !== originalTodoData.category ||
-      form.dueDate.value !== originalTodoData.dueDate
+      form.title.value.trim() !== originalTodoData.title.trim() ||
+      form.desc.value.trim() !== originalTodoData.desc.trim() ||
+      form.priority.value.trim() !== originalTodoData.priority.trim() ||
+      form.category.value.trim() !== originalTodoData.category.trim() ||
+      form.dueDate.value.trim() !== originalTodoData.dueDate.trim()
     );
   }
 
   if (originalCatData) {
-    return form.name.value !== originalCatData.name;
+    return form.name.value.trim() !== originalCatData.name.trim();;
   }
 
   return false;

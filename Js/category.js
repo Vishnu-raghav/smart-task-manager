@@ -118,7 +118,7 @@ function showCategoryTasks(categoryID) {
     div.innerHTML = `
       <strong>${task.title}</strong>
       <p style="margin:4px 0;color:#666;">
-        ${task.description || "No description"}
+        ${task.desc || "No description"}
       </p>
       <small>Priority: ${task.priority}</small>
     `;

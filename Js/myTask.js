@@ -62,7 +62,7 @@ export function renderTaskList() {
         margin:0;
       "
     >
-      ${task.description || "No description"}
+      ${task.desc || "No description"}
     </p>
   </div>
 
@@ -176,7 +176,7 @@ function showDetails(id) {
     <div class="detail-row">
       <p class="label">Description</p>
       <p class="value">
-        ${todo.description}
+        ${todo.desc}
       </p>
     </div>
 

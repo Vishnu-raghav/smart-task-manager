@@ -18,14 +18,14 @@ export function openEditTask(id, {
   editTodoId = id;
 
   form.title.value = todo.title;
-  form.desc.value = todo.description;
+  form.desc.value = todo.desc;
   form.priority.value = todo.priority;
   form.category.value = todo.category;
   form.dueDate.value = todo.dueDate;
 
   originalTodoData = {
     title: todo.title,
-    desc: todo.description,
+    desc: todo.desc,
     priority: todo.priority,
     category: todo.category,
     dueDate: todo.dueDate
@@ -58,7 +58,7 @@ export function openEditCategory(id, {
 
   modalHeading.innerText = "Edit Category";
   submitBtn.innerText = "Update Category";
-  submitBtn.disabled = false;
+  submitBtn.disabled = true;
 
   modal.classList.add("active");
 }
