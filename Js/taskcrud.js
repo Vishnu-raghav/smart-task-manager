@@ -58,6 +58,9 @@ export function deleteCategory(id){
   let category = getCategories()
 
   category = category.filter(cat => cat.id !== id)
+  
+  const target = category.find(c => c.id === id)
+   if(target?.isDefault) return 
 
   saveCategories(category)
 
@@ -71,9 +74,9 @@ export function deleteCategory(id){
 export function updateCategory(editCategoryId,data){
   let category = getCategories()
 
-   const target = category.find(c => c.id === id)
+   const target = category.find(c => c.id === editCategoryId)
    if(target?.isDefault) return 
-  
+
   category = category.map((cat) => {
     return cat.id === editCategoryId ? {...cat, ...data} : cat
   })
