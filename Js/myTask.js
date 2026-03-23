@@ -9,6 +9,8 @@ import {
   updateTodo as updateTodoService,
 } from "./taskcrud.js";
 
+import {populateOptions as populateCategoryOptions} from "../utils/populateOptions.js"
+
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
 const form = document.getElementById("todoForm");
@@ -16,33 +18,12 @@ const addTaskBtn = document.querySelector(".Add-Task");
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
+const select = document.getElementById("task-category");
 
 
-
-populateCategoryOptions();
-
-
-function populateCategoryOptions() {
-  const select = document.getElementById("task-category");
-  const categories = getCategories();
-
-  select.innerHTML = ""; 
-  const placeholder = document.createElement("option");
-  placeholder.value = "";
-  placeholder.textContent = "Select Category";
-  placeholder.hidden = true; 
-  placeholder.selected = true;
-  select.appendChild(placeholder);
-
-  categories.forEach(cat => {
-    const option = document.createElement("option");
-    option.value = cat.id;
-    option.textContent = cat.name;
-    select.appendChild(option);
-  });
-  
-  select.value = ""; 
-}
+populateCategoryOptions(select , getCategories(), {
+  placeholderText: "Select Category"
+});
 
 export function renderTaskList() {
   const todos = getTodos();

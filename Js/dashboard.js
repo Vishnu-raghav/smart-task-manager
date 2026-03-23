@@ -7,12 +7,15 @@ import {
 } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
+import { getCategories } from "./storage.js";
 
 import {
   createTodo as createTodoService,
   updateTodo as updateTodoService,
   deleteTodo as deleteTodoService
 } from "./taskcrud.js";
+
+import {populateOptions as populateCategoryOptions} from "../utils/populateOptions.js"
 
 
 const form = document.getElementById("todoForm");
@@ -24,31 +27,13 @@ const isDashboard = document.body.dataset.page === "dashboard";
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
-import { getCategories } from "./storage.js";
-populateCategoryOptions();
+const select = document.getElementById("task-category");
 
 
-function populateCategoryOptions() {
-  const select = document.getElementById("task-category");
-  const categories = getCategories();
+populateCategoryOptions(select , getCategories(), {
+  placeholderText: "Select Category"
+});
 
-  select.innerHTML = ""; 
-  const placeholder = document.createElement("option");
-  placeholder.value = "";
-  placeholder.textContent = "Select Category";
-  placeholder.hidden = true; 
-  placeholder.selected = true;
-  select.appendChild(placeholder);
-
-  categories.forEach(cat => {
-    const option = document.createElement("option");
-    option.value = cat.id;
-    option.textContent = cat.name;
-    select.appendChild(option);
-  });
-  
-  select.value = ""; 
-}
 
 export function renderTodos() {
   if (!todoCardSection) return;
