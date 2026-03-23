@@ -6,12 +6,12 @@ import {
   getEditState 
 } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
-import {deleteTodo as deleteTodoService} from "./taskcrud.js";
 import {openConfirmModal} from "./actionsConfirm.js"
 
 import {
   createTodo as createTodoService,
   updateTodo as updateTodoService,
+  deleteTodo as deleteTodoService
 } from "./taskcrud.js";
 
 

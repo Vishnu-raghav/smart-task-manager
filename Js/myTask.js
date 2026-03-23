@@ -12,6 +12,37 @@ import {
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
 const form = document.getElementById("todoForm");
+const addTaskBtn = document.querySelector(".Add-Task");
+const todoModal = document.getElementById("todoModal");
+const modalHeading = todoModal.querySelector(".modal-header h4");
+const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
+
+
+
+populateCategoryOptions();
+
+
+function populateCategoryOptions() {
+  const select = document.getElementById("task-category");
+  const categories = getCategories();
+
+  select.innerHTML = ""; 
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "Select Category";
+  placeholder.hidden = true; 
+  placeholder.selected = true;
+  select.appendChild(placeholder);
+
+  categories.forEach(cat => {
+    const option = document.createElement("option");
+    option.value = cat.id;
+    option.textContent = cat.name;
+    select.appendChild(option);
+  });
+  
+  select.value = ""; 
+}
 
 export function renderTaskList() {
   const todos = getTodos();
@@ -269,6 +300,18 @@ rightPanel.addEventListener("click", (e) => {
   });
 
 })
+
+addTaskBtn.addEventListener("click", () => {
+  form.reset();
+  clearEditState();
+  modalSubmitBtn.disabled = true;
+  
+  modalHeading.innerText = "Add New Task";
+  modalSubmitBtn.innerText = "Done";
+  
+  todoModal.classList.add("active");
+});
+
 
 initForm(form, {
   createFn: createTodoService,
