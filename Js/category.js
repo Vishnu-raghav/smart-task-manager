@@ -91,6 +91,7 @@ export function renderCategories() {
     categorySection.appendChild(card);
     
   });
+  
   initDragAndDrop();
 
   if (activeCategoryId !== null) {
