@@ -47,41 +47,20 @@ export function renderTaskList() {
     div.dataset.id = task.id;
     div.innerHTML = `
 <div 
-  style="
-    display:flex;
-    gap:14px;
-    padding:16px;
-    border-radius:14px;
-    background:#f6f7fb;
-    cursor:pointer;
-    transition:all .25s ease;
-    box-shadow:0 2px 6px rgba(0,0,0,.06);
-    flex-wrap:wrap;
-  "
+   class="task-list-card"
 
 >
   
   <!-- LEFT TEXT -->
-  <div style="flex:1;min-width:180px;">
+  <div class="task-list-content">
     <span 
-      style="
-        display:block;
-        font-size:16px;
-        font-weight:600;
-        color:#222;
-        margin-bottom:6px;
-      "
+     class="task-list-title"
     >
       ${task.title || "No title"}
     </span>
 
     <p 
-      style="
-        font-size:14px;
-        color:#666;
-        line-height:1.4;
-        margin:0;
-      "
+    class="task-list-desc"
     >
       ${task.desc || "No description"}
     </p>
@@ -91,13 +70,7 @@ export function renderTaskList() {
     task.image
       ? `
         <div 
-          style="
-            width:90px;
-            height:90px;
-            border-radius:12px;
-            overflow:hidden;
-            flex-shrink:0;
-          "
+        class="task-list-img"
         >
           <img 
             src="${task.image}" 
@@ -116,15 +89,7 @@ export function renderTaskList() {
 </div>
 
 <div 
-  style="
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px 16px;
-    margin-top:10px;
-    padding-left:4px;
-    font-size:12.5px;
-    color:#555;
-  "
+
 >
   <span>
     Category:
