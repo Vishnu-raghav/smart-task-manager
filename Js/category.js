@@ -95,7 +95,17 @@ export function renderCategories() {
   initDragAndDrop();
 
   if (activeCategoryId !== null) {
+
   showCategoryTasks(activeCategoryId); 
+
+  const activeCard = document.querySelector(
+    `.category-card[data-id="${activeCategoryId}"]`
+  );
+
+  if (activeCard) {
+    activeCard.classList.add("active");
+  }
+  
   }else{
    rightPanel.innerHTML = `
     <div class="empty-state">
@@ -138,11 +148,17 @@ function showCategoryTasks(categoryID) {
     div.style.background = "#f6f7fb";
 
     div.innerHTML = `
-      <strong>${task.title}</strong>
-      <p style="margin:4px 0;color:#666;">
-        ${task.desc || "No description"}
-      </p>
-      <small>Priority: ${task.priority}</small>
+     <div class="category-task-card">
+    <div class="category-task-title">
+      ${task.title}
+    </div>
+
+    <div class="category-task-desc">
+      ${task.desc || "No description"}
+    </div>
+
+    <small>Priority: ${task.priority}</small>
+  </div>
     `;
 
     rightPanel.appendChild(div);
@@ -153,6 +169,12 @@ function showCategoryTasks(categoryID) {
 categorySection.addEventListener("click", (e) => {
   const card = e.target.closest(".category-card");
   if (!card) return;
+
+   document.querySelectorAll(".category-card").forEach(c => {
+    c.classList.remove("active");
+  });
+
+  card.classList.add("active");
 
   const categoryID = card.dataset.id;
   activeCategoryId = categoryID; 
