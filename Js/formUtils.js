@@ -1,4 +1,5 @@
 import { getEditState } from "./taskActions.js";
+import {getImage, clearImage} from "../utils/imageState.js"
 
 
 export function isFormValid(form) {
@@ -32,7 +33,7 @@ export function isEditChanged(form) {
   return false;
 }
 
-export function initForm(form, config) {
+export function initForm(form, config = {}) {
   const {
     createFn,
     updateFn,
@@ -44,9 +45,13 @@ export function initForm(form, config) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const data = Object.fromEntries(new FormData(form).entries());
+   const formData = Object.fromEntries(new FormData(form).entries());
     const { editTodoId, editCategoryId } = getEditState();
 
+    const data = {
+      ...formData,
+      image : getImage()
+    }
     
    if (editTodoId !== null) {
      updateFn(editTodoId, data);
@@ -56,6 +61,7 @@ export function initForm(form, config) {
      createFn(data);
    }
 
+   clearImage()
     form.reset();
     clearEditState();
     document.getElementById("todoModal").classList.remove("active");

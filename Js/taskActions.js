@@ -1,4 +1,8 @@
+import { setImage } from "../utils/imageState.js";
 import { getTodos, getCategories } from "./storage.js";
+const previewImg = document.getElementById("previewImg");
+const uploadContent = document.querySelector(".upload-content");
+
 
 let editTodoId = null;
 let originalTodoData = null;
@@ -23,12 +27,20 @@ export function openEditTask(id, {
   form.category.value = todo.category;
   form.dueDate.value = todo.dueDate;
 
+  if(todo.image){
+    previewImg.src = todo.image;
+    previewImg.style.display = "block";
+    uploadContent.style.display = "none";
+    setImage(todo.image)
+  }
+
   originalTodoData = {
     title: todo.title,
     desc: todo.desc,
     priority: todo.priority,
     category: todo.category,
-    dueDate: todo.dueDate
+    dueDate: todo.dueDate,
+    image : todo.image
   };
 
   modalHeading.innerText = "Edit Task";

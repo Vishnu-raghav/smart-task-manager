@@ -1,5 +1,6 @@
 import { isFormValid, isEditChanged } from "./formUtils.js";
 import { getEditState, clearEditState } from "./taskActions.js";
+import {setImage} from "../utils/imageState.js"
 
 const form = document.getElementById("todoForm");
 const submitBtn = document.querySelector('button[type="submit"]');
@@ -29,7 +30,8 @@ uploadBox.addEventListener("click", () => fileInput.click());
 
 
 fileInput.addEventListener("change", () => {
-  showImage(fileInput.files[0]);
+  const file = fileInput.files[0]
+  showImage(file);
 });
 
 uploadBox.addEventListener("dragover", (e) => {
@@ -60,6 +62,7 @@ function showImage(file){
 
   const reader = new FileReader();
   reader.onload = () => {
+    setImage(reader.result)
     previewImg.src = reader.result;
     previewImg.style.display = "block";
     uploadContent.style.display = "none";
