@@ -86,7 +86,7 @@ export function renderCategories() {
       actions.classList.remove("show");
     }
   });
-}
+  }
  
     categorySection.appendChild(card);
     
@@ -104,8 +104,9 @@ export function renderCategories() {
 
   if (activeCard) {
     activeCard.classList.add("active");
+    activeCard.scrollIntoView({ behavior: "smooth", block: "center" });
   }
-  
+
   }else{
    rightPanel.innerHTML = `
     <div class="empty-state">

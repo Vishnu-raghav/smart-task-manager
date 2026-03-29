@@ -100,6 +100,8 @@ export function renderTodos() {
 
     todoCardSection.appendChild(card);
   });
+
+  updateProgressUI();
 }
 
 export function renderCompletedTodos() {
@@ -169,6 +171,25 @@ export function deleteTodoHandle(e){
  deleteTodoService(id)
  rerenderPage()
  })
+}
+
+
+function updateProgressUI() {
+  const todos = getTodos();
+
+  const total = todos.length;
+  const completed = todos.filter(t => t.completed).length;
+  const pending = total - completed;
+
+  const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+  // update UI
+  document.querySelector(".progress-percent").innerText = percent + "%";
+  document.querySelector(".progress-bar-fill").style.width = percent + "%";
+
+  const stats = document.querySelectorAll(".stat-value");
+  stats[0].innerText = completed;
+  stats[1].innerText = pending;
 }
 
 addTaskBtn.addEventListener("click", () => {
