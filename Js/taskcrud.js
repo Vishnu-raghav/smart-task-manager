@@ -1,6 +1,4 @@
-import {getTodos,saveTodos} from "./storage.js"
-import { getCategories, saveCategories } from "./storage.js";
-
+import {getPriorities, getTodos,savePriorities,saveTodos, getCategories, saveCategories} from "./storage.js"
 
 
 export function createTodo(data) {
@@ -50,8 +48,7 @@ export function createCategory(data){
   )
 
   if(exist){
-    alert("Category already exist")
-    return
+    return { error: "Category already exists" }
   }
 
   const newCategory = {
@@ -63,7 +60,6 @@ export function createCategory(data){
   category.push(newCategory)
   saveCategories(category)
 }
-
 
 export function deleteCategory(id){
   let category = getCategories()
@@ -97,7 +93,7 @@ export function updateCategory(editCategoryId,data){
   )
 
   if(exists){
-    alert("Category already exists ❌")
+    alert("Category already exists")
     return
   }
 
@@ -107,4 +103,39 @@ export function updateCategory(editCategoryId,data){
 
   saveCategories(category)
   
+}
+
+export function createPriority(data){
+  const priorities = getPriorities()
+
+  const name = data.name.trim().toLowerCase()
+
+  const exist = priorities.some(
+    p => p.name.toLowerCase() === name
+  )
+
+  if(exist) {
+    return { error: "Priority already exists" }
+  }
+
+  const newPriority = {
+    id : Date.now(),
+    ...data,
+    isDefault: false,
+  }
+
+  priorities.push(newPriority)
+  savePriorities(priorities)
+}
+
+export function deletePriority(id){
+  let priorities = getPriorities()
+
+  const target = priorities.find(p => p.id === id)
+
+  if(target?.isDefault) return
+
+  priorities = priorities.filter(p => p.id !== id)
+
+  savePriorities(priorities)
 }

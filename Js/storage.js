@@ -1,45 +1,56 @@
+function safeParse(key){
+  try {
+    const data = JSON.parse(localStorage.getItem(key))
+    return Array.isArray(data) ? data : []
+  } catch (error) {
+    console.error("Invalid JSON found:", error);
+    return []
+  }
+}
+
+export const getTodos = () => safeParse("todos")
+export const getCategories = () => safeParse("categories")
+export const getPriorities = () => safeParse("priorities")
+
 export function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-export function getTodos() {
-  const data = JSON.parse(localStorage.getItem("todos"));
-  return Array.isArray(data) ? data : [];
+export function savePriorities(priorities){
+  localStorage.setItem("priorities", JSON.stringify(priorities))
 }
 
+export function saveCategories(categories){
+  localStorage.setItem("categories", JSON.stringify(categories));
+}
 
 const defaultCategories = [
-  {id: Date.now() + 1 ,name: "Study",isDefault: true },
-  {id: Date.now() + 2 ,name: "Work", isDefault: true },
+  {id: 1, name: "Study",isDefault: true },
+  {id: 2 ,name: "Work", isDefault: true },
 ];
 
-const defaultPriorites = [
-  {id : Date.now() + 1, name: "High", isDefault: true},
-  {id : Date.now() + 1, name: "Medium", isDefault: true},
-  {id : Date.now() + 1, name: "Low", isDefault: true},
+const defaultPriorities = [
+  {id : 1, name: "High", isDefault: true},
+  {id : 2, name: "Medium", isDefault: true},
+  {id : 3, name: "Low", isDefault: true},
 ]
 
 export function initializeCategories() {
-  const stored = localStorage.getItem("categories");
+  const stored = getCategories()
 
-  if (!stored) {
-    localStorage.setItem("categories", JSON.stringify(defaultCategories));
+  if (stored.length === 0) {
+    saveCategories(defaultCategories)
   }
 }
 
-export function initializePriorites(){
-  const stored = localStorage.getItem("priorites");
+export function initializePriorities() {
+  const stored = getPriorities()
 
-  if(!stored){
-    localStorage.setItem("priorites", JSON.stringify())
+  if (stored.length === 0) {
+    savePriorities(defaultPriorities)
   }
 }
 
-export function getCategories(){
-  const data = JSON.parse(localStorage.getItem("categories"));
-  return Array.isArray(data) ? data : [];
-}
 
-export function saveCategories(categoryName){
-  localStorage.setItem("categories",JSON.stringify(categoryName));
-}
+
+

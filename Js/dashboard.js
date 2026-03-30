@@ -1,13 +1,9 @@
 import { rerenderPage } from "./app.js";
 import { getTodos, saveTodos } from "./storage.js";
-import { 
-  openEditTask, 
-  clearEditState, 
-  getEditState 
-} from "./taskActions.js";
+import { openEditTask, clearEditState, getEditState } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
-import { getCategories } from "./storage.js";
+import { getCategories, initializePriorities} from "./storage.js";
 
 import {
   createTodo as createTodoService,
@@ -28,7 +24,7 @@ const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const select = document.getElementById("task-category");
-
+initializePriorities()
 
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
