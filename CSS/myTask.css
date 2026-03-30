@@ -1,13 +1,35 @@
-.grid-right-area {
+body[data-page="myTask"] .grid-right-area{
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  height: calc(100vh - 120px);
+  overflow: hidden;
 }
+
+body[data-page="myTask"] .grid-container{
+  height: 100%;
+}
+
+.task-detail-container{
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  min-height: 0;
+}
+
+.task-detail-container::-webkit-scrollbar{
+  width: 6px;
+}
+
+.task-detail-container::-webkit-scrollbar-thumb{
+  background: #ddd;
+  border-radius: 10px;
+}
+
 
 .todo-detail {
   display: flex;
   gap: 20px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .todo-detail .img-card.large {
@@ -17,6 +39,7 @@
 
 .todo-progress-detail {
   flex: 1;
+  min-width: 0;
 }
 
 .todo-progress-detail .task-title {

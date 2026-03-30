@@ -8,6 +8,25 @@
       src="https://kit.fontawesome.com/76b4967fa9.js"
       crossorigin="anonymous"
     ></script>
+
+
+    <!-- <script>
+  const saved = localStorage.getItem("sidebar");
+  if (saved === "closed") {
+    document.documentElement.classList.add("sidebar-pre-close");
+  }
+</script> -->
+
+<script>
+  const saved = localStorage.getItem("sidebar");
+
+  document.documentElement.classList.add("no-transition");
+
+  if (saved === "closed") {
+    document.documentElement.classList.add("sidebar-pre-close");
+  }
+</script>
+
     <link rel="stylesheet" href="../CSS/general.css" />
     <link rel="stylesheet" href="../CSS/header.css" />
     <link rel="stylesheet" href="../CSS/sidebar.css" />
@@ -48,7 +67,7 @@
       <div class="calender">calender</div>
     </header>
 
-    <aside class="sidebar close">
+    <aside class="sidebar ">
       <div class="sidebar-header">
         <i class="fa-solid fa-chevron-right toggle"></i>
       </div>

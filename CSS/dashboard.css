@@ -26,7 +26,9 @@
 
 }
 
-.grid-right-area{
+
+
+body[data-page="dashboard"] .grid-right-area{
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -143,7 +145,7 @@ background-color: rgb(234, 228, 228);
   font-weight: 600;
   color: #222;
   display: -webkit-box;
-  -webkit-line-clamp: 1;  /* max 1 line */
+  -webkit-line-clamp: 1;  
   -webkit-box-orient: vertical;
   overflow: hidden;
   overflow-wrap: break-word;
@@ -155,7 +157,7 @@ background-color: rgb(234, 228, 228);
   margin-top: 6px;
   overflow-wrap: anywhere;
   display: -webkit-box;
-  -webkit-line-clamp: 3;  /* max 2 lines */
+  -webkit-line-clamp: 3;  
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -204,15 +206,14 @@ background-color: rgb(234, 228, 228);
 
 
 .complete-tasks-section{
-  flex: 1;  /* 🔥 take remaining space */
-  overflow-y: auto;  /* 🔥 scroll */
+  flex: 1; 
+  overflow-y: auto;  
   border-radius: 16px;
   padding: 14px;
   background: #fff;
   border: 1px solid #eee;
 }
 
-/* scrollbar clean */
 .complete-tasks-section::-webkit-scrollbar{
   width: 6px;
 }
@@ -276,7 +277,6 @@ background-color: rgb(234, 228, 228);
   box-shadow: 0 10px 30px rgba(255, 82, 82, 0.3);
 }
 
-/* header */
 .progress-header h3{
   font-size: 14px;
   opacity: 0.9;
@@ -287,7 +287,6 @@ background-color: rgb(234, 228, 228);
   font-weight: 800;
 }
 
-/* bar */
 .progress-bar-wrapper{
   height: 8px;
   background: rgba(255,255,255,0.2);
@@ -300,7 +299,6 @@ background-color: rgb(234, 228, 228);
   border-radius: 10px;
 }
 
-/* stats */
 .progress-stats{
   display: flex;
   justify-content: space-between;

@@ -120,23 +120,33 @@ export function renderCategories() {
 
 
 function showCategoryTasks(categoryID) {
+
   const todos = getTodos();
   const filtered = todos.filter(t => t.category  == categoryID);
   const categories = getCategories()
   const categoryObj = categories.find(c => c.id == categoryID);
   const categoryName = categoryObj ? categoryObj.name : "Unknown";
-
+  
+  
   if (!filtered.length) {
-  rightPanel.innerHTML = `
+    rightPanel.innerHTML = `
     <div class="empty-state">
-      <i class="fa-regular fa-clipboard"></i>
-      <p>No tasks in ${categoryName}</p>
+    <i class="fa-regular fa-clipboard"></i>
+    <p>No tasks in ${categoryName}</p>
     </div>
-  `;
-  return;
-}
+    `;
+    return;
+  }
+  
+  rightPanel.innerHTML = `
+  <div class="category-right-header">
+  <h3>${categoryName}</h3>
+  <span>${filtered.length} Tasks</span>
+  </div>
 
-  rightPanel.innerHTML = `<h3>${categoryName} Tasks</h3>`;
+  <div class="category-tasks-container"></div>
+  `;
+  const container = rightPanel.querySelector(".category-tasks-container");
 
   filtered.forEach(task => {
     const div = document.createElement("div");
@@ -162,7 +172,7 @@ function showCategoryTasks(categoryID) {
   </div>
     `;
 
-    rightPanel.appendChild(div);
+     container.appendChild(div)
   });
 }
 

@@ -21,6 +21,7 @@ const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const select = document.getElementById("task-category");
 
 
+
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
@@ -118,8 +119,11 @@ export function renderTaskList() {
 }
 
 function showDetails(id) {
+
+  const detailContainer = document.querySelector(".task-detail-container");
+
     if (!id) {
-    rightPanel.innerHTML = `
+    detailContainer.innerHTML = `
       <div class="empty-state">
         <i class="fa-regular fa-folder-open"></i>
         <p>Select a task to view details</p>
@@ -138,7 +142,7 @@ function showDetails(id) {
   
 
 
-  rightPanel.innerHTML = `
+  detailContainer.innerHTML = `
   <div class="todo-detail">
   ${
     todo.image ? `
