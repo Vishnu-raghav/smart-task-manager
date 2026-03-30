@@ -43,6 +43,17 @@ export function updateTodo(editTodoId,data){
 export function createCategory(data){
   const category = getCategories()
 
+  const name = data.name.trim().toLowerCase()
+
+  const exist = category.some(
+    c => c.name.toLowerCase() === name
+  )
+
+  if(exist){
+    alert("Category already exist")
+    return
+  }
+
   const newCategory = {
     id : Date.now(),
     ...data,
@@ -57,11 +68,12 @@ export function createCategory(data){
 export function deleteCategory(id){
   let category = getCategories()
 
+  const target = category.find(c => c.id === id)
+
+  if(target?.isDefault) return 
+
   category = category.filter(cat => cat.id !== id)
   
-  const target = category.find(c => c.id === id)
-   if(target?.isDefault) return 
-
   saveCategories(category)
 
 
@@ -76,6 +88,18 @@ export function updateCategory(editCategoryId,data){
 
    const target = category.find(c => c.id === editCategoryId)
    if(target?.isDefault) return 
+
+  const name = data.name.trim().toLowerCase()
+
+  const exists = category.some(
+    c => c.id !== editCategoryId &&
+         c.name.toLowerCase() === name
+  )
+
+  if(exists){
+    alert("Category already exists ❌")
+    return
+  }
 
   category = category.map((cat) => {
     return cat.id === editCategoryId ? {...cat, ...data} : cat

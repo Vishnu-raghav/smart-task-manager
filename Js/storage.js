@@ -13,11 +13,25 @@ const defaultCategories = [
   {id: Date.now() + 2 ,name: "Work", isDefault: true },
 ];
 
+const defaultPriorites = [
+  {id : Date.now() + 1, name: "High", isDefault: true},
+  {id : Date.now() + 1, name: "Medium", isDefault: true},
+  {id : Date.now() + 1, name: "Low", isDefault: true},
+]
+
 export function initializeCategories() {
   const stored = localStorage.getItem("categories");
 
   if (!stored) {
     localStorage.setItem("categories", JSON.stringify(defaultCategories));
+  }
+}
+
+export function initializePriorites(){
+  const stored = localStorage.getItem("priorites");
+
+  if(!stored){
+    localStorage.setItem("priorites", JSON.stringify())
   }
 }
 
