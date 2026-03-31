@@ -77,3 +77,41 @@ form.addEventListener("input", () => {
     submitBtn.disabled = !isEditChanged(form);
   }
 });
+
+const dropdown = document.querySelector(".custom-dropdown");
+const options = document.querySelector(".dropdown-options");
+
+dropdown.addEventListener("click", () => {
+  options.style.display = options.style.display === "block" ? "none" : "block";
+});
+
+
+const selected = dropdown.querySelector(".dropdown-selected");
+
+dropdown.addEventListener("click", (e) => {
+  dropdown.classList.toggle("active");
+});
+
+/* Select value */
+options.addEventListener("click", (e) => {
+  const item = e.target.closest(".dropdown-item");
+  if (!item) return;
+
+  // ➕ Add button logic
+  if (item.classList.contains("add-new")) {
+    alert("Future feature 😎");
+    return;
+  }
+
+  const value = item.querySelector("span").innerText;
+  selected.innerText = value;
+
+  dropdown.classList.remove("active");
+});
+
+/* Click outside close */
+document.addEventListener("click", (e) => {
+  if (!dropdown.contains(e.target)) {
+    dropdown.classList.remove("active");
+  }
+});

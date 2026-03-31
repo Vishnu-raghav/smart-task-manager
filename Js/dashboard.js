@@ -33,9 +33,9 @@ populateCategoryOptions(select , getCategories(), {
 });
 
 
-populatePriorityOptions(selectPriority, getPriorities(), {
-  placeholderText:"Select Priority"
-})
+// populatePriorityOptions(selectPriority, getPriorities(), {
+//   placeholderText:"Select Priority"
+// })
 
 
 export function renderTodos() {

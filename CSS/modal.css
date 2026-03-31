@@ -108,6 +108,72 @@
   gap: 14px;
 }
 
+.custom-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #fafafa;
+  position: relative;
+}
+
+.dropdown-selected {
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+/* 🔥 Smooth dropdown */
+.dropdown-options {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+/* Active state */
+.custom-dropdown.active .dropdown-options {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+.dots {
+  letter-spacing: 2px; /* 👉 horizontal dots spacing */
+  cursor: pointer;
+}
+
+/* ➕ Add new styling */
+.add-new {
+  border-top: 1px solid #eee;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+
 @media(max-width:600px){
   .task-description{
     grid-template-columns: 1fr;

@@ -247,17 +247,42 @@
         <input type="text" id="task-title" name="title" placeholder="Enter title" required />
       </div>
 
-      <div class="modal-input">
+      <!-- <div class="modal-input">
         <label>Priority</label>
-        <!-- <input
-          type="text"
-          id="task-priority"
-          name="priority"
-          placeholder="High / Medium / Low"
-        /> -->
-
         <select name="priority" id="task-priority"></select>
+      </div> -->
+<div class="modal-input">
+  <label>Priority</label>
+
+  <div class="custom-dropdown" id="priorityDropdown">
+    <div class="dropdown-selected">Select Priority</div>
+
+    <div class="dropdown-options">
+      
+      <div class="dropdown-item">
+        <span>High</span>
+        <span class="dots">•••</span>
       </div>
+
+      <div class="dropdown-item">
+        <span>Medium</span>
+        <span class="dots">•••</span>
+      </div>
+
+      <div class="dropdown-item">
+        <span>Low</span>
+        <span class="dots">•••</span>
+      </div>
+
+      <!-- ➕ Add option -->
+      <div class="dropdown-item add-new">
+        <span>+ Add Priority</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+ 
 
       <div class="modal-input">
         <label>Category</label>
