@@ -1,4 +1,4 @@
-import { getCategories, getTodos , saveTodos} from "./storage.js";
+import { getCategories, getTodos , getPriorities} from "./storage.js";
 import {   clearEditState, getEditState ,openEditTask } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
@@ -9,7 +9,7 @@ import {
   updateTodo as updateTodoService,
 } from "./taskcrud.js";
 
-import {populateOptions as populateCategoryOptions} from "../utils/populateOptions.js"
+import {populateOptions as populateCategoryOptions, populateOptions as populatePriorityOptions} from "../utils/populateOptions.js"
 
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
@@ -19,16 +19,23 @@ const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const select = document.getElementById("task-category");
-
+const selectPriority = document.getElementById("task-priority") 
 
 
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
 
+
+populatePriorityOptions(selectPriority, getPriorities(), {
+  placeholderText:"Select Priority"
+})
+
 export function renderTaskList() {
   const todos = getTodos();
   const category = getCategories()
+  const priority = getPriorities()
+
   listSection.innerHTML = "";
 
   if (todos.length === 0) {
@@ -41,7 +48,8 @@ export function renderTaskList() {
   }
 
   todos.forEach(task => {
-    const categoryObj = category.find((cat) => cat.id == task.category)
+    const categoryObj = category.find((cat) => cat.id === Number(task.category))
+    const priorityObj = priority.find((p) => p.id === Number(task.priority)) 
 
     const div = document.createElement("div");
     div.className = "todo-card";
@@ -99,7 +107,7 @@ export function renderTaskList() {
 
   <span>
     Priority:
-    <b style="color:#ff7a7a;">${task.priority}</b>
+    <b style="color:#ff7a7a;">${priorityObj ? priorityObj.name : "N/A"}</b>
   </span>
 
   <span>

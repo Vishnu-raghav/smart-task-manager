@@ -1,5 +1,5 @@
 import { rerenderPage } from "./app.js";
-import { getTodos, saveTodos } from "./storage.js";
+import { getPriorities, getTodos, saveTodos } from "./storage.js";
 import { openEditTask, clearEditState, getEditState } from "./taskActions.js";
 import {initForm} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
@@ -11,7 +11,7 @@ import {
   deleteTodo as deleteTodoService
 } from "./taskcrud.js";
 
-import {populateOptions as populateCategoryOptions} from "../utils/populateOptions.js"
+import {populateOptions as populateCategoryOptions, populateOptions as populatePriorityOptions} from "../utils/populateOptions.js"
 
 
 const form = document.getElementById("todoForm");
@@ -24,11 +24,18 @@ const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const select = document.getElementById("task-category");
+const selectPriority = document.getElementById("task-priority") 
+
 initializePriorities()
 
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
+
+
+populatePriorityOptions(selectPriority, getPriorities(), {
+  placeholderText:"Select Priority"
+})
 
 
 export function renderTodos() {
@@ -38,6 +45,7 @@ export function renderTodos() {
 
   const todos = getTodos();
   const categories = getCategories()
+  const priorities = getPriorities()
 
   if (todos.length === 0) {
     todoCardSection.innerHTML = `
@@ -51,8 +59,11 @@ export function renderTodos() {
   todos.forEach(task => {
     if (task.completed) return; 
 
-    const categoryObj = categories.find(c => c.id == task.category);
+    const categoryObj = categories.find(c => c.id === Number(task.category));
     const categoryName = categoryObj ? categoryObj.name : "General";
+
+    const priorityObj = priorities.find(p => p.id === Number(task.priority))
+    const priorityName = priorityObj ? priorityObj.name : "N/A"
 
     const card = document.createElement("div");
     card.className = "todo-card";
@@ -88,7 +99,7 @@ export function renderTodos() {
 
       <div class="task-Progress">
         <p class="progress-key">Category: <span class="progress-value">${categoryName}</span></p>
-        <p class="progress-key">Priority: <span class="progress-value">${task.priority}</span></p>
+        <p class="progress-key">Priority: <span class="progress-value">${priorityName}</span></p>
         <p class="progress-key">Status: <span class="progress-value">in progress</span></p>
         <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>
       </div>

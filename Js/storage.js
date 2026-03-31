@@ -26,7 +26,7 @@ export function saveCategories(categories){
 
 const defaultCategories = [
   {id: 1, name: "Study",isDefault: true },
-  {id: 2 ,name: "Work", isDefault: true },
+  {id: 2, name: "Work", isDefault: true },
 ];
 
 const defaultPriorities = [

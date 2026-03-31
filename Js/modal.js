@@ -27,8 +27,6 @@ browseBtn.addEventListener("click", (e) => {
 
 uploadBox.addEventListener("click", () => fileInput.click());
 
-
-
 fileInput.addEventListener("change", () => {
   const file = fileInput.files[0]
   showImage(file);
@@ -69,10 +67,6 @@ function showImage(file){
   };
   reader.readAsDataURL(file);
 }
-
-
-
-
 
 form.addEventListener("input", () => {
   const { editTodoId, editCategoryId } = getEditState();

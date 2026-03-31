@@ -1,4 +1,4 @@
-import { initializeCategories,getCategories, getTodos } from "./storage.js";
+import { initializeCategories,getCategories, getTodos, getPriorities } from "./storage.js";
 import { createCategory, deleteCategory,updateCategory } from "./taskcrud.js";
 import {openConfirmModal} from "./actionsConfirm.js"
 import { openEditCategory, getEditState, clearEditState } from "./taskActions.js";
@@ -9,7 +9,6 @@ const categorySection = document.getElementById("categoryCardSection");
 const rightPanel = document.querySelector(".grid-right-area");
 const createCategoryButton = document.getElementById("add-category-button")
 const form = document.getElementById("todoForm");
-
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
@@ -118,14 +117,17 @@ export function renderCategories() {
 
 }
 
-
 function showCategoryTasks(categoryID) {
 
   const todos = getTodos();
   const filtered = todos.filter(t => t.category  == categoryID);
   const categories = getCategories()
-  const categoryObj = categories.find(c => c.id == categoryID);
+  const priority = getPriorities()
+
+  const categoryObj = categories.find(c => c.id === Number(categoryID));
   const categoryName = categoryObj ? categoryObj.name : "Unknown";
+  const priorityObj = priority.find( p => p.id === Number(categoryID))
+  const priorityName = priorityObj ? priorityObj.name : "N/A"
   
   
   if (!filtered.length) {
@@ -168,14 +170,13 @@ function showCategoryTasks(categoryID) {
       ${task.desc || "No description"}
     </div>
 
-    <small>Priority: ${task.priority}</small>
+    <small>Priority: ${priorityName}</small>
   </div>
     `;
 
      container.appendChild(div)
   });
 }
-
 
 categorySection.addEventListener("click", (e) => {
   const card = e.target.closest(".category-card");
@@ -191,8 +192,6 @@ categorySection.addEventListener("click", (e) => {
   activeCategoryId = categoryID; 
   showCategoryTasks(categoryID);
 });
-
-
 
 categorySection.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
@@ -241,7 +240,6 @@ createCategoryButton.addEventListener("click", () => {
     modalSubmitBtn.innerText = "Create";
     todoModal.classList.add("active");
 })
-
 
 closeBtn.addEventListener("click", () => {
     todoModal.classList.remove("active");
