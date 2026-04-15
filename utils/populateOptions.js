@@ -22,3 +22,27 @@ export function populateOptions(selectElement, data, config = {} ){
     selectElement.value = "";
 
 }
+
+export function populateCustomDropdown(container, data){
+    container.innerHTML = ""
+
+    data.forEach(item => {
+        const div = document.createElement("div")
+        div.classList.add("dropdown-item")
+        div.dataset.id = item.id
+
+        div.innerHTML = `
+          <span>${item.name}</span>
+          <span class="dots">•••</span>
+        `;
+
+
+        container.appendChild(div)
+    })
+
+     const addBtn = document.createElement("div");
+     addBtn.classList.add("dropdown-item", "add-new");
+     addBtn.innerHTML = `<span>+ Add Priority</span>`;
+     container.appendChild(addBtn);
+
+}

@@ -121,7 +121,6 @@
   font-size: 14px;
 }
 
-/* 🔥 Smooth dropdown */
 .dropdown-options {
   position: absolute;
   top: 110%;
@@ -141,7 +140,6 @@
   z-index: 10;
 }
 
-/* Active state */
 .custom-dropdown.active .dropdown-options {
   opacity: 1;
   transform: translateY(0);
@@ -162,11 +160,10 @@
 }
 
 .dots {
-  letter-spacing: 2px; /* 👉 horizontal dots spacing */
+  letter-spacing: 2px; 
   cursor: pointer;
 }
 
-/* ➕ Add new styling */
 .add-new {
   border-top: 1px solid #eee;
   color: var(--primary);

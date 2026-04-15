@@ -2,6 +2,8 @@ import { setImage } from "../utils/imageState.js";
 import { getTodos, getCategories } from "./storage.js";
 const previewImg = document.getElementById("previewImg");
 const uploadContent = document.querySelector(".upload-content");
+const dropdown = document.querySelector(".custom-dropdown");
+
 
 
 let editTodoId = null;
@@ -23,7 +25,7 @@ export function openEditTask(id, {
 
   form.title.value = todo.title;
   form.desc.value = todo.desc;
-  form.priority.value = todo.priority;
+  dropdown.dataset.value = todo.priority;
   form.category.value = todo.category;
   form.dueDate.value = todo.dueDate;
 

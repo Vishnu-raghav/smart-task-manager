@@ -11,7 +11,7 @@ import {
   deleteTodo as deleteTodoService
 } from "./taskcrud.js";
 
-import {populateOptions as populateCategoryOptions, populateOptions as populatePriorityOptions} from "../utils/populateOptions.js"
+import {populateOptions as populateCategoryOptions,  populateCustomDropdown} from "../utils/populateOptions.js"
 
 
 const form = document.getElementById("todoForm");
@@ -24,7 +24,7 @@ const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const select = document.getElementById("task-category");
-const selectPriority = document.getElementById("task-priority") 
+const priorityContainer = document.getElementById("task-priority") 
 
 initializePriorities()
 
@@ -33,9 +33,7 @@ populateCategoryOptions(select , getCategories(), {
 });
 
 
-// populatePriorityOptions(selectPriority, getPriorities(), {
-//   placeholderText:"Select Priority"
-// })
+populateCustomDropdown(priorityContainer, getPriorities())
 
 
 export function renderTodos() {
@@ -266,6 +264,25 @@ document.addEventListener("click", (e) => {
   popup.classList.toggle("active");
 });
 
+
+// priorityContainer.addEventListener("click", (e) => {
+//   const item = e.target.closest(".dropdown-item");
+//   if (!item) return;
+
+//   if (item.classList.contains("add-new")) {
+//     alert("future feature 😎");
+//     return;
+//   }
+
+//   const name = item.querySelector("span").innerText;
+//   const id = item.dataset.id;
+
+//   selected.innerText = name;
+
+//   dropdown.dataset.value = id;
+
+//   dropdown.classList.remove("active");
+// });
 
 
 
