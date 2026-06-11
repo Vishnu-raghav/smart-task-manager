@@ -52,7 +52,7 @@ export function initForm(form, config = {}) {
 
     const data = {
       ...formData,
-      priority : dropdown.dataset.value,
+      // priority : dropdown.dataset.value,
       image : getImage()
     }
     

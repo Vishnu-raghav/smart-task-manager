@@ -16,6 +16,7 @@ import {populateOptions as populateCategoryOptions,  populateCustomDropdown} fro
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
+const todoCardContainer = document.querySelector(".grid-container");
 const completedTaskSection = document.querySelector(".complete-tasks-section");
 const addTaskBtn = document.querySelector(".Add-Task");
 const isDashboard = document.body.dataset.page === "dashboard";
@@ -110,7 +111,7 @@ export function renderTodos() {
 }
 
 export function renderCompletedTodos() {
-    if (!completedTaskSection) return;
+  if (!completedTaskSection) return;
 
   completedTaskSection.innerHTML = "";
 
@@ -125,6 +126,7 @@ export function renderCompletedTodos() {
   completed.forEach(task => {
     const card = document.createElement("div");
     card.className = "todo-card";
+    card.dataset.id = task.id
 
     card.innerHTML = `
       <div class="card-header">
@@ -132,7 +134,7 @@ export function renderCompletedTodos() {
                <i class="fa-solid fa-ellipsis icon"></i>
               <div class="card-popup">
                 <ul class="card-actions">
-                  <li class="card-action Delete">Delete</li>
+                  <li class="card-action delete">Delete</li>
                   <li class="card-action edit">Edit</li>
                 </ul>
               </div>
@@ -144,7 +146,7 @@ export function renderCompletedTodos() {
         </div>
         <div class="task-details">
           <span>${task.title}</span>
-          <p>${task.description}</p>
+          <p>${task.desc}</p>
         </div>
 
         ${task.image ? `
@@ -165,9 +167,7 @@ export function renderCompletedTodos() {
   });
 }
 
-export function deleteTodoHandle(e){
- const deleteBtn = e.target.closest(".delete")
- if(!deleteBtn) return 
+export function deleteTodoHandle(deleteBtn){
 
  const card = deleteBtn.closest(".todo-card")
  const id = Number(card.dataset.id)
@@ -176,7 +176,22 @@ export function deleteTodoHandle(e){
  deleteTodoService(id)
  rerenderPage()
  })
+
 }
+
+ export function editTodoHandle(editBtn){
+
+  const card = editBtn.closest(".todo-card")
+  const id = Number(card.dataset.id)
+
+  openEditTask(id, {
+  form,
+  modal: todoModal,
+  modalHeading,
+  submitBtn: modalSubmitBtn
+  });
+
+ }
 
 
 function updateProgressUI() {
@@ -216,47 +231,43 @@ initForm(form, {
   onSuccess:  rerenderPage
 });
 
-todoCardSection.addEventListener("click", (e) => {
+todoCardContainer.addEventListener("click", (e) => {
   
-  if (e.target.closest(".delete")) {
-    deleteTodoHandle(e);
-    return;
+  const deleteBtn = e.target.closest(".delete")
+  
+  if(deleteBtn){
+    deleteTodoHandle(deleteBtn)
+    return
   }
   
   const editBtn = e.target.closest(".edit");
-  if (!editBtn) return;
-  
-  const card = editBtn.closest(".todo-card");
-  const id = Number(card.dataset.id);
-  
-  openEditTask(id, {
-  form,
-  modal: todoModal,
-  modalHeading,
-  submitBtn: modalSubmitBtn
-  });
+  if (editBtn){
+    editTodoHandle(editBtn)
+    return
+  }
 
 });
 
-document.addEventListener("change", (e) => {
+todoCardContainer.addEventListener("change", (e) => {
   if(!isDashboard) return
   
   if (e.target.type !== "checkbox") return;
 
   const id = Number(e.target.dataset.id);
   const todos = getTodos();
+  
+  const todo = todos.find(t => t.id === id)
 
-  todos.forEach(todo => {
-    if (todo.id === id) {
-      todo.completed = e.target.checked;
-    }
-  });
+  if(todo){
+    todo.completed = e.target.checked
+  }
   
   saveTodos(todos);
   rerenderPage()
 });
 
-document.addEventListener("click", (e) => {
+
+todoCardContainer.addEventListener("click", (e) => {
   const actions = e.target.closest(".actions");
   if (!actions) return;
   
@@ -270,7 +281,7 @@ document.addEventListener("click", (e) => {
 //   if (!item) return;
 
 //   if (item.classList.contains("add-new")) {
-//     alert("future feature 😎");
+//     alert("future feature");
 //     return;
 //   }
 
