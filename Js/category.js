@@ -23,7 +23,6 @@ export function renderCategories() {
 
   categorySection.innerHTML = "";
 
-
   category.forEach(cat => {
      if (!cat || cat.id == null) return; 
 
@@ -69,18 +68,7 @@ export function renderCategories() {
 </div>
 ` : ""}
     `;
-    const checkbox = card.querySelector("input");
-    const actions = card.querySelector(".categories-actions");
-
-   if (checkbox) {   
-  checkbox.addEventListener("change", () => {
-    if (checkbox.checked) {
-      actions.classList.add("show");
-    } else {
-      actions.classList.remove("show");
-    }
-  });
-  }
+  
  
     categorySection.appendChild(card);
     
@@ -173,6 +161,35 @@ function showCategoryTasks(categoryID) {
   });
 }
 
+function handleDeleteCategory(deleteBtn){
+  
+  const id = Number(deleteBtn.dataset.id);  
+
+
+  openConfirmModal("Delete this category?", () => {
+    deleteCategory(id);
+    renderCategories();
+    rightPanel.innerHTML = `
+    <div class="empty-state">
+      <i class="fa-regular fa-folder-open"></i>
+      <p>Select a category to view tasks</p>
+    </div>
+  `;
+  activeCategoryId = null;
+  });
+}
+
+function handleEditCategory(editBtn){
+   const id = Number(editBtn.dataset.id);
+
+  openEditCategory(id, {
+  form,
+  modal: todoModal,
+  modalHeading,
+  submitBtn: modalSubmitBtn,
+  });
+}
+
 categorySection.addEventListener("click", (e) => {
   const card = e.target.closest(".category-card");
   if (!card) return;
@@ -188,43 +205,21 @@ categorySection.addEventListener("click", (e) => {
   showCategoryTasks(categoryID);
 });
 
+
 categorySection.addEventListener("click", (e) => {
+
   const deleteBtn = e.target.closest(".delete-btn");
-  if (!deleteBtn) return;
+  if(deleteBtn){
+    handleDeleteCategory(deleteBtn);
+    return;
+  }
 
-  e.stopPropagation();
-
-  const id = Number(deleteBtn.dataset.id);  
-
-  
-  openConfirmModal("Delete this category?", () => {
-    deleteCategory(id);
-    renderCategories();
-    rightPanel.innerHTML = `
-    <div class="empty-state">
-      <i class="fa-regular fa-folder-open"></i>
-      <p>Select a category to view tasks</p>
-    </div>
-  `;
-  activeCategoryId = null;
-  });
-});
-
-categorySection.addEventListener("click", (e) => {
   const editBtn = e.target.closest(".edit-btn");
-  if (!editBtn) return;
+  if(editBtn){
+    handleEditCategory(editBtn);
+    return;
+  }
 
-  e.stopPropagation(); 
-
-  const id = Number(editBtn.dataset.id);
-
-  openEditCategory(id, {
-  form: document.getElementById("todoForm"),
-  modal: document.getElementById("todoModal"),
-  modalHeading: document.querySelector(".modal-header h4"),
-  submitBtn: document.querySelector('button[type="submit"]')
-  });
-  
 });
 
 createCategoryButton.addEventListener("click", () => {
