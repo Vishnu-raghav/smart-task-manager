@@ -1,7 +1,7 @@
 import { rerenderPage } from "./app.js";
 import { getPriorities, getTodos, saveTodos } from "./storage.js";
 import { openEditTask, clearEditState, getEditState } from "./taskActions.js";
-import {initForm} from "./formUtils.js"
+import {initForm,updateSubmitButtonState} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
 import { getCategories, initializePriorities} from "./storage.js";
 
@@ -21,6 +21,7 @@ const completedTaskSection = document.querySelector(".complete-tasks-section");
 const addTaskBtn = document.querySelector(".Add-Task");
 const isDashboard = document.body.dataset.page === "dashboard";
 
+
 const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
@@ -32,7 +33,6 @@ initializePriorities()
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
-
 
 populateCustomDropdown(priorityContainer, getPriorities())
 
@@ -222,6 +222,11 @@ addTaskBtn.addEventListener("click", () => {
   
   todoModal.classList.add("active");
 });
+
+form.addEventListener("input",() => {
+  updateSubmitButtonState(form,modalSubmitBtn)
+})
+
 
 initForm(form, {
   createFn: createTodoService,

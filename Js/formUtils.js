@@ -2,8 +2,6 @@ import { getEditState } from "./taskActions.js";
 import {getImage, clearImage} from "../utils/imageState.js"
 const dropdown = document.querySelector(".custom-dropdown");
 
-
-
 export function isFormValid(form) {
     if (form.name) {
     return form.name.value.trim() !== "";
@@ -73,3 +71,12 @@ export function initForm(form, config = {}) {
   });
 }
 
+export function updateSubmitButtonState(form, submitBtn) {
+  const { editTodoId, editCategoryId } = getEditState();
+
+  if (editTodoId === null && editCategoryId === null) {
+    submitBtn.disabled = !isFormValid(form);
+  } else {
+    submitBtn.disabled = !isEditChanged(form);
+  }
+}

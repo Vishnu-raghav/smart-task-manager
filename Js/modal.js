@@ -68,17 +68,6 @@ function showImage(file){
   reader.readAsDataURL(file);
 }
 
-form.addEventListener("input", () => {
-  const { editTodoId, editCategoryId } = getEditState();
-
-  if (editTodoId === null && editCategoryId === null) {
-    submitBtn.disabled = !isFormValid(form);
-  } else {
-    submitBtn.disabled = !isEditChanged(form);
-  }
-});
-
-
 
 const dropdown = document.querySelector(".custom-dropdown");
 const options = document.querySelector(".dropdown-options");
@@ -87,8 +76,6 @@ const selected = dropdown.querySelector(".dropdown-selected");
 dropdown.addEventListener("click", (e) => {
   dropdown.classList.toggle("active");
 });
-
-
 
 options.addEventListener("click", (e) => {
   const item = e.target.closest(".dropdown-item");

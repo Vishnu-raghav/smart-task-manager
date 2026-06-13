@@ -2,7 +2,7 @@ import { initializeCategories,getCategories, getTodos, getPriorities } from "./s
 import { createCategory, deleteCategory,updateCategory } from "./taskcrud.js";
 import {openConfirmModal} from "./actionsConfirm.js"
 import { openEditCategory, getEditState, clearEditState } from "./taskActions.js";
-import { initForm } from "./formUtils.js";
+import { initForm,updateSubmitButtonState } from "./formUtils.js";
 import { initDragAndDrop } from "./dragDrop.js";
 
 const categorySection = document.getElementById("categoryCardSection");
@@ -180,7 +180,7 @@ function handleDeleteCategory(deleteBtn){
 }
 
 function handleEditCategory(editBtn){
-   const id = Number(editBtn.dataset.id);
+  const id = Number(editBtn.dataset.id);
 
   openEditCategory(id, {
   form,
@@ -211,7 +211,7 @@ categorySection.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
   if(deleteBtn){
     handleDeleteCategory(deleteBtn);
-    return
+    return;
   }
 
   const editBtn = e.target.closest(".edit-btn");
@@ -235,13 +235,11 @@ closeBtn.addEventListener("click", () => {
     todoModal.classList.remove("active");
 })
 
-form.name.addEventListener("input", () => {
-    if(form.name.value.trim() !== ""){
-        modalSubmitBtn.disabled = false;
-    } else {
-        modalSubmitBtn.disabled = true;
-    }
-});
+
+form.addEventListener("input",() => {
+  updateSubmitButtonState(form,modalSubmitBtn)
+})
+
 
 initForm(form, {
   createFn: createCategory,
