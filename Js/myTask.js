@@ -1,6 +1,6 @@
 import { getCategories, getTodos , getPriorities} from "./storage.js";
-import {   clearEditState, getEditState ,openEditTask } from "./taskActions.js";
-import {initForm} from "./formUtils.js"
+import { clearEditState, getEditState ,openEditTask } from "./taskActions.js";
+import {initForm,updateSubmitButtonState} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
 
 import {
@@ -9,7 +9,7 @@ import {
   updateTodo as updateTodoService,
 } from "./taskcrud.js";
 
-import {populateOptions as populateCategoryOptions, populateOptions as populatePriorityOptions} from "../utils/populateOptions.js"
+import {populateOptions as populateCategoryOptions,  populateCustomDropdown} from "../utils/populateOptions.js"
 
 const rightPanel = document.querySelector(".grid-right-area")
 const listSection = document.querySelector(".task-card-section")
@@ -19,17 +19,17 @@ const todoModal = document.getElementById("todoModal");
 const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const select = document.getElementById("task-category");
-const selectPriority = document.getElementById("task-priority") 
+const priorityContainer = document.getElementById("task-priority") 
+
 
 
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
 
+populateCustomDropdown(priorityContainer, getPriorities())
 
-populatePriorityOptions(selectPriority, getPriorities(), {
-  placeholderText:"Select Priority"
-})
+
 
 export function renderTaskList() {
   const todos = getTodos();
@@ -215,14 +215,27 @@ function showDetails(id) {
 
 }
 
-function deleteTodoHandle(id) {
+function deleteTodoHandle(deleteBtn) {
+  const id = Number(deleteBtn.dataset.id);
 
-  openConfirmModal("Are you sure you want to delete this task?", () => {
+   openConfirmModal("Are you sure you want to delete this task?", () => {
     deleteTodoService(id);
 
     renderTaskList();
     showDetails(); 
 
+  });
+}
+
+function editTodoHandle(editBtn){
+
+  const id = Number(editBtn.dataset.id)
+
+  openEditTask(id, {
+  form,
+  modal: todoModal,
+  modalHeading,
+  submitBtn: modalSubmitBtn
   });
 }
 
@@ -237,27 +250,18 @@ listSection.addEventListener("click", (e) => {
 rightPanel.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
 
-  if (!deleteBtn) return;
+  if(deleteBtn){
+    deleteTodoHandle(deleteBtn);
+  }
 
-  const id = Number(deleteBtn.dataset.id);
+  const editBtn = e.target.closest(".edit-btn")
+  
+  if(editBtn){
+    editTodoHandle(editBtn)
+  }
 
-  deleteTodoHandle(id);
 });
 
-rightPanel.addEventListener("click", (e) => {
-  const editBtn = e.target.closest(".edit-btn")
-  if(!editBtn) return
-
-  const id = Number(editBtn.dataset.id)
-
-  openEditTask(id, {
-  form: document.getElementById("todoForm"),
-  modal: document.getElementById("todoModal"),
-  modalHeading: document.querySelector(".modal-header h4"),
-  submitBtn: document.querySelector('button[type="submit"]')
-  });
-
-})
 
 addTaskBtn.addEventListener("click", () => {
   form.reset();
@@ -278,5 +282,10 @@ initForm(form, {
   clearEditState,
   onSuccess: renderTaskList
 });
+
+
+form.addEventListener("input",() => {
+  updateSubmitButtonState(form,modalSubmitBtn)
+})
 
 

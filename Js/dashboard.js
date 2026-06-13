@@ -3,7 +3,7 @@ import { getPriorities, getTodos, saveTodos } from "./storage.js";
 import { openEditTask, clearEditState, getEditState } from "./taskActions.js";
 import {initForm,updateSubmitButtonState} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
-import { getCategories, initializePriorities} from "./storage.js";
+import { getCategories, initializePriorities, getPriorities} from "./storage.js";
 
 import {
   createTodo as createTodoService,
@@ -223,9 +223,6 @@ addTaskBtn.addEventListener("click", () => {
   todoModal.classList.add("active");
 });
 
-form.addEventListener("input",() => {
-  updateSubmitButtonState(form,modalSubmitBtn)
-})
 
 
 initForm(form, {
@@ -250,19 +247,19 @@ todoCardContainer.addEventListener("click", (e) => {
     editTodoHandle(editBtn)
     return
   }
-
+  
 });
 
 todoCardContainer.addEventListener("change", (e) => {
   if(!isDashboard) return
   
   if (e.target.type !== "checkbox") return;
-
+  
   const id = Number(e.target.dataset.id);
   const todos = getTodos();
   
   const todo = todos.find(t => t.id === id)
-
+  
   if(todo){
     todo.completed = e.target.checked
   }
@@ -281,25 +278,30 @@ todoCardContainer.addEventListener("click", (e) => {
 });
 
 
+form.addEventListener("input",() => {
+  updateSubmitButtonState(form,modalSubmitBtn)
+})
+
 // priorityContainer.addEventListener("click", (e) => {
-//   const item = e.target.closest(".dropdown-item");
-//   if (!item) return;
-
-//   if (item.classList.contains("add-new")) {
-//     alert("future feature");
-//     return;
-//   }
-
-//   const name = item.querySelector("span").innerText;
-//   const id = item.dataset.id;
-
-//   selected.innerText = name;
-
-//   dropdown.dataset.value = id;
-
-//   dropdown.classList.remove("active");
-// });
-
-
-
-
+  //   const item = e.target.closest(".dropdown-item");
+  //   if (!item) return;
+  
+  //   if (item.classList.contains("add-new")) {
+    //     alert("future feature");
+    //     return;
+    //   }
+    
+    //   const name = item.querySelector("span").innerText;
+    //   const id = item.dataset.id;
+    
+    //   selected.innerText = name;
+    
+    //   dropdown.dataset.value = id;
+    
+    //   dropdown.classList.remove("active");
+    // });
+    
+    
+    
+    
+    
