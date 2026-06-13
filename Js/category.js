@@ -211,7 +211,7 @@ categorySection.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
   if(deleteBtn){
     handleDeleteCategory(deleteBtn);
-    return;
+    return
   }
 
   const editBtn = e.target.closest(".edit-btn");
