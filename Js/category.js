@@ -42,15 +42,10 @@ export function renderCategories() {
     card.style.background = `linear-gradient(135deg, ${cat.color} #333)`;
 
     card.innerHTML = `
-   ${!cat.isDefault 
-  ? `<div class="category-header">
+     <div class="category-header">
        <h3>${cat.name}</h3>
-       <input type="checkbox">
-     </div>` 
-  : `<div class="category-header">
-       <h3>${cat.name}</h3>
-     </div>`
-}
+     </div>
+
 
       <p>${total} Tasks</p>
       <p>${completed} Completed</p>

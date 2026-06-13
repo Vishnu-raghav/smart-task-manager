@@ -48,7 +48,7 @@ export function initForm(form, config = {}) {
     e.preventDefault();
 
    const formData = Object.fromEntries(new FormData(form).entries());
-    const { editTodoId, editCategoryId } = getEditState();
+   const { editTodoId, editCategoryId } = getEditState();
 
     const data = {
       ...formData,
