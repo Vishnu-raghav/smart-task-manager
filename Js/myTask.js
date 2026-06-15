@@ -9,10 +9,11 @@ import {
   updateTodo as updateTodoService,
 } from "./taskcrud.js";
 
-import {populateOptions as populateCategoryOptions,  populateCustomDropdown} from "../utils/populateOptions.js"
+import {populateOptions as populateCategoryOptions} from "../utils/populateOptions.js"
+import { populateCustomDropdown,resetPriorityDropdown } from "./priority.js";
 
-const rightPanel = document.querySelector(".grid-right-area")
-const listSection = document.querySelector(".task-card-section")
+const rightPanel = document.querySelector(".grid-right-area");
+const listSection = document.querySelector(".task-card-section");
 const form = document.getElementById("todoForm");
 const addTaskBtn = document.querySelector(".Add-Task");
 const todoModal = document.getElementById("todoModal");
@@ -23,14 +24,11 @@ const priorityContainer = document.getElementById("task-priority")
 const prioritySelect = document.querySelector(".dropdown-selected")
 
 
-
-
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
 
 populateCustomDropdown(prioritySelect,priorityContainer, getPriorities())
-
 
 
 export function renderTaskList() {
@@ -264,6 +262,7 @@ rightPanel.addEventListener("click", (e) => {
 
 addTaskBtn.addEventListener("click", () => {
   form.reset();
+  resetPriorityDropdown();
   clearEditState();
   modalSubmitBtn.disabled = true;
   

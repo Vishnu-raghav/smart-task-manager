@@ -17,11 +17,9 @@ import {
   deleteTodo as deleteTodoService
 } from "./taskcrud.js";
 
-import {
-  populateOptions as populateCategoryOptions,
-  populateCustomDropdown
-} from "../utils/populateOptions.js"
+import {populateOptions as populateCategoryOptions,} from "../utils/populateOptions.js"
 
+import { populateCustomDropdown,resetPriorityDropdown } from "./priority.js";
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
@@ -224,6 +222,7 @@ function updateProgressUI() {
 
 addTaskBtn.addEventListener("click", () => {
   form.reset();
+  resetPriorityDropdown()
   clearEditState();
   modalSubmitBtn.disabled = true;
   

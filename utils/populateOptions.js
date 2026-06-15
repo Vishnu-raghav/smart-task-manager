@@ -23,38 +23,3 @@ export function populateOptions(selectElement, data, config = {} ){
 
 }
 
-export function populateCustomDropdown(selectedElement,container, data){
-    selectedElement.innerHTML = ""
-
-    container.innerHTML = ""
-
-    const placeholder = document.createElement("div")
-    placeholder.textContent = "vishnu"
-
-    placeholder.hidden = 
-    placeholder.selected = false
-
-    selectedElement.appendChild(placeholder)
-
-    
-
-    data.forEach(item => {
-        const div = document.createElement("div")
-        div.classList.add("dropdown-item")
-        div.dataset.id = item.id
-
-        div.innerHTML = `
-          <span>${item.name}</span>
-          <span class="dots">•••</span>
-        `;
-
-
-        container.appendChild(div)
-    })
-
-     const addBtn = document.createElement("div");
-     addBtn.classList.add("dropdown-item", "add-new");
-     addBtn.innerHTML = `<span>+ Add Priority</span>`;
-     container.appendChild(addBtn);
-
-}
