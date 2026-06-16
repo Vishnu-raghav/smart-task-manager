@@ -70,7 +70,7 @@ export function renderTodos() {
     const categoryName = categoryObj ? categoryObj.name : "General";
 
     const priorityObj = priorities.find(p => p.id === Number(task.priority))
-    const priorityName = priorityObj ? priorityObj.name : "N/A"
+    const priorityName = priorityObj ? priorityObj.name : "Medium"
 
     const card = document.createElement("div");
     card.className = "todo-card";

@@ -168,12 +168,39 @@
   letter-spacing: 2px; 
   cursor: pointer;
 }
-
 .add-new {
   border-top: 1px solid #eee;
-  color: var(--primary);
-  font-weight: 600;
+  padding: 10px 12px;
+  display: block;
 }
+
+.add-new input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 10px;
+  outline: none;
+  margin-bottom: 8px;
+}
+
+.priority-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.priority-create,
+.cancel-priority {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.priority-create:hover,
+.cancel-priority:hover {
+  background: #f3f4f6;
+}
+
 
 
 @media(max-width:600px){

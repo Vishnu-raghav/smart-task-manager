@@ -144,9 +144,6 @@ function showDetails(id) {
   const categories = getCategories()
   const categoryObj = categories.find((cat) => cat.id == todo.category) 
 
-
-
-
   detailContainer.innerHTML = `
   <div class="todo-detail">
   ${
