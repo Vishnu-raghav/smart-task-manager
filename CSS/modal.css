@@ -158,20 +158,39 @@
   padding: 10px 12px;
   font-size: 14px;
   transition: 0.2s;
+  position: relative;
 }
 
-.dropdown-item:hover {
+.priority-dropdown-modal{
+  position: absolute;
+  left: 100%;
+  top: 0;
+
+  display: none;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+
+.dropdown-item:hover .priority-dropdown-modal {
   background: #f3f4f6;
+  display: block;
 }
 
 .dots {
   letter-spacing: 2px; 
   cursor: pointer;
 }
+
+
 .add-new {
   border-top: 1px solid #eee;
   padding: 10px 12px;
   display: block;
+  position: relative;
 }
 
 .add-new input {
@@ -199,6 +218,14 @@
 .priority-create:hover,
 .cancel-priority:hover {
   background: #f3f4f6;
+}
+
+.priority-error{
+  display: none;
+  position: absolute;
+  z-index: 100;
+  top: 55px;
+  right: 300px;
 }
 
 

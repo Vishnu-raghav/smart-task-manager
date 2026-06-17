@@ -126,6 +126,8 @@ export function createPriority(data){
 
   priorities.push(newPriority)
   savePriorities(priorities)
+  
+  return newPriority;
 }
 
 export function deletePriority(id){
