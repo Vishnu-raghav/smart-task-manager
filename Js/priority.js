@@ -6,14 +6,13 @@ const dropdown = document.getElementById("priorityDropdown");
 const selected = dropdown.querySelector(".dropdown-selected");
 
 let isAddingPriority = false
+
 selected.addEventListener("click", (e) => {
   dropdown.classList.toggle("active");
   if (!dropdown.classList.contains("active")) {
      closePriorityModals()
   }
-  
 });
-
 
 priorityContainer.addEventListener("click", (e) => {
 
@@ -116,16 +115,19 @@ export function populateCustomDropdown(selectedElement,container, data){
              <i class="fa-solid fa-ellipsis"></i>
           </button>
           <div class="priority-dropdown-modal">
-
+           ${!item.isDefault ? `
             <button
               type="button"
               class="priority-delete-btn"
             >
               Delete
             </button>
+            <div class="priority-divider"></div>
+            ` : 
+            ``}
+            
 
 
-  <div class="priority-divider"></div>
         
 <div class="priority-colors">
 
@@ -246,8 +248,15 @@ return true
 }
 
 function deletePriorityHandle(deleteBtn){
-  const id = deleteBtn.closest(".dropdown-item")
-  console.log(id)
+  const item = deleteBtn.closest(".dropdown-item")
+  const id = Number(item.dataset.id)
+
+  deletePriority(id)
+  populateCustomDropdown(
+   selected,
+   priorityContainer,
+   getPriorities()
+)
 }
 
 function closePriorityModals() {

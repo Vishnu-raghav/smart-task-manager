@@ -31,7 +31,6 @@ const defaultCategories = [
 
 const defaultPriorities = [
   {id : 1, name: "High", isDefault: true},
-  {id : 2, name: "Medium", isDefault: true},
   {id : 3, name: "Low", isDefault: true},
 ]
 
