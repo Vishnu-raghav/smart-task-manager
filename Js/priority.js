@@ -37,9 +37,18 @@ priorityContainer.addEventListener("click", (e) => {
     return;
   }
 
-  const deleteBtn = e.target.closest(".priority-delete")
+  const deleteBtn = e.target.closest(".priority-delete-btn")
   if(deleteBtn){
-    deletePriority()
+    deletePriorityHandle(deleteBtn)
+    return
+  }
+
+  const dots = e.target.closest(".dots")
+  if(dots){
+    const container = dots.closest(".dropdown-item")
+    const modal = container.querySelector(".priority-dropdown-modal")
+    modal.classList.toggle("active")
+    console.log("dot click")
     return
   }
 
@@ -49,11 +58,16 @@ priorityContainer.addEventListener("click", (e) => {
 
   const name = item.querySelector("span").innerText;
   const id = item.dataset.id;
-
+  
+  console.log("item select")
+  
   selected.innerText = name;
   dropdown.dataset.value = id;
-
   dropdown.classList.remove("active");
+  
+  
+  
+  
 });
 
 
@@ -71,7 +85,12 @@ export function populateCustomDropdown(selectedElement,container, data){
 
         div.innerHTML = `
           <span>${item.name}</span>
-          <span class="dots">•••</span>
+          <button
+           type="button"
+           class="dots"
+          >
+             <i class="fa-solid fa-ellipsis"></i>
+          </button>
           <div class="priority-dropdown-modal">
 
             <button
@@ -181,4 +200,9 @@ dropdown.dataset.value = createdPriority.id;
 
 dropdown.classList.remove("active")
 return true
+}
+
+function deletePriorityHandle(deleteBtn){
+  const id = deleteBtn.closest(".dropdown-item")
+  console.log(id)
 }
