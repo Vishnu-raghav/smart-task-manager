@@ -6,8 +6,12 @@ const dropdown = document.getElementById("priorityDropdown");
 const selected = dropdown.querySelector(".dropdown-selected");
 
 let isAddingPriority = false
-selected.addEventListener("click", () => {
+selected.addEventListener("click", (e) => {
   dropdown.classList.toggle("active");
+  if (!dropdown.classList.contains("active")) {
+     closePriorityModals()
+  }
+  
 });
 
 
@@ -64,7 +68,15 @@ priorityContainer.addEventListener("click", (e) => {
     return
   }
 
-   
+  const colorOption = e.target.closest(".color-option");
+  if(colorOption){
+   console.log("color clicked");
+
+   // future color logic
+
+   return;
+  }
+
   const item = e.target.closest(".dropdown-item");
   if (!item) return;
 
@@ -76,10 +88,10 @@ priorityContainer.addEventListener("click", (e) => {
   selected.innerText = name;
   dropdown.dataset.value = id;
   dropdown.classList.remove("active");
+
+  closePriorityModals()
   
-  
-  
-  
+
 });
 
 
@@ -111,14 +123,33 @@ export function populateCustomDropdown(selectedElement,container, data){
             >
               Delete
             </button>
+
+
+  <div class="priority-divider"></div>
         
-            <div class="priority-colors">
-        
-              <span class="color-dot red">red</span>
-              <span class="color-dot green">green</span>
-              <span class="color-dot blue">blue</span>
-   
-          </div>
+<div class="priority-colors">
+
+  <div class="color-option">
+    <span class="color-box red"></span>
+    <span>Red</span>
+  </div>
+
+  <div class="color-option">
+    <span class="color-box green"></span>
+    <span>Green</span>
+  </div>
+
+  <div class="color-option">
+    <span class="color-box blue"></span>
+    <span>Blue</span>
+  </div>
+
+  <div class="color-option">
+    <span class="color-box yellow"></span>
+    <span>Yellow</span>
+  </div>
+
+</div>
 
         </div>
         `;
@@ -217,4 +248,12 @@ return true
 function deletePriorityHandle(deleteBtn){
   const id = deleteBtn.closest(".dropdown-item")
   console.log(id)
+}
+
+function closePriorityModals() {
+  document
+    .querySelectorAll(".priority-dropdown-modal.active")
+    .forEach(modal => {
+      modal.classList.remove("active");
+    });
 }
