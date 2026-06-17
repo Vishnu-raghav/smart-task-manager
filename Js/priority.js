@@ -10,6 +10,7 @@ selected.addEventListener("click", () => {
   dropdown.classList.toggle("active");
 });
 
+
 priorityContainer.addEventListener("click", (e) => {
 
   const saveBtn = e.target.closest(".priority-create");
@@ -47,12 +48,23 @@ priorityContainer.addEventListener("click", (e) => {
   if(dots){
     const container = dots.closest(".dropdown-item")
     const modal = container.querySelector(".priority-dropdown-modal")
-    modal.classList.toggle("active")
-    console.log("dot click")
+    const allActiveModal = document.querySelectorAll(".priority-dropdown-modal.active");
+    const isOpen = modal.classList.contains("active");
+
+    allActiveModal.forEach(modal => {
+      modal.classList.remove("active");
+    });
+    
+    if(isOpen){
+      return;
+    }
+    
+    modal.classList.add("active");
+
     return
   }
 
-
+   
   const item = e.target.closest(".dropdown-item");
   if (!item) return;
 
