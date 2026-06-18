@@ -34,7 +34,7 @@ const modalHeading = todoModal.querySelector(".modal-header h4");
 const modalSubmitBtn = todoModal.querySelector('button[type="submit"]');
 const select = document.getElementById("task-category");
 const priorityContainer = document.getElementById("task-priority") 
-const prioritySelect = document.querySelector(".dropdown-selected")
+
 
 initializePriorities()
 
@@ -42,7 +42,7 @@ populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
 
-populateCustomDropdown(prioritySelect,priorityContainer, getPriorities())
+populateCustomDropdown(priorityContainer, getPriorities())
 
 
 export function renderTodos() {
@@ -201,7 +201,6 @@ export function deleteTodoHandle(deleteBtn){
 
  }
 
-
 function updateProgressUI() {
   const todos = getTodos();
 
@@ -231,7 +230,6 @@ addTaskBtn.addEventListener("click", () => {
   
   todoModal.classList.add("active");
 });
-
 
 
 initForm(form, {
@@ -291,25 +289,6 @@ form.addEventListener("input",() => {
   updateSubmitButtonState(form,modalSubmitBtn)
 })
 
-// priorityContainer.addEventListener("click", (e) => {
-  //   const item = e.target.closest(".dropdown-item");
-  //   if (!item) return;
-  
-  //   if (item.classList.contains("add-new")) {
-    //     alert("future feature");
-    //     return;
-    //   }
-    
-    //   const name = item.querySelector("span").innerText;
-    //   const id = item.dataset.id;
-    
-    //   selected.innerText = name;
-    
-    //   dropdown.dataset.value = id;
-    
-    //   dropdown.classList.remove("active");
-    // });
-    
     
     
     
