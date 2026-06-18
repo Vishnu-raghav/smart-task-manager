@@ -36,6 +36,9 @@ selected.addEventListener("click", () => {
   dropdown.classList.toggle("active");
   if (!dropdown.classList.contains("active")) {
      closePriorityModals()
+
+    isAddingPriority = false;
+    renderAddPriority();
   }
 });
 
@@ -190,18 +193,38 @@ function renderAddPriority() {
   if (isAddingPriority) {
 
     addNewContainer.innerHTML = `
-      <input
-        class="priority-input"
-        type="text"
-        placeholder="Priority name"
-      >
+  <input
+    class="priority-input"
+    type="text"
+    placeholder="Enter priority name"
+  >
 
-      <div class="priority-actions">
-        <span class="priority-create">Save</span>
-        <p class="priority-error">Priority already exist</p>
-        <span class="cancel-priority">Cancel</span>
-      </div>
-    `;
+  <p class="priority-error">
+    Priority already exists
+  </p>
+
+  <div class="priority-actions">
+    <button
+      type="button"
+      class="priority-create"
+    >
+      Save
+    </button>
+
+    <button
+      type="button"
+      class="cancel-priority"
+    >
+      Cancel
+    </button>
+  </div>
+`;
+  const input = addNewContainer.querySelector(".priority-input");
+  const error = addNewContainer.querySelector(".priority-error");
+
+  input.addEventListener("input", () => {
+    error.style.display = "none";
+  });
 
   } else {
 
@@ -233,10 +256,16 @@ function addNewPriorityHandle(){
   });
 
   if(createdPriority?.error){
-    const show = container.querySelector(".priority-error");
-    show.style.display = "block";
-    return false;
-  }
+  const show = container.querySelector(".priority-error");
+
+  show.style.display = "block";
+
+  setTimeout(() => {
+    show.style.display = "none";
+  }, 3000);
+
+  return false;
+}
 
   populateCustomDropdown(
     priorityContainer,

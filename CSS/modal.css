@@ -333,26 +333,80 @@
   display: block;
 }
 
-.add-new input {
+.add-priority-btn{
   width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 8px 10px;
-  outline: none;
-  margin-bottom: 8px;
+
+  border: 1px dashed #d1d5db;
+  background: #f8fafc;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #64748b;
+
+  cursor: pointer;
+
+  transition: all .2s ease;
 }
 
-.priority-actions {
+.add-priority-btn:hover{
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(255,122,122,.08);
+}
+
+.priority-input{
+  width: 100%;
+
+  height: 40px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  padding: 0 12px;
+
+  background: #fafafa;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: .2s;
+}
+
+.priority-input:focus{
+  background: #fff;
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 3px rgba(255,122,122,.12);
+}
+
+.priority-actions{
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
+
+  margin-top: 10px;
 }
 
 .priority-create,
-.cancel-priority {
+.cancel-priority{
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: .2s;
 }
 
 .priority-create:hover,
@@ -361,10 +415,14 @@
 }
 
 .priority-error{
-  display:none;
-  color:red;
-  font-size:12px;
-  margin-top:6px;
+  display: none;
+
+  margin-top: 6px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  color: #dc2626;
 }
 
 
