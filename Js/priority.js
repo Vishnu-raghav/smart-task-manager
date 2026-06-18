@@ -1,5 +1,5 @@
 import {createPriority, deletePriority} from "./taskcrud.js"
-import { getPriorities } from "./storage.js";
+import { getPriorities, savePriorities } from "./storage.js";
 
 const priorityContainer = document.getElementById("task-priority") 
 const dropdown = document.getElementById("priorityDropdown");
@@ -69,27 +69,24 @@ priorityContainer.addEventListener("click", (e) => {
 
   const colorOption = e.target.closest(".color-option");
   if(colorOption){
-   console.log("color clicked");
-
-   // future color logic
-
+   priorityColor(colorOption)
    return;
   }
 
   const item = e.target.closest(".dropdown-item");
   if (!item) return;
 
-  const name = item.querySelector("span").innerText;
   const id = item.dataset.id;
+  const priority = getPriorities().find(
+  p => p.id === Number(id)
+  );
+
+  renderSelectedPriority(priority)
   
-  console.log("item select")
-  
-  selected.innerText = name;
   dropdown.dataset.value = id;
   dropdown.classList.remove("active");
 
   closePriorityModals()
-  
 
 });
 
@@ -107,7 +104,15 @@ export function populateCustomDropdown(selectedElement,container, data){
         div.dataset.id = item.id
 
         div.innerHTML = `
-          <span>${item.name}</span>
+        <span
+        class="priority-badge"
+        style="
+        background:${item.color};
+        color:white;
+        "
+        >
+          ${item.name}
+        </span>
           <button
            type="button"
            class="dots"
@@ -129,30 +134,30 @@ export function populateCustomDropdown(selectedElement,container, data){
 
 <div class="priority-colors">
 
-  <div class="color-option", data-color="#ef4444 ">
+  <div class="color-option" data-color="#ef4444">
     <span class="color-box red"></span>
     <span>Red</span>
   </div>
 
-  <div class="color-option", data-color="#22c55e">
+  <div class="color-option" data-color="#22c55e">
     <span class="color-box green"></span>
     <span>Green</span>
   </div>
 
-  <div class="color-option", data-color="#3b82f6">
+  <div class="color-option" data-color="#3b82f6">
     <span class="color-box blue"></span>
     <span>Blue</span>
   </div>
 
-  <div class="color-option", data-color="#facc15" d>
+  <div class="color-option" data-color="#facc15">
     <span class="color-box yellow"></span>
     <span>Yellow</span>
   </div>
-  <div class="color-option", data-color="#a855f7" d>
+  <div class="color-option" data-color="#a855f7">
     <span class="color-box purple"></span>
     <span>purple</span>
   </div>
-  <div class="color-option", data-color="#6b7280" d>
+  <div class="color-option" data-color="#6b7280">
     <span class="color-box Gray"></span>
     <span>Gray</span>
   </div>
@@ -219,38 +224,39 @@ function renderAddPriority() {
 }
 
 function addNewPriorityHandle(){
-  
+
   const container = document.querySelector(".add-new");
   const input = container.querySelector(".priority-input");
 
-  if(!input) return
+  if(!input) return;
 
   const value = input.value.trim();
 
   if(!value) return;
 
   const createdPriority = createPriority({
-  name: value
+    name: value
   });
 
   if(createdPriority?.error){
-    const show = container.querySelector(".priority-error")
+    const show = container.querySelector(".priority-error");
     show.style.display = "block";
-    console.log(show);
-    return false
+    return false;
   }
 
   populateCustomDropdown(
-   selected,
-   priorityContainer,
-   getPriorities()
-)
+    selected,
+    priorityContainer,
+    getPriorities()
+  );
 
-selected.innerText = createdPriority.name;
-dropdown.dataset.value = createdPriority.id;
+  renderSelectedPriority(createdPriority);
 
-dropdown.classList.remove("active")
-return true
+  dropdown.dataset.value = createdPriority.id;
+
+  dropdown.classList.remove("active");
+
+  return true;
 }
 
 function deletePriorityHandle(deleteBtn){
@@ -271,4 +277,48 @@ function closePriorityModals() {
     .forEach(modal => {
       modal.classList.remove("active");
     });
+}
+
+function priorityColor(coloroptions){
+
+  const color = coloroptions.dataset.color
+  const item = coloroptions.closest(".dropdown-item")  
+  const id = Number(item.dataset.id)
+
+  const priorities = getPriorities()
+
+  const priority = priorities.find(p => p.id === id)
+
+  if(!priority) return
+
+  priority.color = color
+
+  savePriorities(priorities)
+
+  populateCustomDropdown(
+   selected,
+   priorityContainer,
+   getPriorities()
+  )
+
+  const selectedId = Number(dropdown.dataset.value);
+
+  if (selectedId === id) {
+   renderSelectedPriority(priority)
+  }
+}
+
+
+function renderSelectedPriority(priority){
+  selected.innerHTML = `
+    <span
+      class="priority-badge"
+      style="
+        background:${priority.color || "#6b7280"};
+        color:white;
+      "
+    >
+      ${priority.name}
+    </span>
+  `;
 }
