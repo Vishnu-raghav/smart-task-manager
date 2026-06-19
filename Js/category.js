@@ -20,25 +20,31 @@ let activeCategoryId = null;
 export function renderCategories() {
   const todos = getTodos();
   const category = getCategories()
+  const priority = getPriorities()
 
   categorySection.innerHTML = "";
 
   category.forEach(cat => {
      if (!cat || cat.id == null) return; 
 
+    
+
+
     const tasks = todos.filter(t => t.category == cat.id);
     const total = tasks.length;
     const completed = tasks.filter(t => t.completed).length;
     const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
-
+   
     const lastTask = tasks.length
       ? tasks[tasks.length - 1].dueDate || "N/A"
-      : "No tasks";
+      : "No tasks"; 
+
+
 
     const card = document.createElement("div");
     card.className = "category-card";
     card.dataset.id = cat.id;
-    card.style.background = `linear-gradient(135deg, ${cat.color} #333)`;
+    card.style.background = `linear-gradient(135deg, ${cat.color},#333)`;
 
     card.innerHTML = `
      <div class="category-header">
@@ -105,13 +111,9 @@ function showCategoryTasks(categoryID) {
   const todos = getTodos();
   const filtered = todos.filter(t => t.category  == categoryID);
   const categories = getCategories()
-  const priority = getPriorities()
-
   const categoryObj = categories.find(c => c.id === Number(categoryID));
   const categoryName = categoryObj ? categoryObj.name : "Unknown";
-  const priorityObj = priority.find( p => p.id === Number(categoryID))
-  const priorityName = priorityObj ? priorityObj.name : "N/A"
-  
+  const priority = getPriorities()
   
   if (!filtered.length) {
     rightPanel.innerHTML = `
@@ -134,26 +136,43 @@ function showCategoryTasks(categoryID) {
   const container = rightPanel.querySelector(".category-tasks-container");
 
   filtered.forEach(task => {
+    const priorityObj = priority.find( p => p.id === Number(task.priority))
+    const priorityName = priorityObj ? priorityObj.name : "N/A"
+
     const div = document.createElement("div");
     div.classList.add("task-item");       
     div.setAttribute("draggable", "true"); 
     div.dataset.id = task.id;  
-    div.style.marginBottom = "12px";
-    div.style.padding = "12px";
-    div.style.borderRadius = "10px";
-    div.style.background = "#f6f7fb";
-
     div.innerHTML = `
      <div class="category-task-card">
-    <div class="category-task-title">
-      ${task.title}
-    </div>
+      <div class="category-task-top">
+    <h4 class="category-task-title">
+        ${task.title}
+      </h4>
 
-    <div class="category-task-desc">
+     <span
+           class="progress-value priority-pill"
+           style="
+             background:${priorityObj?.color || '#6b7280'};
+             color:white;
+           "
+         >
+           ${priorityName}
+         </span>
+       </div>    
+
+
+    <p class="category-task-desc">
       ${task.desc || "No description"}
+    </p>
+
+     <div class="category-task-footer">
+      <span>
+        <i class="fa-regular fa-calendar"></i>
+        ${task.dueDate || "No Due Date"}
+      </span>
     </div>
 
-    <small>Priority: ${priorityName}</small>
   </div>
     `;
 

@@ -20,7 +20,7 @@ export function isEditChanged(form) {
     return (
       form.title.value.trim() !== originalTodoData.title.trim() ||
       form.desc.value.trim() !== originalTodoData.desc.trim() ||
-      dropdown.dataset.value !== originalTodoData.priority||
+      (dropdown?.dataset.value || "") !== originalTodoData.priority||
       form.category.value.trim() !== originalTodoData.category.trim() ||
       form.dueDate.value.trim() !== originalTodoData.dueDate.trim()
     );
@@ -47,12 +47,16 @@ export function initForm(form, config = {}) {
 
    const formData = Object.fromEntries(new FormData(form).entries());
    const { editTodoId, editCategoryId } = getEditState();
+    
+   const isTodoForm = form.dataset.formType === "todo"
 
-    const data = {
+   const data = isTodoForm ?
+    {
       ...formData,
-      priority : dropdown.dataset.value,
-      image : getImage()
-    }
+      priority: dropdown?.dataset.value || "",
+      image: getImage()
+    } : formData
+   
     
    if (editTodoId !== null) {
      updateFn(editTodoId, data);
