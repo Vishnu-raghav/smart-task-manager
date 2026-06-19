@@ -247,17 +247,12 @@
       <button class="close-modal" type="button">Go Back</button>
     </div>
 
-    <form class="modal-form" data-form-type="todo" id="todoForm">
+    <form class="modal-form" data-form-type="todo" autocomplete="off" id="todoForm">
 
       <div class="modal-input">
         <label>Title</label>
         <input type="text" id="task-title" name="title" placeholder="Enter title" required />
       </div>
-
-      <!-- <div class="modal-input">
-        <label>Priority</label>
-        <select name="priority" id="task-priority"></select>
-      </div> -->
 
   <div class="modal-input">
   <label>Priority</label>
@@ -265,26 +260,7 @@
   <div class="custom-dropdown" id="priorityDropdown">
     <div class="dropdown-selected"></div>
 
-    <div class="dropdown-options" id="task-priority">
-      
-      <!-- <div class="dropdown-item">
-        <span>High</span>
-        <span class="dots">•••</span>
-      </div>
-
-      <div class="dropdown-item">
-        <span>Medium</span>
-        <span class="dots">•••</span>
-      </div> -->
-
-      <!-- <div class="dropdown-ite add-new">
-        <span>+ Add Priority</span>
-      </div> -->
-
-    </div>
-    
-    
-
+    <div class="dropdown-options" id="task-priority"></div>
   </div>
       </div>
 
@@ -300,13 +276,11 @@
 
       <div class="task-description">
         <div class="modal-input">
-          <label>Description</label>
-          <input
-            type="text"
+          <textarea
             id="task-desc"
             name="desc"
-            placeholder="Enter description"
-          />
+            placeholder="Write task description..."
+          ></textarea>
         </div>
 
         <div class="upload-box" id="uploadBox">
@@ -328,6 +302,7 @@
           <img id="previewImg" class="preview-img" />
         </div>
       </div>
+
     </form>
 
     <button type="submit" form="todoForm"></button>

@@ -364,3 +364,31 @@ background-color: rgb(234, 228, 228);
   font-size: 11px;
   opacity: 0.8;
 }
+
+.task-description{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 16px;
+}
+
+.modal-input{
+  flex: 1;
+}
+
+
+#task-desc{
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+  resize: none;
+
+  background: #fafafa;
+  border-radius: 12px;
+
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+}
