@@ -5,28 +5,30 @@ rerenderPage();
 
 export function rerenderPage() {
   const page = document.body.dataset.page;
-  if (page === "dashboard" || page === "myTask") {
+
+  if (page === "dashboard" || page === "myTask"){
   import("./modal.js");
   import("./priority.js")
-}
-  if (page === "dashboard") {
+  }
+
+  if (page === "dashboard"){
     import("./dashboard.js").then(m => {
       m.renderTodos();
       m.renderCompletedTodos();
     });
   }
 
-  if (page === "myTask") {
+  if (page === "myTask"){
     import("./myTask.js").then(m => {
       m.renderTaskList();
     });
   }
 
-  if (page === "category") {
+  if (page === "category"){
     
   import("./category.js").then(m => {
     m.renderCategories();
   });
-}
+ }
 
 }

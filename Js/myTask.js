@@ -10,7 +10,7 @@ import {
 } from "./taskcrud.js";
 
 import {populateOptions as populateCategoryOptions} from "../utils/populateOptions.js"
-import { populateCustomDropdown,resetPriorityDropdown } from "./priority.js";
+// import { populateCustomDropdown,resetPriorityDropdown } from "./priority.js";
 
 const rightPanel = document.querySelector(".grid-right-area");
 const listSection = document.querySelector(".task-card-section");
@@ -27,7 +27,6 @@ populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
 
-populateCustomDropdown(priorityContainer, getPriorities())
 
 
 export function renderTaskList() {
@@ -278,7 +277,6 @@ rightPanel.addEventListener("click", (e) => {
 
 addTaskBtn.addEventListener("click", () => {
   form.reset();
-  resetPriorityDropdown();
   clearEditState();
   modalSubmitBtn.disabled = true;
   

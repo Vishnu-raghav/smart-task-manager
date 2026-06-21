@@ -19,8 +19,6 @@ import {
 
 import {populateOptions as populateCategoryOptions,} from "../utils/populateOptions.js"
 
-import { populateCustomDropdown,resetPriorityDropdown } from "./priority.js";
-
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
 const todoCardContainer = document.querySelector(".grid-container");
@@ -41,8 +39,6 @@ initializePriorities()
 populateCategoryOptions(select , getCategories(), {
   placeholderText: "Select Category"
 });
-
-populateCustomDropdown(priorityContainer, getPriorities())
 
 
 export function renderTodos() {
@@ -254,7 +250,6 @@ function updateProgressUI() {
 
 addTaskBtn.addEventListener("click", () => {
   form.reset();
-  resetPriorityDropdown()
   clearEditState();
   modalSubmitBtn.disabled = true;
   
@@ -321,8 +316,3 @@ todoCardContainer.addEventListener("click", (e) => {
 form.addEventListener("input",() => {
   updateSubmitButtonState(form,modalSubmitBtn)
 })
-
-    
-    
-    
-    

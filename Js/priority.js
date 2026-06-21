@@ -119,10 +119,12 @@ priorityContainer.addEventListener("click", (e) => {
 });
 
 
-export function populateCustomDropdown(container, data){
+function populateCustomDropdown(){
 
-    container.innerHTML = ""
+    priorityContainer.innerHTML = ""
     
+    const data = getPriorities()
+
     data.forEach(item => {
         const div = document.createElement("div")
         div.classList.add("dropdown-item")
@@ -142,7 +144,7 @@ export function populateCustomDropdown(container, data){
            type="button"
            class="dots"
           >
-             <i class="fa-solid fa-ellipsis"></i>
+            <i class="fa-solid fa-ellipsis"></i>
           </button>
           <div class="priority-dropdown-modal">
            ${!item.isDefault ? `
@@ -155,7 +157,6 @@ export function populateCustomDropdown(container, data){
             <div class="priority-divider"></div>
             ` : 
             ``}
-            
 
        <div class="priority-colors">
          ${colorHTML}
@@ -164,7 +165,7 @@ export function populateCustomDropdown(container, data){
         </div>
         `;
 
-        container.appendChild(div)
+        priorityContainer.appendChild(div)
     })
 
      const addBtn = document.createElement("div");
@@ -177,10 +178,10 @@ export function populateCustomDropdown(container, data){
        </button>
      `;
 
-     container.appendChild(addBtn);
+     priorityContainer.appendChild(addBtn);
 }
 
-export function resetPriorityDropdown() {
+function resetPriorityDropdown() {
   selected.innerText = "Select Priority";
   dropdown.dataset.value = "";
 }
@@ -267,10 +268,7 @@ function addNewPriorityHandle(){
   return false;
 }
 
-  populateCustomDropdown(
-    priorityContainer,
-    getPriorities()
-  );
+  populateCustomDropdown();
 
   renderSelectedPriority(createdPriority);
 
@@ -292,10 +290,7 @@ function deletePriorityHandle(deleteBtn){
      resetPriorityDropdown();
   }
 
-  populateCustomDropdown(
-   priorityContainer,
-   getPriorities()
-  )
+  populateCustomDropdown()
 }
 
 function closePriorityModals() {
@@ -322,10 +317,7 @@ function priorityColor(coloroptions){
 
   savePriorities(priorities)
 
-  populateCustomDropdown(
-   priorityContainer,
-   getPriorities()
-  )
+  populateCustomDropdown()
 
   const selectedId = Number(dropdown.dataset.value);
 
@@ -349,3 +341,6 @@ function renderSelectedPriority(priority){
     </span>
   `;
 }
+
+resetPriorityDropdown()
+populateCustomDropdown()
