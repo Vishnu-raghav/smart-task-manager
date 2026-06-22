@@ -38,7 +38,7 @@ selected.addEventListener("click", () => {
      closePriorityModals()
 
     isAddingPriority = false;
-    renderAddPriority();
+    renderPriorityInputSection();
   }
 });
 
@@ -71,14 +71,20 @@ priorityContainer.addEventListener("click", (e) => {
 
   const deleteBtn = e.target.closest(".priority-delete-btn")
   if(deleteBtn){
-    deletePriorityHandle(deleteBtn)
-    return
+     const item = deleteBtn.closest(".dropdown-item")
+     if(!item) return
+
+     const id = Number(item.dataset.id)
+     deletePriorityHandle(id)
+     return
   }
 
   const dots = e.target.closest(".dots")
   if(dots){
     const container = dots.closest(".dropdown-item")
-    const modal = container.querySelector(".priority-dropdown-modal")
+    if(!container) return
+
+    const modal = container.querySelector(".priority-dropdown-modal")    
     const allActiveModal = document.querySelectorAll(".priority-dropdown-modal.active");
     const isOpen = modal.classList.contains("active");
 
@@ -97,7 +103,12 @@ priorityContainer.addEventListener("click", (e) => {
 
   const colorOption = e.target.closest(".color-option");
   if(colorOption){
-   priorityColor(colorOption)
+   const color = colorOption.dataset.color
+   const item = colorOption.closest(".dropdown-item") 
+   if(!item) return
+
+   const id = Number(item.dataset.id)
+   priorityColor(id, color)
    return;
   }
 
@@ -147,7 +158,8 @@ function populateCustomDropdown(){
             <i class="fa-solid fa-ellipsis"></i>
           </button>
           <div class="priority-dropdown-modal">
-           ${!item.isDefault ? `
+           ${
+            !item.isDefault ? `
             <button
               type="button"
               class="priority-delete-btn"
@@ -155,8 +167,8 @@ function populateCustomDropdown(){
               Delete
             </button>
             <div class="priority-divider"></div>
-            ` : 
-            ``}
+            ` : ``
+          }
 
        <div class="priority-colors">
          ${colorHTML}
@@ -244,13 +256,11 @@ function renderPriorityInputSection() {
 function addNewPriorityHandle(){
 
   const container = document.querySelector(".add-new");
+
   const input = container.querySelector(".priority-input");
-
-  if(!input) return;
-
   const value = input.value.trim();
 
-  if(!value) return;
+  if(!value) return false;
 
   const createdPriority = createPriority({
     name: value
@@ -279,9 +289,9 @@ function addNewPriorityHandle(){
   return true;
 }
 
-function deletePriorityHandle(deleteBtn){
-  const item = deleteBtn.closest(".dropdown-item")
-  const id = Number(item.dataset.id)
+function deletePriorityHandle(id){
+
+  if (Number.isNaN(id)) return;
 
   deletePriority(id)
   const selectedId = Number(dropdown.dataset.value);
@@ -301,28 +311,23 @@ function closePriorityModals() {
     });
 }
 
-function priorityColor(coloroptions){
+function priorityColor(id, color) {
+  if (Number.isNaN(id) || !color) return;
 
-  const color = coloroptions.dataset.color
-  const item = coloroptions.closest(".dropdown-item")  
-  const id = Number(item.dataset.id)
+  const priorities = getPriorities();
+  const priority = priorities.find(p => p.id === id);
 
-  const priorities = getPriorities()
+  if (!priority) return;
 
-  const priority = priorities.find(p => p.id === id)
+  priority.color = color;
+  savePriorities(priorities);
 
-  if(!priority) return
-
-  priority.color = color
-
-  savePriorities(priorities)
-
-  populateCustomDropdown()
+  populateCustomDropdown();
 
   const selectedId = Number(dropdown.dataset.value);
 
   if (selectedId === id) {
-   renderSelectedPriority(priority)
+    renderSelectedPriority(priority);
   }
 }
 
