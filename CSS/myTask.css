@@ -25,7 +25,6 @@ body[data-page="myTask"] .grid-container{
   border-radius: 10px;
 }
 
-
 .todo-detail {
   display: flex;
   gap: 20px;
@@ -53,6 +52,7 @@ body[data-page="myTask"] .grid-container{
   display: flex;
   gap: 10px;
   margin-bottom: 12px;
+  flex-wrap: wrap;
 }
 
 .badge {
@@ -60,11 +60,9 @@ body[data-page="myTask"] .grid-container{
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
-}
-
-.badge.priority.extreme {
-  background: #ffe4e4;
-  color: #d62828;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .badge.status.pending {
@@ -72,22 +70,34 @@ body[data-page="myTask"] .grid-container{
   color: #856404;
 }
 
-.todo-progress-detail .date {
-  font-size: 13px;
-  color: #777;
+.badge.status.completed {
+  background: #dcfce7;
+  color: #166534;
 }
 
+.status.status.overdue {
+  background: #ffe4e6;
+  color: #b91c1c;
+}
+
+
 .priority-pill{
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   padding: 2px 8px;
-
   border-radius: 999px;
 
   font-size: 12px;
   font-weight: 600;
+  line-height: 1.2;
 }
 
+.todo-progress-detail .date {
+  font-size: 13px;
+  color: #777;
+}
 
 .task-full-detail-section {
   background: #f9fafb;
@@ -98,7 +108,6 @@ body[data-page="myTask"] .grid-container{
   gap: 14px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.05);
 }
-
 
 .task-list-card{
   display: flex;
@@ -117,26 +126,18 @@ body[data-page="myTask"] .grid-container{
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-
 .task-list-item{
   background: white;
-
   border: 1px solid #e5e7eb;
   border-radius: 14px;
-
   padding: 16px;
-
   cursor: pointer;
-
   transition: all .2s ease;
 }
 
 .task-list-item:hover{
   border-color: var(--primary);
-
-  box-shadow:
-    0 8px 20px rgba(0,0,0,.08);
-
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
   transform: translateY(-2px);
 }
 
@@ -145,7 +146,6 @@ body[data-page="myTask"] .grid-container{
   gap: 14px;
 }
 
-
 .task-list-content{
   flex: 1;
   min-width: 0;
@@ -153,35 +153,27 @@ body[data-page="myTask"] .grid-container{
 
 .task-list-title{
   display: block;
-
   font-size: 16px;
   font-weight: 700;
-
   color: #111827;
-
   margin-bottom: 6px;
 }
 
 .task-list-desc{
   margin: 0;
-
   color: #6b7280;
-
   font-size: 13px;
   line-height: 1.5;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-
   overflow: hidden;
 }
-
 
 .task-meta{
   margin-top: 14px;
   padding-top: 12px;
-
   border-top: 1px solid #f1f5f9;
 
   display: flex;
@@ -226,7 +218,7 @@ body[data-page="myTask"] .grid-container{
 
 .detail-row {
   display: grid;
-  grid-template-columns:120px 1fr;
+  grid-template-columns: 120px 1fr;
   gap: 10px;
 }
 

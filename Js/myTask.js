@@ -22,9 +22,11 @@ const select = document.getElementById("task-category");
 
 let activeTaskId = null;
 
-populateCategoryOptions(select , getCategories(), {
-  placeholderText: "Select Category"
-});
+if (select) {
+  populateCategoryOptions(select, getCategories(), {
+    placeholderText: "Select Category"
+  });
+}
 
 
 
@@ -41,13 +43,16 @@ export function renderTaskList() {
         <p>No tasks Click "Add Task" to get started</p>
       </div>
     `;
-    return;
-  }
+      activeTaskId = null
+      showDetails()
+      return
+    }
 
   todos.forEach(task => {
     const categoryObj = category.find((cat) => cat.id === Number(task.category))
     const priorityObj = priority.find((p) => p.id === Number(task.priority)) 
     const statusText = task.completed ? "Completed" : "In progress";
+    const statusClass = task.completed ? "completed" : "pending";
     
     const div = document.createElement("div");
     div.className = "task-list-item";
@@ -114,7 +119,7 @@ export function renderTaskList() {
 
   <span class="meta-item">
     Status:
-    <b>${statusText}</b>
+    <span class="badge status ${statusClass}">${statusText}</span>
   </span>
 
   <span class="meta-item">
@@ -157,6 +162,7 @@ function showDetails(id) {
   const categories = getCategories()
   const categoryObj = categories.find((cat) => cat.id == todo.category) 
   const statusText = todo.completed ? "Completed" : "In progress";
+  const statusClass = todo.completed ? "completed" : "pending";
 
   const priorityObj = priority.find((p) => p.id === Number(todo.priority)) 
 
@@ -188,12 +194,12 @@ function showDetails(id) {
 >
   ${priorityObj?.name || "N/A"}
 </span>
-        <span class="badge status pending">${statusText}</span>
+        <span class="badge status ${statusClass}">${statusText}</span>
       </div>
 
       <p class="date">
         <i class="fa-regular fa-calendar"></i>
-        Due on <span>${todo.dueDate}</span>
+        Due on <span>${todo.dueDate || "N/A"}</span>
       </p>
     </div>
   </div>
@@ -218,7 +224,7 @@ function showDetails(id) {
 
     <div class="detail-row">
       <p class="label">Due Date</p>
-      <p class="value">${todo.dueDate}</p>
+      <p class="value">${todo.dueDate || "N/A"}</p>
     </div>
   </div>
 

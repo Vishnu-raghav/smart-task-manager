@@ -35,9 +35,11 @@ const select = document.getElementById("task-category");
 
 initializePriorities()
 
-populateCategoryOptions(select , getCategories(), {
-  placeholderText: "Select Category"
-});
+if (select) {
+  populateCategoryOptions(select, getCategories(), {
+    placeholderText: "Select Category"
+  });
+}
 
 
 export function renderTodos() {
