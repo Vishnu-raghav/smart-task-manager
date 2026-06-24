@@ -34,7 +34,7 @@ export function renderTaskList() {
   const todos = getTodos();
   const category = getCategories()
   const priority = getPriorities()
-
+  
   listSection.innerHTML = "";
 
   if (todos.length === 0) {
@@ -165,6 +165,8 @@ function showDetails(id) {
   const statusClass = todo.completed ? "completed" : "pending";
 
   const priorityObj = priority.find((p) => p.id === Number(todo.priority)) 
+
+  console.log(priorityObj?.name)
 
 
   detailContainer.innerHTML = `

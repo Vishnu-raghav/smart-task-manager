@@ -213,8 +213,7 @@ background-color: rgb(234, 228, 228);
 }
 
 .grid-right-area .Task-bar-section{
-
-  height: 180px;
+ height: 180px;
 }
 
 
@@ -395,4 +394,10 @@ background-color: rgb(234, 228, 228);
   padding: 16px;
   font-size: 15px;
   line-height: 1.6;
+}
+
+.task-header-controls{
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }

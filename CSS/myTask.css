@@ -256,11 +256,6 @@ body[data-page="myTask"] .grid-container{
   transition: 0.2s;
 }
 
-.task-actions button:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(255, 82, 82, 0.4);
-}
-
 .task-actions i{
   color: white;
 }

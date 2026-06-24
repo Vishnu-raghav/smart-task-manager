@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="../CSS/dashboard.css" />
     <link rel="stylesheet" href="../CSS/modal.css" />
     <link rel="stylesheet" href="../CSS/myTask.css">
+    <link rel="stylesheet" href="../CSS//filter.css">
   </head>
   <body data-page="dashboard">
     <header class="Todo-header">
@@ -100,19 +101,167 @@
       <div class="grid-container">
         <div class="grid-left-area">
 
-          <div class="task-header">
-            <div class="My-task-todo">
-              <i class="fa-solid fa-clipboard-list icon"></i>
-              <span class="text">To-do</span>
-            </div>
-            <div class="Add-Task">
-              <i class="fa-solid fa-plus icon"></i>
-              <span class="text">Add Task</span>
-            </div>
-          </div>
+     <div class="task-header">
+  <div class="My-task-todo">
+    <i class="fa-solid fa-clipboard-list icon"></i>
+    <span class="text">To-do</span>
+  </div>
+
+  <div class="task-header-controls">
+
+    <div class="task-filter">
 
 
-         
+      <button class="task-filter-btn" id="filterBtn" type="button">
+        <i class="fa-solid fa-filter"></i>
+        <span>Filter</span>
+      </button>
+
+<div class="task-filter-panel" id="filterPanel" hidden>
+  <div class="task-filter-card">
+
+    <!-- Panel Header -->
+    <div class="task-filter-panel-header">
+      <div class="task-filter-heading">
+        <h4>Filter Tasks</h4>
+        <p>Narrow down tasks by status, category, priority, or due date.</p>
+      </div>
+
+      <button type="button" class="task-filter-clear-btn" id="clearFiltersBtn">
+        Clear all
+      </button>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="task-filter-panel-body">
+
+      <!-- Status -->
+      <section class="task-filter-group" aria-labelledby="filter-status-heading">
+        <div class="task-filter-group-top">
+          <h5 id="filter-status-heading">Status</h5>
+          <span class="task-filter-group-hint">Choose one</span>
+        </div>
+
+        <div class="task-filter-chip-list task-filter-chip-list--single" data-filter-group="status">
+          <label class="task-filter-chip">
+            <input type="radio" name="taskStatus" value="all" checked />
+            <span>All</span>
+          </label>
+
+          <label class="task-filter-chip">
+            <input type="radio" name="taskStatus" value="active" />
+            <span>Active</span>
+          </label>
+
+          <label class="task-filter-chip">
+            <input type="radio" name="taskStatus" value="completed" />
+            <span>Completed</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Due Date -->
+      <section class="task-filter-group" aria-labelledby="filter-date-heading">
+        <div class="task-filter-group-top">
+          <h5 id="filter-date-heading">Due Date</h5>
+          <span class="task-filter-group-hint">Choose one</span>
+        </div>
+
+        <div class="task-filter-chip-list task-filter-chip-list--single" data-filter-group="dueDate">
+          <label class="task-filter-chip">
+            <input type="radio" name="taskDueDate" value="all" checked />
+            <span>All Dates</span>
+          </label>
+
+          <label class="task-filter-chip">
+            <input type="radio" name="taskDueDate" value="today" />
+            <span>Due Today</span>
+          </label>
+
+          <label class="task-filter-chip">
+            <input type="radio" name="taskDueDate" value="week" />
+            <span>This Week</span>
+          </label>
+
+          <label class="task-filter-chip">
+            <input type="radio" name="taskDueDate" value="overdue" />
+            <span>Overdue</span>
+          </label>
+
+          <label class="task-filter-chip">
+            <input type="radio" name="taskDueDate" value="none" />
+            <span>No Due Date</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Category -->
+      <section class="task-filter-group" aria-labelledby="filter-category-heading">
+        <div class="task-filter-group-top">
+          <h5 id="filter-category-heading">Category</h5>
+          <span class="task-filter-group-hint">Select one or more</span>
+        </div>
+
+        <div class="task-filter-options-list" id="filterCategoryList">
+          <!-- Dynamic categories render here -->
+          <!-- Example static structure -->
+          <!--
+          <label class="task-filter-check">
+            <input type="checkbox" value="1" />
+            <span class="task-filter-check-box"></span>
+            <span class="task-filter-check-label">Work</span>
+          </label>
+          -->
+        </div>
+      </section>
+
+      <!-- Priority -->
+      <section class="task-filter-group" aria-labelledby="filter-priority-heading">
+        <div class="task-filter-group-top">
+          <h5 id="filter-priority-heading">Priority</h5>
+          <span class="task-filter-group-hint">Select one or more</span>
+        </div>
+
+        <div class="task-filter-options-list" id="filterPriorityList">
+          <!-- Dynamic priorities render here -->
+          <!-- Example static structure -->
+          <!--
+          <label class="task-filter-check">
+            <input type="checkbox" value="1" />
+            <span class="task-filter-check-box"></span>
+            <span class="task-filter-check-label">High</span>
+            <span class="task-filter-color-dot" style="background:#ef4444;"></span>
+          </label>
+          -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Panel Footer -->
+    <div class="task-filter-panel-footer">
+      <button type="button" class="task-filter-secondary-btn" id="cancelFiltersBtn">
+        Cancel
+      </button>
+
+      <button type="button" class="task-filter-primary-btn" id="applyFiltersBtn">
+        Apply Filters
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+    </div>
+
+    <div class="Add-Task">
+      <i class="fa-solid fa-plus icon"></i>
+      <span class="text">Add Task</span>
+    </div>
+  </div>
+</div>
+
           <div class="task-card-section">
             
             <!-- <div class="todo-card">
