@@ -9,12 +9,13 @@
   top: calc(100% + 12px);
   right: 0;
   z-index: 50;
+  display: none;
 
   width: min(360px, calc(100vw - 32px));
 }
 
-.task-filter-panel[hidden]{
-  display: none;
+.task-filter-panel.active{
+  display: block;
 }
 
 

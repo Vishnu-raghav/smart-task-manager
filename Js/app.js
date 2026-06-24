@@ -9,6 +9,7 @@ export function rerenderPage() {
   if (page === "dashboard" || page === "myTask"){
   import("./modal.js");
   import("./priority.js")
+  import("./filter.js")
   }
 
   if (page === "dashboard"){

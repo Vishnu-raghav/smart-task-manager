@@ -89,7 +89,7 @@ priorityContainer.addEventListener("click", (e) => {
     const isOpen = modal.classList.contains("active");
 
     allActiveModal.forEach(modal => {
-      modal.classList.remove("active");
+      modal.classList.remove("active")
     });
     
     if(isOpen){
