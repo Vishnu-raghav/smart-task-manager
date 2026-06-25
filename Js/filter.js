@@ -5,6 +5,12 @@ const taskFilterContainer = document.querySelector(".task-filter");
 const categoryList = document.getElementById("filterCategoryList");
 const priorityList = document.getElementById("filterPriorityList");
 
+  const selectedFilters = {
+    categories: [],
+    priorities: []
+  }
+
+
 taskFilterContainer.addEventListener("click", (e) => {
   const taskFilterButton = e.target.closest("#filterBtn");
   const taskFilterCancelButton = e.target.closest("#cancelFiltersBtn");
@@ -31,8 +37,9 @@ taskFilterContainer.addEventListener("change", (e) => {
   const id = Number(filterOption.dataset.id);
   const type = filterOption.dataset.filterType;
   const checked = input.checked;
-
-  console.log(type, id, checked);
+  console.log(type,id,checked)
+  addPrioritiesAndCategoriesState(id,type,checked)
+  
 });
 
 function populateCategoryAndPriorityInFilterOptions() {
@@ -72,6 +79,33 @@ function populateCategoryAndPriorityInFilterOptions() {
 
     priorityList.appendChild(priorityOption);
   });
+}
+
+
+function addPrioritiesAndCategoriesState(id, type, checked){
+
+
+  if(type === "category" && checked){
+    selectedFilters.categories.push(id)
+  }else{
+    selectedFilters.categories = selectedFilters.categories.filter(
+      (item) => item !== id
+    )
+  }
+
+   if (type === "priority") {
+    if (checked) {
+      selectedFilters.priorities.push(id);
+    } else {
+      selectedFilters.priorities = selectedFilters.priorities.filter(
+        (item) => item !== id
+      );
+    }
+  }
+
+
+  console.log(selectedFilters)
+
 }
 
 populateCategoryAndPriorityInFilterOptions();
