@@ -85,23 +85,29 @@ function populateCategoryAndPriorityInFilterOptions() {
 function addPrioritiesAndCategoriesState(id, type, checked){
 
 
-  if(type === "category" && checked){
-    selectedFilters.categories.push(id)
-  }else{
-    selectedFilters.categories = selectedFilters.categories.filter(
-      (item) => item !== id
-    )
-  }
-
-   if (type === "priority") {
-    if (checked) {
-      selectedFilters.priorities.push(id);
-    } else {
-      selectedFilters.priorities = selectedFilters.priorities.filter(
-        (item) => item !== id
-      );
+  if (type === "category") {
+  if (checked) {
+    if (!selectedFilters.categories.includes(id)) {
+      selectedFilters.categories.push(id);
     }
+  } else {
+    selectedFilters.categories = selectedFilters.categories.filter(
+      item => item !== id
+    );
   }
+}
+
+  if (type === "priority") {
+  if (checked) {
+    if (!selectedFilters.priorities.includes(id)) {
+      selectedFilters.priorities.push(id);
+    }
+  } else {
+    selectedFilters.priorities = selectedFilters.priorities.filter(
+      item => item !== id
+    );
+  }
+}
 
 
   console.log(selectedFilters)
@@ -109,3 +115,5 @@ function addPrioritiesAndCategoriesState(id, type, checked){
 }
 
 populateCategoryAndPriorityInFilterOptions();
+
+console.log(selectedFilters)
