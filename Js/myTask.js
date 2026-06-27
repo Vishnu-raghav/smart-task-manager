@@ -1,4 +1,4 @@
-import { getCategories, getTodos , getPriorities} from "./storage.js";
+import { getCategories, getTodos , getPriorities, getFilterState} from "./storage.js";
 import { clearEditState, getEditState ,openEditTask } from "./taskActions.js";
 import {initForm,updateSubmitButtonState} from "./formUtils.js"
 import {openConfirmModal} from "./actionsConfirm.js"
@@ -10,6 +10,7 @@ import {
 } from "./taskcrud.js";
 
 import {populateOptions as populateCategoryOptions} from "../utils/populateOptions.js"
+import { filterTodos } from "./filter.js";
 
 const rightPanel = document.querySelector(".grid-right-area");
 const listSection = document.querySelector(".task-card-section");
@@ -30,12 +31,23 @@ if (select) {
 
 
 
-export function renderTaskList() {
-  const todos = getTodos();
+export function renderMyTaskDashboard(){
+  let todos = getTodos()
+  const selectedFilters = getFilterState()
+
+  todos = filterTodos(todos, selectedFilters)
+  renderTaskList(todos)
+}
+
+
+function renderTaskList(todos) {
+
   const category = getCategories()
   const priority = getPriorities()
   
   listSection.innerHTML = "";
+
+  console.log(todos)
 
   if (todos.length === 0) {
     listSection.innerHTML = `
@@ -166,9 +178,6 @@ function showDetails(id) {
 
   const priorityObj = priority.find((p) => p.id === Number(todo.priority)) 
 
-  console.log(priorityObj?.name)
-
-
   detailContainer.innerHTML = `
   <div class="todo-detail">
   ${
@@ -253,7 +262,7 @@ function deleteTodoHandle(id) {
       activeTaskId = null
     }
 
-    renderTaskList()
+    renderMyTaskDashboard()
     
   });
 }
@@ -315,7 +324,7 @@ initForm(form, {
   updateFn: updateTodoService,
   getEditState,
   clearEditState,
-  onSuccess: renderTaskList
+  onSuccess: renderMyTaskDashboard
 });
 
 

@@ -21,7 +21,7 @@ export function rerenderPage() {
 
   if (page === "myTask"){
     import("./myTask.js").then(m => {
-      m.renderTaskList();
+      m.renderMyTaskDashboard();
     });
   }
 

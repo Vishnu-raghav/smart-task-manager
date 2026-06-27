@@ -147,11 +147,11 @@ export function filterTodos(todos, selectedFilters) {
 
     const categoryPass =
       selectedFilters.categories.length === 0 ||
-      selectedFilters.categories.includes(todo.category);
+      selectedFilters.categories.includes(Number(todo.category));
 
     const priorityPass =
       selectedFilters.priorities.length === 0 ||
-      selectedFilters.priorities.includes(todo.priority);
+      selectedFilters.priorities.includes(Number(todo.priority));
 
     return categoryPass && priorityPass;
   });

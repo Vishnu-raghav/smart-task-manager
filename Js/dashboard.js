@@ -49,13 +49,13 @@ const todosToRender  = filterTodos(todos, selectedFilters);
 renderTodos(todosToRender)
 
 export function renderDashboard() {
-    const todos = getTodos();
+    let todos = getTodos();
 
     const selectedFilters = getFilterState();
 
-    const filteredTodos = filterTodos(todos, selectedFilters);
+    todos = filterTodos(todos, selectedFilters);
 
-    renderTodos(filteredTodos);
+    renderTodos(todos);
 }
 
 function renderTodos(todos) {
