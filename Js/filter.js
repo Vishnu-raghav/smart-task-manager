@@ -1,9 +1,11 @@
+import { rerenderPage } from "./app.js";
 import {
   getCategories,
   getPriorities,
   getFilterState,
   saveFilterState,
-  clearFilterState
+  clearFilterState,
+  getTodos,
 } from "./storage.js";
 
 const filterModal = document.getElementById("filterPanel");
@@ -20,8 +22,10 @@ taskFilterContainer.addEventListener("click", (e) => {
   const clearButton = e.target.closest("#clearFiltersBtn");
 
   if (taskFilterButton) {
+    selectedFilters = getFilterState();
+    populateCategoryAndPriorityInFilterOptions();
     filterModal.classList.toggle("active");
-    return;
+    return
   }
 
   if (cancelButton) {
@@ -34,6 +38,8 @@ taskFilterContainer.addEventListener("click", (e) => {
   if (applyButton) {
     saveFilterState(selectedFilters);
     filterModal.classList.remove("active");
+    
+    rerenderPage()
     return;
   }
 
@@ -56,7 +62,7 @@ taskFilterContainer.addEventListener("change", (e) => {
   const type = filterOption.dataset.filterType;
   const checked = input.checked;
 
-  updateFilterSelectionState(id, type, checked);
+  updateMultiSelectFilters(id, type, checked);
 });
 
 function populateCategoryAndPriorityInFilterOptions() {
@@ -102,7 +108,7 @@ function populateCategoryAndPriorityInFilterOptions() {
   });
 }
 
-function updateFilterSelectionState(id, type, checked) {
+function updateMultiSelectFilters(id, type, checked) {
   if (type === "category") {
     if (checked) {
       if (!selectedFilters.categories.includes(id)) {
@@ -113,9 +119,7 @@ function updateFilterSelectionState(id, type, checked) {
         (item) => item !== id
       );
     }
-  }
-
-  if (type === "priority") {
+  } else if (type === "priority") {
     if (checked) {
       if (!selectedFilters.priorities.includes(id)) {
         selectedFilters.priorities.push(id);
@@ -127,8 +131,36 @@ function updateFilterSelectionState(id, type, checked) {
     }
   }
 
-  console.log(selectedFilters)
 
 }
 
+export function filterTodos(todos, selectedFilters) {
+
+  if (
+    selectedFilters.categories.length === 0 &&
+    selectedFilters.priorities.length === 0
+  ) {
+    return todos;
+  }
+
+  return todos.filter(todo => {
+
+    const categoryPass =
+      selectedFilters.categories.length === 0 ||
+      selectedFilters.categories.includes(todo.category);
+
+    const priorityPass =
+      selectedFilters.priorities.length === 0 ||
+      selectedFilters.priorities.includes(todo.priority);
+
+    return categoryPass && priorityPass;
+  });
+}
+
+
+
 populateCategoryAndPriorityInFilterOptions();
+
+
+
+

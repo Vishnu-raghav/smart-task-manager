@@ -4,7 +4,8 @@ import {
   getTodos,
   saveTodos,
   getCategories,
-  initializePriorities
+  initializePriorities,
+  getFilterState
 } from "./storage.js";
 
 import { openEditTask, clearEditState, getEditState } from "./taskActions.js";
@@ -18,6 +19,7 @@ import {
 } from "./taskcrud.js";
 
 import {populateOptions as populateCategoryOptions,} from "../utils/populateOptions.js"
+import { filterTodos } from "./filter.js";
 
 const form = document.getElementById("todoForm");
 const todoCardSection = document.querySelector(".task-card-section");
@@ -40,16 +42,31 @@ if (select) {
   });
 }
 
+const todos = getTodos();
+const selectedFilters = getFilterState();
 
-export function renderTodos() {
+const todosToRender  = filterTodos(todos, selectedFilters);
+renderTodos(todosToRender)
+
+export function renderDashboard() {
+    const todos = getTodos();
+
+    const selectedFilters = getFilterState();
+
+    const filteredTodos = filterTodos(todos, selectedFilters);
+
+    renderTodos(filteredTodos);
+}
+
+function renderTodos(todos) {
   if (!todoCardSection) return;
 
   todoCardSection.innerHTML = "";
 
-  const todos = getTodos();
   const categories = getCategories()
   const priorities = getPriorities()
-
+  
+  
   if (todos.length === 0) {
     todoCardSection.innerHTML = `
       <div class="empty-state">
@@ -70,11 +87,12 @@ export function renderTodos() {
     const priorityObj = priorities.find(p => p.id === Number(task.priority))
     const priorityName = priorityObj ? priorityObj.name : "Medium"
 
+
     const card = document.createElement("div");
     card.className = "todo-card";
     card.dataset.id = task.id
     card.innerHTML = `
-     <div class="card-header">
+      <div class="card-header">
              <div class="actions">
                <i class="fa-solid fa-ellipsis icon"></i>
               <div class="card-popup">
@@ -118,7 +136,7 @@ export function renderTodos() {
         </p>
         <p class="progress-key">Status: <span class="progress-value">${task.completed ? `Complete` : `In progress`}</span></p>
         <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>
-      </div>
+      </div>      
     `;
 
     todoCardSection.appendChild(card);
