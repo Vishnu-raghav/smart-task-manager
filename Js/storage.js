@@ -58,8 +58,8 @@ const defaultPriorities = [
 ]
 
 export const defaultFilterState = {
-  status: "all",
-  dueDate: "all",
+  status: "All",
+  dueDate: "All",
   categories: [],
   priorities: []
 };

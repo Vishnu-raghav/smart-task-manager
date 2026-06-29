@@ -67,15 +67,16 @@ taskFilterContainer.addEventListener("change", (e) => {
 
   const radio = e.target.closest('input[type="radio"]')
   if(radio){
-    console.log(radio)
     const filterOption = radio.closest(".task-filter-chip")
-    console.log(filterOption)
     if(!filterOption) return
 
     const type = filterOption.dataset.filterType
     const value = radio.value
+    const checked = radio.checked;
 
-    updateSingleSelectFilters(type, value)
+    console.log(value)
+
+    updateSingleSelectFilters(type, value, checked)
 
     return
   }
@@ -149,18 +150,15 @@ function updateMultiSelectFilters(id, type, checked) {
     }
   }
 
-
 }
 
 
-
-
-function updateSingleSelectFilters(type, value){
-
+function updateSingleSelectFilters(type, value, checked){
   if(type === "status"){
-    
+      selectedFilters.status = value
+  }else if(type === "dueDate"){
+      selectedFilters.dueDate = value
   }
-
 }
 
 export function filterTodos(todos, selectedFilters) {
@@ -189,9 +187,13 @@ export function filterTodos(todos, selectedFilters) {
       selectedFilters.status === "All" ||
       selectedFilters.status.includes(todo.completed)
 
+    const dueDatePass = 
+      selectedFilters.dueDate ===  "All" ||
+      selectedFilters.dueDate.includes(todo.dueDate)
 
 
-    return categoryPass && priorityPass && statusPass
+
+    return categoryPass && priorityPass && statusPass && dueDatePass
   });
 }
 
