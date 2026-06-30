@@ -16,8 +16,6 @@ const priorityList = document.getElementById("filterPriorityList");
 let selectedFilters = getFilterState();
 
 
-
-
 taskFilterContainer.addEventListener("click", (e) => {
   const taskFilterButton = e.target.closest("#filterBtn");
   const cancelButton = e.target.closest("#cancelFiltersBtn");

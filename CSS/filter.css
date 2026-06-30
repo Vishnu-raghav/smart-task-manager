@@ -19,6 +19,39 @@
 }
 
 
+.task-filter-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    height:42px;
+    padding:0 16px;
+
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+
+    background:#fff;
+
+    font-size:14px;
+    font-weight:600;
+    color:#475569;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.task-filter-btn:hover{
+    background:#f8fafc;
+    border-color:#d6dbe4;
+    transform:translateY(-1px);
+}
+
+.task-filter-btn i{
+    font-size:14px;
+    color:var(--primary);
+}
+
 .task-filter-card{
   background: #ffffff;
   border: 1px solid #eceff5;
