@@ -24,7 +24,7 @@ taskFilterContainer.addEventListener("click", (e) => {
 
   if (taskFilterButton) {
     selectedFilters = getFilterState();
-    populateCategoryAndPriorityInFilterOptions();
+    syncFilterUI();
     filterModal.classList.toggle("active");
     return
   }
@@ -32,7 +32,7 @@ taskFilterContainer.addEventListener("click", (e) => {
   if (cancelButton) {
     selectedFilters = getFilterState();
     filterModal.classList.remove("active");
-    populateCategoryAndPriorityInFilterOptions();
+    syncFilterUI();
     return;
   }
 
@@ -47,7 +47,7 @@ taskFilterContainer.addEventListener("click", (e) => {
   if (clearButton) {
     clearFilterState();
     selectedFilters = getFilterState();   
-    populateCategoryAndPriorityInFilterOptions();
+    syncFilterUI();
     return;
   }
 });
@@ -82,9 +82,11 @@ taskFilterContainer.addEventListener("change", (e) => {
 
 });
 
-function populateCategoryAndPriorityInFilterOptions() {
+function syncFilterUI() {
   categoryList.innerHTML = "";
   priorityList.innerHTML = "";
+
+  syncRadioButtons();
 
   const categories = getCategories();
   const priorities = getPriorities();
@@ -98,9 +100,9 @@ function populateCategoryAndPriorityInFilterOptions() {
     categoryOption.dataset.filterType = "category";
 
     categoryOption.innerHTML = `
-      <input type="checkbox" name="taskCategory" ${isChecked ? "checked" : ""} />
+      <input type="checkbox" name="taskCategory" ${isChecked ? "checked" : ""}/>
       <span class="task-filter-check-box"></span>
-      <span class="task-filter-check-label">${category.name || "N/A"}</span>
+      <span class="task-filter-check-label">${category.name}</span>
     `;
 
     categoryList.appendChild(categoryOption);
@@ -115,10 +117,13 @@ function populateCategoryAndPriorityInFilterOptions() {
     priorityOption.dataset.filterType = "priority";
 
     priorityOption.innerHTML = `
-      <input type="checkbox" name="taskPriority" ${isChecked ? "checked" : ""} />
+      <input type="checkbox" name="taskPriority" ${isChecked ? "checked" : ""}/>
       <span class="task-filter-check-box"></span>
-      <span class="task-filter-check-label">${priority.name || "N/A"}</span>
-      <span class="task-filter-color-dot" style="background:${priority.color || "#6b7280"}"></span>
+      <span class="task-filter-check-label">${priority.name}</span>
+      <span
+        class="task-filter-color-dot"
+        style="background:${priority.color}"
+      ></span>
     `;
 
     priorityList.appendChild(priorityOption);
@@ -157,6 +162,26 @@ function updateSingleSelectFilters(type, value){
   }else if(type === "dueDate"){
       selectedFilters.dueDate = value
   }
+}
+
+function syncRadioButtons() {
+
+  const statusRadios = document.querySelectorAll(
+    'input[name="taskStatus"]'
+  );
+
+  statusRadios.forEach((radio) => {
+    radio.checked = radio.value === selectedFilters.status;
+  });
+
+  const dueDateRadios = document.querySelectorAll(
+    'input[name="taskDueDate"]'
+  );
+
+  dueDateRadios.forEach((radio) => {
+    radio.checked = radio.value === selectedFilters.dueDate;
+  });
+
 }
 
 export function filterTodos(todos, selectedFilters) {
@@ -222,9 +247,7 @@ export function filterTodos(todos, selectedFilters) {
   });
 }
 
-
-
-populateCategoryAndPriorityInFilterOptions();
+syncFilterUI();
 
 
 
