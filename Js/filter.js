@@ -185,43 +185,39 @@ export function filterTodos(todos, selectedFilters) {
 
       let statusPass;
 
-     if (selectedFilters.status === "All") {
+    if (selectedFilters.status === "All") {
        statusPass = true;
+    }else if (selectedFilters.status === "active") {
+       statusPass = !todo.completed;
+    }else if (selectedFilters.status === "completed") {
+       statusPass = todo.completed;
     }
 
-if (selectedFilters.status === "active") {
-    statusPass = !todo.completed;
-}
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const dueDate = new Date(todo.dueDate);
+      dueDate.setHours(0, 0, 0, 0);
 
-if (selectedFilters.status === "completed") {
-    statusPass = todo.completed;
-}
+      let dueDatePass;
 
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-
-const dueDate = new Date(todo.dueDate);
-dueDate.setHours(0, 0, 0, 0);
-
-let dueDatePass;
-
-if (selectedFilters.dueDate === "all") {
-  dueDatePass = true;
-} else if (selectedFilters.dueDate === "today") {
-  dueDatePass =
-    dueDate.getTime() === today.getTime();
-} else if (selectedFilters.dueDate === "week") {
-  const nextWeek = new Date(today);
-  nextWeek.setDate(today.getDate() + 7);
-
-  dueDatePass =
-    dueDate >= today &&
-    dueDate <= nextWeek;
-} else if (selectedFilters.dueDate === "overdue") {
-  dueDatePass =
-    dueDate < today &&
-    !todo.completed;
-}
+    if (selectedFilters.dueDate === "All") {
+      dueDatePass = true;
+    } else if (selectedFilters.dueDate === "today") {
+      dueDatePass =
+        dueDate.getTime() === today.getTime();
+    } else if (selectedFilters.dueDate === "week") {
+      const nextWeek = new Date(today);
+      nextWeek.setDate(today.getDate() + 7);
+    
+      dueDatePass =
+        dueDate >= today &&
+        dueDate <= nextWeek;
+    } else if (selectedFilters.dueDate === "overdue") {
+      dueDatePass =
+        dueDate < today &&
+        !todo.completed;
+    }
 
 
     return categoryPass && priorityPass && statusPass && dueDatePass
