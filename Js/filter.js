@@ -15,6 +15,9 @@ const priorityList = document.getElementById("filterPriorityList");
 
 let selectedFilters = getFilterState();
 
+
+
+
 taskFilterContainer.addEventListener("click", (e) => {
   const taskFilterButton = e.target.closest("#filterBtn");
   const cancelButton = e.target.closest("#cancelFiltersBtn");
@@ -160,7 +163,7 @@ function updateSingleSelectFilters(type, value){
 
 export function filterTodos(todos, selectedFilters) {
     
-
+   
   if (
     selectedFilters.categories.length === 0 &&
     selectedFilters.priorities.length === 0 &&
@@ -194,24 +197,30 @@ if (selectedFilters.status === "completed") {
     statusPass = todo.completed;
 }
 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const dueDate = new Date(todo.dueDate);
+dueDate.setHours(0, 0, 0, 0);
+
 let dueDatePass;
 
-if(selectedFilters.dueDate === "All"){
-   dueDatePass = true
-}
-  
+if (selectedFilters.dueDate === "all") {
+  dueDatePass = true;
+} else if (selectedFilters.dueDate === "today") {
+  dueDatePass =
+    dueDate.getTime() === today.getTime();
+} else if (selectedFilters.dueDate === "week") {
+  const nextWeek = new Date(today);
+  nextWeek.setDate(today.getDate() + 7);
 
-if(selectedFilters.dueDate === "today"){
-  dueDatePass = true
-
-}
-if(selectedFilters.dueDate === "week"){
-
-  
-
-}
-if(selectedFilters.dueDate === "overdue"){
-
+  dueDatePass =
+    dueDate >= today &&
+    dueDate <= nextWeek;
+} else if (selectedFilters.dueDate === "overdue") {
+  dueDatePass =
+    dueDate < today &&
+    !todo.completed;
 }
 
 

@@ -2,6 +2,11 @@ import { getEditState } from "./taskActions.js";
 import {getImage, clearImage} from "../utils/imageState.js"
 const dropdown = document.querySelector(".custom-dropdown");
 
+const dueDateInput = document.getElementById("task-date");
+
+const today = new Date().toISOString().split("T")[0];
+
+dueDateInput.min = today;
 export function isFormValid(form) {
     if (form.name) {
     return form.name.value.trim() !== "";
