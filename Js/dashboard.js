@@ -42,6 +42,19 @@ if (select) {
   });
 }
 
+function formatDate(dateString){
+
+    if(!dateString){
+        return "No due date";
+    }
+
+    return new Date(dateString).toLocaleDateString("en-GB",{
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+    });
+
+}
 
 function renderTodos(activeTodos) {
   if (!todoCardSection) return;
@@ -115,8 +128,10 @@ function renderTodos(activeTodos) {
            ${priorityName}
          </span>
         </p>
-        <p class="progress-key">Status: <span class="progress-value">${task.completed ? `Complete` : `In progress`}</span></p>
-        <p class="progress-key">Due: <span class="progress-value">${task.dueDate || "N/A"}</span></p>
+        <p class="progress-key">
+        Status: <span class="progress-value">${task.completed ? `Complete` : `In progress`}</span>
+        </p>
+        <p class="progress-key">Due: <span class="progress-value">${formatDate(task.dueDate)}</span></p>
       </div>      
     `;
 
@@ -246,7 +261,6 @@ addTaskBtn.addEventListener("click", () => {
   
   todoModal.classList.add("active");
 });
-
 
 initForm(form, {
   createFn: createTodoService,
