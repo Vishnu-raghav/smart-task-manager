@@ -80,6 +80,8 @@ function renderTodos(activeTodos) {
 
     const priorityObj = priorities.find(p => p.id === Number(task.priority))
     const priorityName = priorityObj ? priorityObj.name : "Medium"
+    const statusText = task.completed ? "Completed" : "In progress";
+    const statusClass = task.completed ? "completed" : "pending";
 
 
     const card = document.createElement("div");
@@ -116,7 +118,7 @@ function renderTodos(activeTodos) {
 
       <div class="task-Progress">
         <p class="progress-key">Category: <span class="progress-value">${categoryName}</span></p>
-        <p class="progress-key">
+        <span class="meta-item">
         Priority:
          <span
            class="progress-value priority-pill"
@@ -127,12 +129,19 @@ function renderTodos(activeTodos) {
          >
            ${priorityName}
          </span>
-        </p>
-        <p class="progress-key">
-        Status: <span class="progress-value">${task.completed ? `Complete` : `In progress`}</span>
-        </p>
-        <p class="progress-key">Due: <span class="progress-value">${formatDate(task.dueDate)}</span></p>
-      </div>      
+        
+        
+        </span>
+       
+        
+          <span class="meta-item">
+          Status:<span class="badge status ${statusClass}">${statusText}</span>
+          </span>
+
+  <span class="meta-item">
+    Due:
+    <b>${formatDate(task.dueDate)}</b>
+  </span>      </div>      
     `;
 
     todoCardSection.appendChild(card);

@@ -12,6 +12,9 @@
   align-items: start; 
 }
 
+
+
+
 .grid-left-area,
 .grid-right-area{
   background: rgba(255,255,255,0.7);
@@ -27,6 +30,13 @@
 }
 
 
+body[data-page="dashboard"] .grid-left-area{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+    overflow: hidden;
+}
+
 
 body[data-page="dashboard"] .grid-right-area{
   display: flex;
@@ -41,6 +51,8 @@ body[data-page="dashboard"] .grid-right-area{
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex-shrink: 0;
+
 }
 
 .My-task-todo,
@@ -62,8 +74,29 @@ body[data-page="dashboard"] .grid-right-area{
   flex-direction: column;
   gap: 15px;
   margin-top: 15px;
+  flex: 1;
+   overflow-y: auto;
+    overflow-x: hidden;
+      padding-right: 8px;
 }
 
+
+.task-card-section::-webkit-scrollbar{
+    width: 6px;
+}
+
+.task-card-section::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+.task-card-section::-webkit-scrollbar-thumb{
+    background: #ddd;
+    border-radius: 999px;
+}
+
+.task-card-section::-webkit-scrollbar-thumb:hover{
+    background: #c7c7c7;
+}
 
 .todo-card{
   background: #fff;

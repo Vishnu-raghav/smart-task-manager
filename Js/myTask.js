@@ -29,6 +29,20 @@ if (select) {
   });
 }
 
+function formatDate(dateString){
+
+    if(!dateString){
+        return "No due date";
+    }
+
+    return new Date(dateString).toLocaleDateString("en-GB",{
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+    });
+
+}
+
 
 
 export function renderMyTaskDashboard(){
@@ -136,7 +150,7 @@ function renderTaskList(todos) {
 
   <span class="meta-item">
     Due:
-    <b>${task.dueDate || "N/A"}</b>
+    <b>${formatDate(task.dueDate)}</b>
   </span>
 
 </div>
