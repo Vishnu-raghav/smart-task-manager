@@ -12,9 +12,6 @@
   align-items: start; 
 }
 
-
-
-
 .grid-left-area,
 .grid-right-area{
   background: rgba(255,255,255,0.7);
@@ -23,12 +20,8 @@
   padding: 20px;
   border: 1px solid rgba(255,255,255,0.3);
   min-height: 400px;
-
-  box-shadow: 
-    0 8px 32px rgba(0,0,0,0.08);
-
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
 }
-
 
 body[data-page="dashboard"] .grid-left-area{
     display: flex;
@@ -36,7 +29,6 @@ body[data-page="dashboard"] .grid-left-area{
     height: calc(100vh - 120px);
     overflow: hidden;
 }
-
 
 body[data-page="dashboard"] .grid-right-area{
   display: flex;
@@ -52,7 +44,6 @@ body[data-page="dashboard"] .grid-right-area{
   justify-content: space-between;
   margin-bottom: 20px;
   flex-shrink: 0;
-
 }
 
 .My-task-todo,
@@ -73,13 +64,12 @@ body[data-page="dashboard"] .grid-right-area{
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 15px;
+  margin-top: 0;
   flex: 1;
-   overflow-y: auto;
-    overflow-x: hidden;
-      padding-right: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
 }
-
 
 .task-card-section::-webkit-scrollbar{
     width: 6px;
@@ -198,7 +188,6 @@ background-color: rgb(234, 228, 228);
   overflow: hidden;
 }
 
-
 .img-card{
   width: 120px;
   height: 80px;
@@ -248,7 +237,6 @@ background-color: rgb(234, 228, 228);
 .grid-right-area .Task-bar-section{
  height: 180px;
 }
-
 
 .complete-tasks-section{
   flex: 1; 
@@ -328,12 +316,10 @@ background-color: rgb(234, 228, 228);
   font-weight: 700;
 }
 
-
 .complete-tasks-section .img-card{
   width: 50px;
   height: 50px;
 }
-
 
 @media (max-width: 700px){
 
@@ -350,7 +336,6 @@ background-color: rgb(234, 228, 228);
   }
 
 }
-
 
 .Task-bar-section{
   background: linear-gradient(135deg, #ff7a7a, #ff5252);
@@ -433,9 +418,8 @@ background-color: rgb(234, 228, 228);
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
-
-
 
 .Add-Task{
     display:flex;
@@ -457,8 +441,7 @@ background-color: rgb(234, 228, 228);
     font-size:14px;
     font-weight:600;
 
-    box-shadow:
-        0 10px 24px rgba(255,82,82,.22);
+    box-shadow:0 10px 24px rgba(255,82,82,.22);
 
     transition:
         transform .2s ease,
@@ -471,33 +454,24 @@ background-color: rgb(234, 228, 228);
     font-size:15px;
 }
 
-
-
 .Add-Task .text{
     color:#fff !important;
     font-weight:600;
 }
 
-
 .Add-Task:hover{
     transform:translateY(-2px);
-
-    box-shadow:
-        0 16px 30px rgba(255,82,82,.30);
+    box-shadow:0 16px 30px rgba(255,82,82,.30);
 }
-
 
 .Add-Task:active{
     transform:translateY(0);
 
-    box-shadow:
-        0 6px 16px rgba(255,82,82,.20);
+    box-shadow: 0 6px 16px rgba(255,82,82,.20);
 }
-
 
 .Add-Task:focus-visible{
     outline:none;
 
-    box-shadow:
-        0 0 0 4px rgba(255,122,122,.18);
+    box-shadow: 0 0 0 4px rgba(255,122,122,.18);
 }

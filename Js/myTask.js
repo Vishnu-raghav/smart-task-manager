@@ -61,8 +61,6 @@ function renderTaskList(todos) {
   
   listSection.innerHTML = "";
 
-  console.log(todos)
-
   if (todos.length === 0) {
     listSection.innerHTML = `
       <div class="empty-state">
@@ -345,5 +343,6 @@ initForm(form, {
 form.addEventListener("input",() => {
   updateSubmitButtonState(form,modalSubmitBtn)
 })
+
 
 

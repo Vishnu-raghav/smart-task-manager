@@ -36,6 +36,7 @@ taskFilterContainer.addEventListener("click", (e) => {
   }
 
   if (applyButton) {
+
     saveFilterState(selectedFilters);
     filterModal.classList.remove("active");
     
@@ -72,14 +73,13 @@ taskFilterContainer.addEventListener("change", (e) => {
 
     const type = filterOption.dataset.filterType
     const value = radio.value
-
     updateSingleSelectFilters(type, value)
 
     return
   }
-
-
 });
+
+
 
 function syncFilterUI() {
   categoryList.innerHTML = "";

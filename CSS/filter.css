@@ -1,8 +1,9 @@
-
 .task-filter{
   position: relative;
   flex-shrink: 0;
 }
+
+
 
 .task-filter-panel{
   position: absolute;
