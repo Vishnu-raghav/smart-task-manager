@@ -10,6 +10,7 @@ export function rerenderPage() {
   import("./modal.js");
   import("./priority.js")
   import("./filter.js")
+  import("./search.js")
   }
 
   if (page === "dashboard"){
@@ -25,6 +26,8 @@ export function rerenderPage() {
   }
 
   if (page === "category"){
+    import("./search.js")
+
     
   import("./category.js").then(m => {
     m.renderCategories();
